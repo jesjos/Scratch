@@ -22,6 +22,7 @@ $lighterColorBorderBottom: $lighterText
 $secondTextColor: #666666
 $codeBlockColor: $mainBackgroundColor
 $codeBlockBackgroundColor: $behindColor
+$footerColor: #888
 
 =mainColor
   color: $behindColor
@@ -161,7 +162,7 @@ acronym
     bottom: 4px double $lighterText
     top: 4px double $lighterText
 
-#liens .active, #sousliens
+nav .active, #sousliens
   +secondColor
   border-top: none
 
@@ -268,20 +269,6 @@ body > #content > #entete > #choix > #choixrss > #rss
   padding-left: 1em
   padding-right: 1em
 
-// le pied de page
-#bottom
-  clear: right
-  margin-right: 0px
-  padding: 1.5em
-  line-height: 1.5em
-  color: $lighterText
-  margin-top: 2em
-  text-align: center
-  a
-    color: $lighterText
-  a:hover
-    +revealColor
-
 // Les menus
 
 #sousliens
@@ -305,13 +292,13 @@ ul.horizontal
   border-top: 1px solid $lighterColorBorderTop
   border-bottom: 1px solid $lighterColorBorderTop
 
-#liens
+nav
   width: 100%
   padding: 0
   clear: both
   margin-top: 0.5em
 
-#liens ul
+nav ul
   width: 100%
   clear: both
   padding: 0
@@ -319,15 +306,15 @@ ul.horizontal
 
 $hauteur_menu: 4em
 
-#liens ul li
+nav ul li
   display: inline-block
   height: $hauteur_menu
   margin-left: 0.2em
   margin-right: 0.2em
   width: 23%
 
-#liens ul li a,
-#liens ul li span
+nav ul li a,
+nav ul li span
   width: 100%
   display: block
   line-height: $hauteur_menu
@@ -389,7 +376,7 @@ $contentMargin: 0em
 
 $fontcorps: 1.25
 
-.corps
+section
   font-family: Georgia, Palatino, "Century Schoolbook L", "Times New Roman", Times, serif
   font-size: #{$fontcorps}em
   line-height: 1.6em
@@ -403,7 +390,7 @@ $fontcorps: 1.25
 $corps_width: ($content_width - 2 * $contentMargin) / $fontcorps
 $hpadding: 1
 
-.corps img
+section img
   max-width: 30em
   border: 1px solid $imageBorderColor
   background-color: $imageBackgroundColor
@@ -570,7 +557,7 @@ table.impact tr td
   padding-left: 0.25em
   padding-right: 0.25em
 
-#liens
+nav
   font-size: 1.2em
 
 #iemessage
@@ -656,7 +643,7 @@ table.impact tr td
   float: right
   width: 25%
 
-.corps .return a
+section .return a
   color: $lighterColor
   padding: 0.1em
   line-height: 1.5em
@@ -680,7 +667,7 @@ a.return
   &:hover
     color: $highlightColor
 
-.corps .return a:hover
+section .return a:hover
   color: $revealColor
 
 .footnotes
@@ -703,7 +690,7 @@ strong, b, i, em
   a:hover
     color: $revealColor
 
-.corps p
+section p
   strong, b, i, em
     color: $highlightBlockColor
 
@@ -744,7 +731,7 @@ a:hover .nicer
 .right
   float: right
 
-.corps 
+section
   p a, ul a
     color: $textLinkColor
   p a:hover, ul a:hover
@@ -759,3 +746,17 @@ ul.bloglist, .archive ul
 .button
   cursor: pointer
   text-align: center
+
+footer
+  clear: right
+  margin-right: 0px
+  padding: 1.5em
+  line-height: 1.5em
+  color: $footerColor
+  margin-top: 2em
+  text-align: center
+  a, a:link, a:visited
+    color: $footerColor
+  a:hover, a:active
+    +revealColor
+
