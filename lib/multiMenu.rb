@@ -128,8 +128,8 @@ def nextFor(page)
     depth=depthOf(page)
 
     case depth
-    when 0..1 then return nil
-    when 2 then target=getSortedChildren(page)[0]
+    when 0..2 then return nil
+    when 3 then target=getSortedChildren(page)[0]
     else
         sorted_children=getSortedChildren(page.parent)
         index=sorted_children.index(page)
@@ -170,7 +170,7 @@ def brother_for_at(page,n)
 end
 
 def article_brother(n)
-    if depthOf(@item) > 2
+    if depthOf(@item) > 3
         page=@item.parent
     else
         page=@item
