@@ -62,31 +62,10 @@
                         <%= yield %>
                     </section>
                 </article>
+
                 <%= article_navigation_menu %>
-                <div id="choixrss">
-                    <a id="rss" href="http://feeds.feedburner.com/yannespositocom<%= language %>">
-                        <%= tradOf(:subscribe) %>
-                    </a>
-                </div>
-                <script type="text/javascript">
-                    $(document).ready(function(){ 
-                            $('#comment').hide(); 
-                            $('#clickcomment').click(showComments); 
-                        });
-                    function showComments() {
-                        $('#comment').show();
-                        $('#clickcomment').fadeOut();
-                    }
-                    document.write('<div id="clickcomment"><%= tradOf(:clickForComment) %></div>');
-                </script>
-                <div class="flush"></div>
-                <section id="comment">
-                    <h2 class="first"><%= tradOf(:comment) %></h2>
-                    <noscript>
-                        <%= tradOf(:enableJavascriptToComment) %>
-                    </noscript>
-                    <%= generateIntenseDebateThread %>
-                </section>
+                <%= html_rss %>
+                <%= html_comment %>
 
             <div id="entete" class="corps_spaced">
                 <nav>

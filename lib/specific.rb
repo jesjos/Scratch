@@ -88,3 +88,33 @@ def html_prev_next_articles
     res <<= %{</div>}
     return res
 end
+
+def html_rss
+    %{<div id="choixrss">
+        <a id="rss" href="http://feeds.feedburner.com/yannespositocom#{ @conf.language }">
+            #{tradOf(:subscribe)}
+        </a>
+    </div>}
+end
+
+def html_comment
+    res =%{<script type="text/javascript">
+            $(document).ready(function(){ 
+                $('#comment').hide(); 
+                $('#clickcomment').click(showComments); 
+            });
+            function showComments() {
+                $('#comment').show();
+                $('#clickcomment').fadeOut();
+            }
+            document.write('<div id="clickcomment">#{tradOf(:clickForComment)}</div>');
+        </script>
+        <div class="flush"></div>
+        <section id="comment">
+            <h2 class="first">#{tradOf(:comment)}</h2>
+            <noscript>
+                #{tradOf(:enableJavascriptToComment)}
+            </noscript>
+            #{generateIntenseDebateThread}
+        </section>}
+end
