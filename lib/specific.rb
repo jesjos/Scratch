@@ -61,3 +61,30 @@ def html_last_modified_dates
     res <<= %{#{tradOf(:last_modified)}: <time datetime="#{modified_date}" pubdate="pubdate">#{modified_date}</time>}
     res <<= %{</div>}
 end
+
+def html_prev_next_articles
+    res = %{<div id="next_before_articles">
+                    <div id="previous_articles">
+                    #{tradOf(:previousArticles)}}
+    (1..3).each do |n|
+        a=article_brother(-n)
+        if not a.nil?
+            res <<= %{<div class="previous_article">}
+            res <<= link_to( %{<span class="nicer">«</span>&nbsp;}+ a[:title], a)
+            res <<= %{</div>}
+        end
+    end
+    res <<= %{</div>}
+    res <<= %{<div id="next_articles">
+                #{tradOf(:nextArticles)}}
+    (1..3).each do |n|
+        a=article_brother(n)
+        if not a.nil?
+            res <<= %{<div class="next_article">}
+            res <<= link_to(a[:title] + %{&nbsp;<span class="nicer">»</span>}, a) 
+            res <<= %{</div>}
+        end
+    end
+    res <<= %{</div>}
+    return res
+end
