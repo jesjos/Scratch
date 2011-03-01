@@ -62,6 +62,15 @@ def html_last_modified_dates
     res <<= %{</div>}
 end
 
+def html_last_modified_date
+    language=@conf.language
+    res=%{<div id="lastmod">}
+    modified_date = gitmtime.strftime(@config[:dateFormat][language.intern])
+    res <<= %{#{tradOf(:last_modified)}: <time datetime="#{modified_date}" pubdate="pubdate">#{modified_date}</time>}
+    res <<= %{</div>}
+end
+
+
 def html_prev_next_articles
     res = %{<div id="next_before_articles">
                     <div id="previous_articles">
