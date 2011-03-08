@@ -1,6 +1,6 @@
 def html_tag
     t=tags
-    %{<meta name="tag" content="#{t}">} if t.length>0
+    %{<meta name="tag" content="#{t}"/>} if t.length>0
 end
 
 def html_alternate_lang
@@ -52,28 +52,34 @@ def html_article_top_menu
 end
 
 def html_last_modified_dates
+    require 'time'
     language=@conf.language
     res=%{<div id="lastmod">}
+    creation_date_iso = Time.parse(@item[:created_at].to_s).iso8601
     creation_date = @item[:created_at].strftime(@config[:dateFormat][language.intern])
-    res <<= %{#{tradOf(:created_at)}: <time datetime="#{creation_date}">#{creation_date}</time>}
+    res <<= %{#{tradOf(:created_at)}: <time datetime="#{creation_date_iso}">#{creation_date}</time>}
+
     res <<= " - "
+
+    modified_date_iso = Time.parse(gitmtime.to_s).iso8601
     modified_date = gitmtime.strftime(@config[:dateFormat][language.intern])
-    res <<= %{#{tradOf(:last_modified)}: <time datetime="#{modified_date}" pubdate="pubdate">#{modified_date}</time>}
+    res <<= %{#{tradOf(:last_modified)}: <time datetime="#{modified_date_iso}" pubdate="pubdate">#{modified_date}</time>}
     res <<= %{</div>}
 end
 
 def html_last_modified_date
     language=@conf.language
     res=%{<div id="lastmod">}
+    modified_date_iso = Time.parse(gitmtime.to_s).iso8601
     modified_date = gitmtime.strftime(@config[:dateFormat][language.intern])
-    res <<= %{#{tradOf(:last_modified)}: <time datetime="#{modified_date}" pubdate="pubdate">#{modified_date}</time>}
+    res <<= %{#{tradOf(:last_modified)}: <time datetime="#{modified_date_iso}" pubdate="pubdate">#{modified_date}</time>}
     res <<= %{</div>}
 end
 
 
 def html_prev_next_articles
-    res = %{<div id="next_before_articles">
-                    <div id="previous_articles">
+    res = %{<div id="next_before_articles">}
+    res<<=%{<div id="previous_articles">
                     #{tradOf(:previousArticles)}}
     (1..3).each do |n|
         a=article_brother(-n)
@@ -94,6 +100,7 @@ def html_prev_next_articles
             res <<= %{</div>}
         end
     end
+    res <<= %{</div>}
     res <<= %{</div>}
     return res
 end
