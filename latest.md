@@ -1,1 +1,0 @@
-./multi/blog/2011-01-03-Happy-New-Year.md

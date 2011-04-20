@@ -1,9 +1,0 @@
-*.swp
-.DS_Store
-output.diff
-output/Scratch/map.yrf
-output/index.html
-tmp/
-recupen.pl
-recupfr.pl
-.sass-cache
