@@ -27,7 +27,7 @@ a=27&lt;span class="Keyword"&gt;;&lt;/span&gt;b=79&lt;span class="Keyword"&gt;;&
 newtype C = C (Double,Double) deriving (Show,Eq)
 instance Num C where C(x,y)*C(z,t)=C(z*x-y*t,y*z+x*t)&lt;span class="Keyword"&gt;;&lt;/span&gt;C(x,y)+C(z,t)=C(x+z,y+t)&lt;span class="Keyword"&gt;;&lt;/span&gt;abs(C(x,y))=C(sqrt(x*x+y*y),0.0)
 r(C(x,y))=x&lt;span class="Keyword"&gt;;&lt;/span&gt;i(C(x,y))=y
-f&amp;nbsp;:: C -&lt;span class="Keyword"&gt;&amp;gt;&lt;/span&gt; C -&lt;span class="Keyword"&gt;&amp;gt;&lt;/span&gt; Int -&lt;span class="Keyword"&gt;&amp;gt;&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content>
+f c z 0=0&lt;span class="Keyword"&gt;;&lt;/span&gt;f c z n=&lt;span class="Keyword"&gt;if&lt;/span&gt;(r(abs(z))&lt;span class="Keyword"&gt;&amp;gt;&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content>
   </entry>
   <entry>
     <id>tag:yannesposito.com,2011-05-18:/Scratch/fr/blog/Password-Management/</id>
