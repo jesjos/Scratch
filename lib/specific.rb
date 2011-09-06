@@ -68,6 +68,7 @@ def html_last_modified_dates
 end
 
 def html_last_modified_date
+    require 'time'
     language=@conf.language
     res=%{<div id="lastmod">}
     modified_date_iso = Time.parse(gitmtime.to_s).iso8601
