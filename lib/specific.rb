@@ -102,7 +102,9 @@ def html_prev_next_articles
         end
     end
     res <<= %{</div>}
+    res <<= %{<div class="flush"></div>}
     res <<= %{</div>}
+    res <<= %{<div class="flush"></div>}
     return res
 end
 

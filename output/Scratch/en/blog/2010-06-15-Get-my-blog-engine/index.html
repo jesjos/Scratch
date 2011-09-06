@@ -1,25 +1,25 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="fr" xml:lang="fr">
+<!DOCTYPE html>
+<html lang="fr">
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        
-        
-        <meta name="keywords" content="blog, nanoc">
-        
-        <link rel="shortcut icon" type="image/x-icon" href="/Scratch/img/favicon.ico" />
-        <link rel="stylesheet" type="text/css" href="/Scratch/assets/css/main.css" />
-        <link rel="stylesheet" type="text/css" href="/Scratch/css/twilight.css" />
-        <link rel="stylesheet" type="text/css" href="/Scratch/css/idc.css" />
-        <link rel="alternate" type="application/rss+xml" title="RSS" href="http://feeds.feedburner.com/yannespositocomen"/>
-        
-        <link rel="alternate" lang="fr" xml:lang="fr" title="Récupérez mon système de blog" type="text/html" hreflang="fr" href="/Scratch/fr/blog/2010-06-15-Get-my-blog-engine/" /> 
-        <link rel="alternate" lang="en" xml:lang="en" title="Get my blog engine" type="text/html" hreflang="en" href="/Scratch/en/blog/2010-06-15-Get-my-blog-engine/" /> 
+        <meta charset="utf-8" />
+        <meta name="tag" content="blog, nanoc"/> 
+        <link rel="shortcut icon" href="/Scratch/img/favicon.ico" />
+        <link rel="stylesheet" href="/Scratch/assets/css/main.css" />
+        <link rel="stylesheet" href="/Scratch/css/twilight.css" />
+        <link rel="stylesheet" href="/Scratch/css/idc.css" />
+        <link rel="alternate" type="application/rss+xml" title="Y Feed's" 
+              href="http://feeds.feedburner.com/yannespositocomen"/>
+        <link rel="alternate" lang="fr" hreflang="fr" type="text/html" 
+              title="Récupérez mon système de blog" 
+              href="/Scratch/fr/blog/2010-06-15-Get-my-blog-engine/" />
+        <link rel="alternate" lang="en" hreflang="en" type="text/html" 
+              title="Get my blog engine" 
+              href="/Scratch/en/blog/2010-06-15-Get-my-blog-engine/" /> 
         <script type="text/javascript" src="/Scratch/js/jquery-1.3.1.min.js"></script>
         <script type="text/javascript" src="/Scratch/js/jquery.cookie.js"></script>
         <script type="text/javascript" src="/Scratch/js/index.js"></script>
         <!--[if lt IE 9]>
+        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
         <script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE9.js"></script>
         <![endif]-->
         <!-- < % if containMaths %>
@@ -36,29 +36,28 @@
 
         <div id="content">
 
-            <div id="choix"> 
-                <div class="return"><a href="#entete">&darr; Menu &darr;</a></div>
-                <div id="choixlang">
-                    <a href="/Scratch/fr/blog/2010-06-15-Get-my-blog-engine/" onclick="setLanguage('fr')">en Français</a>
-                </div>
-            </div>
+            <header>
+            <div class="return"><a href="#entete">&darr; Menu &darr;</a></div>
+            <div id="choixlang"><a href="/Scratch/fr/blog/2010-06-15-Get-my-blog-engine/" onclick="setLanguage('fr')">en Français</a></div>
+            <img src="/Scratch/img/presentation.png" alt="Presentation drawing"/>
             <div id="titre">
-                <h1>
-                    Get my blog engine
-                </h1>
-                
+                <hgroup>
+                    <h1>
+                        Get my blog engine
+                    </h1>
+                    
+                </hgroup>
             </div>
-
-            <div class="flush"></div>
-
-            
+            </header>
 
             
 
-            <div class="flush"></div>
+            
+
             <div id="afterheader">
-                <div class="corps">
-                    <p>I published a <em>light</em> version of my blog engine based on <a href="http://nanoc.stoneship.org">nanoc</a> yesterday night. By <em>light</em>, I mean a lighter, more portable CSS (without round border).
+                <article>
+                    <section>
+                        <p>I published a <em>light</em> version of my blog engine based on <a href="http://nanoc.stoneship.org">nanoc</a> yesterday night. By <em>light</em>, I mean a lighter, more portable CSS (without round border).
 You can get it on <a href="http://github.com/yogsototh/nanoc3_blog">github.com</a>.</p>
 
 <p>What this system provide?</p>
@@ -75,12 +74,12 @@ You can get it on <a href="http://github.com/yogsototh/nanoc3_blog">github.com</
 </ul>
 
 
-</div>
+</section>
 
-<div class="corps">
+<section>
 
 
-<h1 class="first" id="main-documentation-page">Main Documentation Page</h1>
+<h1 id="main-documentation-page">Main Documentation Page</h1>
 
 <h1 id="use-it-now">Use It NOW!</h1>
 
@@ -96,12 +95,12 @@ $ ./task/recompile
 <p>Now your website reside into the <code>output</code> directory.</p>
 
 
-</div>
+</section>
 
-<div class="corps">
+<section>
 
 
-<h1 class="first" id="documentation">Documentation</h1>
+<h1 id="documentation">Documentation</h1>
 
 <h2 id="useful-things-to-know">Useful things to know</h2>
 
@@ -188,33 +187,33 @@ output/     </td><td class="valueCell"> website </td></tr><tr class="assombris20
 Rakefile    </td><td class="valueCell"> not mandatory for this blog </td></tr>
 </table></div>
 
-                </div>
-            
-                
+                    </section>
+                </article>
 
+                
                 <div id="choixrss">
-                    <a id="rss" href="http://feeds.feedburner.com/yannespositocomen">
-                        Subscribe
-                    </a>
-                </div>
+        <a id="rss" href="http://feeds.feedburner.com/yannespositocomen">
+            Subscribe
+        </a>
+    </div>
                 <script type="text/javascript">
-                    $(document).ready(function(){ 
-                            $('#comment').hide(); 
-                            $('#clickcomment').click(showComments); 
-                        });
-                    function showComments() {
-                        $('#comment').show();
-                        $('#clickcomment').fadeOut();
-                    }
-                    document.write('<div id="clickcomment">Comments</div>');
-                </script>
-                <div class="flush"></div>
-                <div class="corps" id="comment">
-                    <h2 class="first">comments</h2>
-                    <noscript>
-                        You must enable javascript to comment.
-                    </noscript>
-                    
+            $(document).ready(function(){ 
+                $('#comment').hide(); 
+                $('#clickcomment').click(showComments); 
+            });
+            function showComments() {
+                $('#comment').show();
+                $('#clickcomment').fadeOut();
+            }
+            document.write('<div id="clickcomment">Comments</div>');
+        </script>
+        <div class="flush"></div>
+        <section id="comment">
+            <h2 class="first">comments</h2>
+            <noscript>
+                You must enable javascript to comment.
+            </noscript>
+            
     <script type="text/javascript">
     var idcomments_acct = 'a307f0044511ff1b5cfca573fc0a52e7';
     var idcomments_post_id = '/Scratch/en/blog/2010-06-15-Get-my-blog-engine/';
@@ -223,85 +222,38 @@ Rakefile    </td><td class="valueCell"> not mandatory for this blog </td></tr>
     <span id="IDCommentsPostTitle" style="display:none"></span>
     <script type='text/javascript' src='/Scratch/js/genericCommentWrapperV2.js'></script>
     
-                </div>
+        </section>
 
             <div id="entete" class="corps_spaced">
-                <div id="liens">
+                <nav>
                     <ul><li><a href="/Scratch/en/">Home</a></li>
 <li><a href="/Scratch/en/blog/">Blog</a></li>
 <li><a href="/Scratch/en/softwares/">Softwares</a></li>
 <li><a href="/Scratch/en/about/">About</a></li></ul>
-                </div>
-                <div class="flush"></div>
+                </nav>
                 <hr/>
-                <div id="next_before_articles">
-                    <div id="previous_articles">
-                        previous entries
-                        
-                        <div class="previous_article">
-                            <a href="/Scratch/en/blog/2010-06-14-multi-language-choices/"><span class="nicer">«</span>&nbsp;multi language choices</a>
-                        </div>
-                        
-                        
-                        <div class="previous_article">
-                            <a href="/Scratch/en/blog/2010-05-24-Trees--Pragmatism-and-Formalism/"><span class="nicer">«</span>&nbsp;Trees; Pragmatism and Formalism</a>
-                        </div>
-                        
-                        
-                        <div class="previous_article">
-                            <a href="/Scratch/en/blog/2010-05-19-How-to-cut-HTML-and-repair-it/"><span class="nicer">«</span>&nbsp;How to repair a cutted XML?</a>
-                        </div>
-                        
-                        
-                    </div>
-                    <div id="next_articles">
-                        next entries
-                        
-                        <div class="next_article">
-                            <a href="/Scratch/en/blog/2010-06-17-track-events-with-google-analytics/">Track Events with Google Analytics&nbsp;<span class="nicer">»</span></a>
-                        </div>
-                        
-                        
-                        <div class="next_article">
-                            <a href="/Scratch/en/blog/2010-06-17-hide-yourself-to-analytics/">Hide Yourself to your Analytics&nbsp;<span class="nicer">»</span></a>
-                        </div>
-                        
-                        
-                        <div class="next_article">
-                            <a href="/Scratch/en/blog/2010-06-19-jQuery-popup-the-easy-way/">jQuery popup the easy way&nbsp;<span class="nicer">»</span></a>
-                        </div>
-                        
-                        
-                    </div>
-                    <div class="flush"></div>
-                </div>
+                <div id="next_before_articles"><div id="previous_articles">
+                    previous entries<div class="previous_article"><a href="/Scratch/en/blog/2010-06-14-multi-language-choices/"><span class="nicer">«</span>&nbsp;multi language choices</a></div><div class="previous_article"><a href="/Scratch/en/blog/2010-05-24-Trees--Pragmatism-and-Formalism/"><span class="nicer">«</span>&nbsp;Trees; Pragmatism and Formalism</a></div><div class="previous_article"><a href="/Scratch/en/blog/2010-05-19-How-to-cut-HTML-and-repair-it/"><span class="nicer">«</span>&nbsp;How to repair a cutted XML?</a></div></div><div id="next_articles">
+                next entries<div class="next_article"><a href="/Scratch/en/blog/2010-06-17-track-events-with-google-analytics/">Track Events with Google Analytics&nbsp;<span class="nicer">»</span></a></div><div class="next_article"><a href="/Scratch/en/blog/2010-06-17-hide-yourself-to-analytics/">Hide Yourself to your Analytics&nbsp;<span class="nicer">»</span></a></div><div class="next_article"><a href="/Scratch/en/blog/2010-06-19-jQuery-popup-the-easy-way/">jQuery popup the easy way&nbsp;<span class="nicer">»</span></a></div></div><div class="flush"></div></div><div class="flush"></div>
             </div>
 
 
-            <div id="bottom">
+            <footer>
+                <div><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Copyright ©, Yann Esposito</a></div>
+                <div id="lastmod">Created: <time datetime="2010-06-15T10:56:32+02:00">06/15/2010</time> - Modified: <time datetime="2011-04-20T16:46:03+02:00" pubdate="pubdate">04/20/2011</time></div>
                 <div>
-                    <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Copyright ©, Yann Esposito</a>
-                </div>
-                <div id="lastmod">
-                    Created: 06/15/2010
-                    Modified: 04/20/2011 
-                </div>
-                <div>
-                    Entirely done with
-                    <a href="http://www.vim.org">Vim</a>
-                    and 
-                    <a href="http://nanoc.stoneship.org">nanoc</a>
+                    Entirely done with <a href="http://www.vim.org">Vim</a>
+                    and <a href="http://nanoc.stoneship.org">nanoc</a>
                 </div>
                 <div>
                     <a href="/Scratch/en/validation/">Validation</a> 
-                    <a href="http://validator.w3.org/check?uri=referer"> [xhtml] </a>
+                    <a href="http://validator.w3.org/check?uri=referer"> [html5] </a>
                     .
                     <a href="http://jigsaw.w3.org/css-validator/check/referer?profile=css3"> [css] </a>
                     .
                     <a href="http://validator.w3.org/feed/check.cgi?url=http%3A//yannesposito.com/Scratch/en/blog/feed/feed.xml">[rss]</a>
                 </div>
-            </div>
-            <div class="clear"></div>
+            </footer>
         </div>
         <script type="text/javascript">
         var clicky = { log: function(){ return; }, goal: function(){ return; }};

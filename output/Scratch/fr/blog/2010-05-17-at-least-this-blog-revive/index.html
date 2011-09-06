@@ -1,25 +1,25 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="fr" xml:lang="fr">
+<!DOCTYPE html>
+<html lang="fr">
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        
-        
-        <meta name="keywords" content="blog">
-        
-        <link rel="shortcut icon" type="image/x-icon" href="/Scratch/img/favicon.ico" />
-        <link rel="stylesheet" type="text/css" href="/Scratch/assets/css/main.css" />
-        <link rel="stylesheet" type="text/css" href="/Scratch/css/twilight.css" />
-        <link rel="stylesheet" type="text/css" href="/Scratch/css/idc.css" />
-        <link rel="alternate" type="application/rss+xml" title="RSS" href="http://feeds.feedburner.com/yannespositocomfr"/>
-        
-        <link rel="alternate" lang="fr" xml:lang="fr" title="Je reviens à la vie !" type="text/html" hreflang="fr" href="/Scratch/fr/blog/2010-05-17-at-least-this-blog-revive/" /> 
-        <link rel="alternate" lang="en" xml:lang="en" title="I live again!" type="text/html" hreflang="en" href="/Scratch/en/blog/2010-05-17-at-least-this-blog-revive/" /> 
+        <meta charset="utf-8" />
+        <meta name="tag" content="blog"/> 
+        <link rel="shortcut icon" href="/Scratch/img/favicon.ico" />
+        <link rel="stylesheet" href="/Scratch/assets/css/main.css" />
+        <link rel="stylesheet" href="/Scratch/css/twilight.css" />
+        <link rel="stylesheet" href="/Scratch/css/idc.css" />
+        <link rel="alternate" type="application/rss+xml" title="Y Feed's" 
+              href="http://feeds.feedburner.com/yannespositocomfr"/>
+        <link rel="alternate" lang="fr" hreflang="fr" type="text/html" 
+              title="Je reviens à la vie !" 
+              href="/Scratch/fr/blog/2010-05-17-at-least-this-blog-revive/" />
+        <link rel="alternate" lang="en" hreflang="en" type="text/html" 
+              title="I live again!" 
+              href="/Scratch/en/blog/2010-05-17-at-least-this-blog-revive/" /> 
         <script type="text/javascript" src="/Scratch/js/jquery-1.3.1.min.js"></script>
         <script type="text/javascript" src="/Scratch/js/jquery.cookie.js"></script>
         <script type="text/javascript" src="/Scratch/js/index.js"></script>
         <!--[if lt IE 9]>
+        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
         <script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE9.js"></script>
         <![endif]-->
         <!-- < % if containMaths %>
@@ -36,29 +36,28 @@
 
         <div id="content">
 
-            <div id="choix"> 
-                <div class="return"><a href="#entete">&darr; Menu &darr;</a></div>
-                <div id="choixlang">
-                    <a href="/Scratch/en/blog/2010-05-17-at-least-this-blog-revive/" onclick="setLanguage('en')">in English</a>
-                </div>
-            </div>
+            <header>
+            <div class="return"><a href="#entete">&darr; Menu &darr;</a></div>
+            <div id="choixlang"><a href="/Scratch/en/blog/2010-05-17-at-least-this-blog-revive/" onclick="setLanguage('en')">in English</a></div>
+            <img src="/Scratch/img/presentation.png" alt="Presentation drawing"/>
             <div id="titre">
-                <h1>
-                    Je reviens à la vie !
-                </h1>
-                
+                <hgroup>
+                    <h1>
+                        Je reviens à la vie !
+                    </h1>
+                    
+                </hgroup>
             </div>
-
-            <div class="flush"></div>
-
-            
+            </header>
 
             
 
-            <div class="flush"></div>
+            
+
             <div id="afterheader">
-                <div class="corps">
-                    <p>Bonjour à tous&nbsp;!</p>
+                <article>
+                    <section>
+                        <p>Bonjour à tous&nbsp;!</p>
 
 <blockquote cite="http://www.madore.org/~david/weblog/2010-05.html#d.2010-05-12.1752">
   <p>&hellip;plus on retarde quelque chose, plus il devient difficile de s&rsquo;y mettre&hellip;</p>
@@ -95,33 +94,33 @@
 
 <p>Certaines choses ne seront peut-être jamais finie. Mais simplement parce qu&rsquo;elles ne dépendent pas complètement de moi.</p>
 
-                </div>
-            
-                
+                    </section>
+                </article>
 
+                
                 <div id="choixrss">
-                    <a id="rss" href="http://feeds.feedburner.com/yannespositocomfr">
-                        s'abonner
-                    </a>
-                </div>
+        <a id="rss" href="http://feeds.feedburner.com/yannespositocomfr">
+            s'abonner
+        </a>
+    </div>
                 <script type="text/javascript">
-                    $(document).ready(function(){ 
-                            $('#comment').hide(); 
-                            $('#clickcomment').click(showComments); 
-                        });
-                    function showComments() {
-                        $('#comment').show();
-                        $('#clickcomment').fadeOut();
-                    }
-                    document.write('<div id="clickcomment">Commentaires</div>');
-                </script>
-                <div class="flush"></div>
-                <div class="corps" id="comment">
-                    <h2 class="first">commentaires</h2>
-                    <noscript>
-                        Vous devez activer javascript pour commenter.
-                    </noscript>
-                    
+            $(document).ready(function(){ 
+                $('#comment').hide(); 
+                $('#clickcomment').click(showComments); 
+            });
+            function showComments() {
+                $('#comment').show();
+                $('#clickcomment').fadeOut();
+            }
+            document.write('<div id="clickcomment">Commentaires</div>');
+        </script>
+        <div class="flush"></div>
+        <section id="comment">
+            <h2 class="first">commentaires</h2>
+            <noscript>
+                Vous devez activer javascript pour commenter.
+            </noscript>
+            
     <script type="text/javascript">
     var idcomments_acct = 'a307f0044511ff1b5cfca573fc0a52e7';
     var idcomments_post_id = '/Scratch/fr/blog/2010-05-17-at-least-this-blog-revive/';
@@ -130,85 +129,38 @@
     <span id="IDCommentsPostTitle" style="display:none"></span>
     <script type='text/javascript' src='/Scratch/js/genericCommentWrapperV2.js'></script>
     
-                </div>
+        </section>
 
             <div id="entete" class="corps_spaced">
-                <div id="liens">
+                <nav>
                     <ul><li><a href="/Scratch/fr/">Bienvenue</a></li>
 <li><a href="/Scratch/fr/blog/">Blog</a></li>
 <li><a href="/Scratch/fr/softwares/">Softwares</a></li>
 <li><a href="/Scratch/fr/about/">À propos</a></li></ul>
-                </div>
-                <div class="flush"></div>
+                </nav>
                 <hr/>
-                <div id="next_before_articles">
-                    <div id="previous_articles">
-                        articles précédents
-                        
-                        <div class="previous_article">
-                            <a href="/Scratch/fr/blog/2010-03-23-Encapsulate-git/"><span class="nicer">«</span>&nbsp;Encapsuler git</a>
-                        </div>
-                        
-                        
-                        <div class="previous_article">
-                            <a href="/Scratch/fr/blog/2010-03-22-Git-Tips/"><span class="nicer">«</span>&nbsp;Astuces Git</a>
-                        </div>
-                        
-                        
-                        <div class="previous_article">
-                            <a href="/Scratch/fr/blog/2010-02-23-When-regexp-is-not-the-best-solution/"><span class="nicer">«</span>&nbsp;Quand se passer des expressions régulières ?</a>
-                        </div>
-                        
-                        
-                    </div>
-                    <div id="next_articles">
-                        articles suivants
-                        
-                        <div class="next_article">
-                            <a href="/Scratch/fr/blog/2010-05-19-How-to-cut-HTML-and-repair-it/">Comment réparer un XML coupé ?&nbsp;<span class="nicer">»</span></a>
-                        </div>
-                        
-                        
-                        <div class="next_article">
-                            <a href="/Scratch/fr/blog/2010-05-24-Trees--Pragmatism-and-Formalism/">Arbres ; Pragmatisme et Formalisme&nbsp;<span class="nicer">»</span></a>
-                        </div>
-                        
-                        
-                        <div class="next_article">
-                            <a href="/Scratch/fr/blog/2010-06-14-multi-language-choices/">choix liés à l'écriture dans plusieurs langues&nbsp;<span class="nicer">»</span></a>
-                        </div>
-                        
-                        
-                    </div>
-                    <div class="flush"></div>
-                </div>
+                <div id="next_before_articles"><div id="previous_articles">
+                    articles précédents<div class="previous_article"><a href="/Scratch/fr/blog/2010-03-23-Encapsulate-git/"><span class="nicer">«</span>&nbsp;Encapsuler git</a></div><div class="previous_article"><a href="/Scratch/fr/blog/2010-03-22-Git-Tips/"><span class="nicer">«</span>&nbsp;Astuces Git</a></div><div class="previous_article"><a href="/Scratch/fr/blog/2010-02-23-When-regexp-is-not-the-best-solution/"><span class="nicer">«</span>&nbsp;Quand se passer des expressions régulières ?</a></div></div><div id="next_articles">
+                articles suivants<div class="next_article"><a href="/Scratch/fr/blog/2010-05-19-How-to-cut-HTML-and-repair-it/">Comment réparer un XML coupé ?&nbsp;<span class="nicer">»</span></a></div><div class="next_article"><a href="/Scratch/fr/blog/2010-05-24-Trees--Pragmatism-and-Formalism/">Arbres ; Pragmatisme et Formalisme&nbsp;<span class="nicer">»</span></a></div><div class="next_article"><a href="/Scratch/fr/blog/2010-06-14-multi-language-choices/">choix liés à l'écriture dans plusieurs langues&nbsp;<span class="nicer">»</span></a></div></div><div class="flush"></div></div><div class="flush"></div>
             </div>
 
 
-            <div id="bottom">
+            <footer>
+                <div><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.fr">Droits de reproduction ©, Yann Esposito</a></div>
+                <div id="lastmod">Écrit le : <time datetime="2010-05-17T13:25:51+02:00">17/05/2010</time> - modifié le : <time datetime="2010-05-19T01:08:31+02:00" pubdate="pubdate">19/05/2010</time></div>
                 <div>
-                    <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.fr">Droits de reproduction ©, Yann Esposito</a>
-                </div>
-                <div id="lastmod">
-                    Écrit le : 17/05/2010
-                    modifié le : 19/05/2010 
-                </div>
-                <div>
-                    Site entièrement réalisé avec
-                    <a href="http://www.vim.org">Vim</a>
-                    et 
-                    <a href="http://nanoc.stoneship.org">nanoc</a>
+                    Site entièrement réalisé avec <a href="http://www.vim.org">Vim</a>
+                    et <a href="http://nanoc.stoneship.org">nanoc</a>
                 </div>
                 <div>
                     <a href="/Scratch/fr/validation/">Validation</a> 
-                    <a href="http://validator.w3.org/check?uri=referer"> [xhtml] </a>
+                    <a href="http://validator.w3.org/check?uri=referer"> [html5] </a>
                     .
                     <a href="http://jigsaw.w3.org/css-validator/check/referer?profile=css3"> [css] </a>
                     .
                     <a href="http://validator.w3.org/feed/check.cgi?url=http%3A//yannesposito.com/Scratch/fr/blog/feed/feed.xml">[rss]</a>
                 </div>
-            </div>
-            <div class="clear"></div>
+            </footer>
         </div>
         <script type="text/javascript">
         var clicky = { log: function(){ return; }, goal: function(){ return; }};
