@@ -33,9 +33,8 @@ en: Last <%= number_of_articles %> Articles
 fr: Les <%= number_of_articles %> derniers articles
 </h2>
 
-</div>
-
 <% last_articles.each do |a| %>
+<article class="subarticle">
 <h1> 
     <%= calendar_for( a[:created_at], language ) %> 
     <%= link_to(a[:title]+%{ <span class="nicer">»</span>}, a) %> 
@@ -54,6 +53,7 @@ en:         <%= link_to(%{Read more <span class="nicer">»</span>}, a) %>
     </div>
 
 </div>
+</article>
 <% end %>
 
 <div class="corps">

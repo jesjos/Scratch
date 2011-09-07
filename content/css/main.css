@@ -764,3 +764,16 @@ footer
 
 #tagcloud
   font-size: .8em
+
+.subarticle
+  font-size: 1.1em
+  border-radius: 5px
+  border: solid 1px #CCC
+  box-shadow: 0 0 2px #CCC inset
+  background-color: #F8F8FA
+  text-align: left
+  padding: 4em
+  line-height: 1.8em
+  margin-top: 3em
+  img
+    max-width: 100%

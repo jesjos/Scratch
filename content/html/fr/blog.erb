@@ -29,9 +29,8 @@ end
 Les <%= number_of_articles %> derniers articles
 </h2>
 
-</div>
-
 <% last_articles.each do |a| %>
+<article class="subarticle">
 <h1> 
     <%= calendar_for( a[:created_at], language ) %> 
     <%= link_to(a[:title]+%{ <span class="nicer">»</span>}, a) %> 
@@ -49,6 +48,7 @@ Les <%= number_of_articles %> derniers articles
     </div>
 
 </div>
+</article>
 <% end %>
 
 <div class="corps">
