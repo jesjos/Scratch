@@ -1,4 +1,5 @@
 #!/usr/bin/env zsh
+# Publish to github
 
 rootdir=$HOME/Sites/webroot
 

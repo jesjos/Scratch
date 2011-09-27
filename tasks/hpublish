@@ -1,4 +1,5 @@
 #!/usr/bin/env zsh
+# publish to heroku
 
 if [[ $HOST = "YiMac.local" ]]; then
     cd $HOME/Sites/webroot
