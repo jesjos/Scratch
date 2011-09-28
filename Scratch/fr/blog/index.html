@@ -28,15 +28,14 @@
             
             <div id="entete">
                 <div id="choix"> 
-                    <div id="choixrss"><a id="rss" href="http://feeds.feedburner.com/yannespositocomfr">s'abonner</a> </div>
-                    <div id="choixlang"><a href="/Scratch/en/blog/" onclick="setLanguage('en')">in English</a> </div>
-                    <div id="liens">
-                        <ul><li><a href="/Scratch/fr/">Bienvenue</a></li>
+                    <div id="choixrss"><a id="rss" href="http://feeds.feedburner.com/yannespositocomfr">s'abonner</a></div>
+                    <div id="choixlang"><a href="/Scratch/en/blog/" onclick="setLanguage('en')">in English</a></div>
+                    <div class="flush"></div>
+                </div>
+                <div id="liens"><ul><li><a href="/Scratch/fr/">Bienvenue</a></li>
 <li><span class="active" title="You're here.">Blog</span></li>
 <li><a href="/Scratch/fr/softwares/">Softwares</a></li>
-<li><a href="/Scratch/fr/about/">À propos</a></li></ul>
-                    </div>
-                </div>
+<li><a href="/Scratch/fr/about/">À propos</a></li></ul></div>
             </div>
             
             <img src="/Scratch/img/presentation.png" alt="Presentation drawing"/>
@@ -72,6 +71,90 @@ Les 5 derniers articles
 
 </div>
 
+
+<h1> 
+    <span class="date">
+        <span class="day">28</span>
+        <span class="month">Sep</span>
+        <span class="year">2011</span>
+    </span>  
+    <a href="/Scratch/fr/blog/Higher-order-function-in-zsh/">Higher order function in zsh <span class="nicer">»</span></a> 
+</h1>
+
+<div class="corps">
+
+    <p><img alt="Title image" src="/Scratch/img/blog/Higher-order-function-in-zsh/main.jpg" /></p>
+
+
+<div class="intro">
+
+
+<p><span class="sc"><abbr title="Trop long à lire">tlàl</abbr>&nbsp;: </span> des fonctions d&rsquo;ordres supérieurs en zsh.</p>
+
+
+</div>
+
+
+<p>Tout d&rsquo;abord, pourquoi c&rsquo;est important d&rsquo;avoir ces fonctions. 
+Plus je programmais avec zsh plus j&rsquo;essayais d&rsquo;avoir un style fonctionnel.</p>
+
+<p>Le minimum pour pouvoir avoir du code plus lisible c&rsquo;est de posséder les fonctions <code>map</code>, <code>filter</code> et <code>fold</code>.</p>
+
+<p>Voici pourquoi avec une comparaison.
+Commençons par un programme qui converti tous les gif en png dans plusieurs répertoires projets contenant tous des répertoires resources.
+Avant&nbsp;:</p>
+
+</p>
+
+    <div class="flush"></div>
+    <div>
+            <p>
+        <a href="/Scratch/fr/blog/Higher-order-function-in-zsh/">en lire plus <span class="nicer">»</span></a>
+            </p>
+    </div>
+
+</div>
+
+<h1> 
+    <span class="date">
+        <span class="day">28</span>
+        <span class="month">Sep</span>
+        <span class="year">2011</span>
+    </span>  
+    <a href="/Scratch/fr/blog/programming-language-experience/">programming language experience <span class="nicer">»</span></a> 
+</h1>
+
+<div class="corps">
+
+    <p><img alt="Title image" src="/Scratch/img/blog/programming-language-experience/dragon.jpg" /></p>
+
+
+<div class="intro">
+
+<span class="sc"><abbr title="Trop long à lire">tlàl</abbr>&nbsp;: </span> Mon avis court et hautement subjectif concernant les différents languages de programmations que j&rsquo;ai utilisé.
+
+</div>
+
+
+<h3 id="basic"><code>BASIC</code></h3>
+
+<p><img alt="Title image" src="/Scratch/img/blog/programming-language-experience/basic.gif" class="left" /></p>
+
+<p>Ah&nbsp;! Le language de mes premiers programmes&nbsp;! 
+Je devais avoir 10-11 ans. 
+Sous <code>MO5</code>, <code>Amstrad CPC 6128</code> et même <code>Atari STe</code>.
+Le langage des <code>GOTO</code>s. 
+Je suis empleint de nostalgie rien que d&rsquo;y penser. 
+C&rsquo;est à peu prêt le seul intérêt de ce...</p></p></p>
+
+    <div class="flush"></div>
+    <div>
+            <p>
+        <a href="/Scratch/fr/blog/programming-language-experience/">en lire plus <span class="nicer">»</span></a>
+            </p>
+    </div>
+
+</div>
 
 <h1> 
     <span class="date">
@@ -174,71 +257,6 @@ a=27;b=79;c=<span class="Constant">C</span>(-2.0,-1.0);d=<span class="Constant">
     <div>
             <p>
         <a href="/Scratch/fr/blog/Haskell-Mandelbrot/">en lire plus <span class="nicer">»</span></a>
-            </p>
-    </div>
-
-</div>
-
-<h1> 
-    <span class="date">
-        <span class="day">18</span>
-        <span class="month">Mai</span>
-        <span class="year">2011</span>
-    </span>  
-    <a href="/Scratch/fr/blog/Password-Management/">Password Management <span class="nicer">»</span></a> 
-</h1>
-
-<div class="corps">
-
-    <p><img alt="Title image" src="/Scratch/img/blog/Password-Management/main.png" /></p>
-
-
-<div class="intro">
-
-
-<p><span class="sc"><abbr title="Trop long à lire">tlàl</abbr>&nbsp;: </span> Une méthode de gestion des mots de passes que j&rsquo;utilise avec succès depuis quelques années.<br />
-<strong><code>sha1( mot_de_passe + nom_de_domaine )</code></strong><br />
-Je ne mémorise qu&rsquo;un seul mot de passe de très bonne qualité.
-J&rsquo;utilise des mots de passe différents sur tous les sites.</p>
-
-
-</div>
-
-
-<p>Avant de commencer, je tiens à préciser qu&rsquo;il s&rsquo;agit d&rsquo;une tentative de vous vendre mon appli iPhone&nbsp;;-).</p>
-
-<p>Vous êtes toujours là&nbsp;?
-Bon, d&rsquo;accord, même si vous ne téléchargez pas mon application vous pouvez quand même utili...</p></p></div></p>
-
-    <div class="flush"></div>
-    <div>
-            <p>
-        <a href="/Scratch/fr/blog/Password-Management/">en lire plus <span class="nicer">»</span></a>
-            </p>
-    </div>
-
-</div>
-
-<h1> 
-    <span class="date">
-        <span class="day">20</span>
-        <span class="month">Avr</span>
-        <span class="year">2011</span>
-    </span>  
-    <a href="/Scratch/fr/blog/2011-04-20-Now-hosted-on-github/">Hébergement github <span class="nicer">»</span></a> 
-</h1>
-
-<div class="corps">
-
-    <p><img alt="Title image" src="/Scratch/img/blog/2011-04-20-Now-hosted-on-github/main.png" /></p>
-
-<p>J&rsquo;héberge mon site sur github à partir d&rsquo;aujourd&rsquo;hui.</p>
-</p>
-
-    <div class="flush"></div>
-    <div>
-            <p>
-        <a href="/Scratch/fr/blog/2011-04-20-Now-hosted-on-github/">en lire plus <span class="nicer">»</span></a>
             </p>
     </div>
 
@@ -1900,6 +1918,14 @@ Bon, d&rsquo;accord, même si vous ne téléchargez pas mon application vous pou
 <h2 id="archives">Archives</h2>
 
 <div id="sousliens" class="archive"><h4 class="button" onclick="$('#archives_2011').slideToggle()">[2011]</h4><ul id="archives_2011"><li><span class="date">
+        <span class="day">28</span>
+        <span class="month">Sep</span>
+        <span class="year">2011</span>
+    </span> <a href="/Scratch/fr/blog/Higher-order-function-in-zsh/">Higher order function in zsh<span class="nicer">»</span></a></li><li><span class="date">
+        <span class="day">28</span>
+        <span class="month">Sep</span>
+        <span class="year">2011</span>
+    </span> <a href="/Scratch/fr/blog/programming-language-experience/">programming language experience<span class="nicer">»</span></a></li><li><span class="date">
         <span class="day">25</span>
         <span class="month">Aoû</span>
         <span class="year">2011</span>
