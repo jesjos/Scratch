@@ -2,13 +2,46 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <id>http://yannesposito.com/</id>
   <title>Yogsototh's last blogs entries</title>
-  <updated>2011-09-28T13:15:23Z</updated>
+  <updated>2011-10-04T08:18:59Z</updated>
   <link href="http://yannesposito.com/" rel="alternate"/>
   <link href="http://feeds.feedburner.com/yannespositocomfr" rel="self"/>
   <author>
     <name>Yann Esposito</name>
     <uri>http://yannesposito.com</uri>
   </author>
+  <entry>
+    <id>tag:yannesposito.com,2011-10-04:/Scratch/fr/blog/Yesod-excellent-ideas/</id>
+    <title type="html">Les id&#233;es de yesod</title>
+    <published>2011-10-04T08:18:59Z</published>
+    <updated>2011-10-04T08:18:59Z</updated>
+    <author>
+      <name>Yann Esposito</name>
+      <uri>yannesposito.com</uri>
+    </author>
+    <link href="http://yannesposito.com/Scratch/fr/blog/Yesod-excellent-ideas/" rel="alternate"/>
+    <content type="html">&lt;p&gt;&lt;img alt="Title image" src="/Scratch/img/blog/Yesod-excellent-ideas/main.png" /&gt;&lt;/p&gt;
+
+
+&lt;div class="intro"&gt;
+
+
+&lt;p&gt;&lt;span class="sc"&gt;&lt;abbr title="Trop long &#224; lire"&gt;tl&#224;l&lt;/abbr&gt;&amp;nbsp;: &lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;Cela fait un moment que je suis la progression du &lt;a href="http://www.yesodweb.com"&gt;framework yesod&lt;/a&gt;. 
+&#192; mon humble avis on peut commencer &#224; l&amp;rsquo;utiliser pour des applications s&#233;rieuses (comprendre en prod).
+Je pourrai vous dire pourquoi vous devriez consid&#233;rer d&amp;rsquo;utiliser ce framework.
+Mais je pr&#233;f&#232;re vous parler de deux bonnes id&#233;es (parmi d&amp;rsquo;autres) de yesod que je n&amp;rsquo;avais jamais vu ailleurs.&lt;/p&gt;
+
+
+&lt;/div&gt;
+
+
+&lt;h2 id="types-saufs"&gt;Types saufs&lt;/h2&gt;
+
+&lt;p&gt;Commen&#231;ons par une BD d&amp;rsquo;&lt;a href="http://xkcd.com"&gt;xkcd&lt;/a&gt;&amp;nbsp;:&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;&lt;/p&gt;</content>
+  </entry>
   <entry>
     <id>tag:yannesposito.com,2011-09-28:/Scratch/fr/blog/Higher-order-function-in-zsh/</id>
     <title type="html">Fonctions d'ordre sup&#233;rieur en zsh</title>
@@ -982,30 +1015,5 @@ a.....&lt;span class="Constant"&gt;&lt;strong&gt;a......b&lt;/strong&gt;&lt;/spa
 
 &lt;p&gt;Je suis un utilisateur &#955; de l&amp;rsquo;iPhone. Le seul moyen de filtrer ses appels, de faire des blacklists ou autre c&amp;rsquo;est de &lt;em&gt;jailbreaker&lt;/em&gt; son iPhone. Et je n&amp;rsquo;en ai aucune envie. Alors si comme moi, vous trouvez &#231;a inacceptable, envoyez un mot &#224; Apple&amp;nbsp;: &lt;a href="http://www.apple.com/feedback/iphone.html"&gt;http://www.apple.com/feedback/iphone.html&lt;/a&gt;&lt;/p&gt;
 </content>
-  </entry>
-  <entry>
-    <id>tag:yannesposito.com,2009-11-12:/Scratch/fr/blog/2009-11-12-Git-for-n00b/Git-pour-quoi-faire/</id>
-    <title type="html">Git pour les nuls</title>
-    <published>2009-11-12T09:39:54Z</published>
-    <updated>2009-11-12T09:39:54Z</updated>
-    <author>
-      <name>Yann Esposito</name>
-      <uri>yannesposito.com</uri>
-    </author>
-    <link href="http://yannesposito.com/Scratch/fr/blog/2009-11-12-Git-for-n00b/Git-pour-quoi-faire/" rel="alternate"/>
-    <content type="html">&lt;h1 class="first" id="gitgit-pour-quoi-faire-"&gt;&lt;a href="http://git-scm.org" title="Git"&gt;Git&lt;/a&gt; pour quoi faire&amp;nbsp;?&lt;/h1&gt;
-
-
-&lt;div class="intro"&gt;
-
-
-&lt;p&gt;Si tout ce qui vous int&#233;resse c&amp;rsquo;est d&amp;rsquo;utiliser &lt;a href="http://git-scm.org" title="Git"&gt;Git&lt;/a&gt; &lt;strong&gt;tout de suite&lt;/strong&gt;. Lisez simplement les parties sur fond noir. Je vous conseille aussi de revenir relire tout &#231;a un peu plus tard, pour mieux comprendre les fondements des syst&#232;mes de versions et ne pas faire de b&#234;tises quand vous les utilisez.&lt;/p&gt;
-
-
-&lt;/div&gt;
-
-
-&lt;p&gt;&lt;a href="http://git-scm.org" title="Git"&gt;Git&lt;/a&gt; est un &lt;abbr title="Decentralized Concurent Versions System"&gt;DCVS&lt;/abbr&gt;, c&amp;rsquo;est-&#224;-dire un syst&#232;me de versions concurrentes d&#233;centralis&#233;. Analysons chaque partie de cette appellation compliqu&#233;e.&lt;/p&gt;
-...</content>
   </entry>
 </feed>

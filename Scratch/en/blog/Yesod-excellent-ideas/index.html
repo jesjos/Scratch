@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr" xml:lang="fr">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        
+        
+        <link rel="shortcut icon" type="image/x-icon" href="/Scratch/img/favicon.ico" />
+        <link rel="stylesheet" type="text/css" href="/Scratch/assets/css/main.css" />
+        <link rel="stylesheet" type="text/css" href="/Scratch/css/twilight.css" />
+        <link rel="stylesheet" type="text/css" href="/Scratch/css/idc.css" />
+        <link rel="alternate" type="application/rss+xml" title="RSS" href="http://feeds.feedburner.com/yannespositocomen"/>
+        
+        <link rel="alternate" lang="fr" xml:lang="fr" title="Les idées de yesod" type="text/html" hreflang="fr" href="/Scratch/fr/blog/Yesod-excellent-ideas/" /> 
+        <link rel="alternate" lang="en" xml:lang="en" title="Yesod excellent ideas" type="text/html" hreflang="en" href="/Scratch/en/blog/Yesod-excellent-ideas/" /> 
+        <script type="text/javascript" src="/Scratch/js/jquery-1.3.1.min.js"></script>
+        <script type="text/javascript" src="/Scratch/js/jquery.cookie.js"></script>
+        <script type="text/javascript" src="/Scratch/js/index.js"></script>
+        <!--[if lt IE 9]>
+        <script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE9.js"></script>
+        <![endif]-->
+        <!-- < % if containMaths %>
+        <script type="text/javascript" src="/Scratch/js/MathJax/MathJax.js"></script>
+        < % end %>
+        -->
+        <title>Yesod excellent ideas</title>
+    </head>
+    <body lang="en" class="article">
+        <script type="text/javascript">// <![CDATA[
+            document.write('<div id="blackpage"><img src="/Scratch/img/loading.gif" alt="loading..."/></div>');
+            // ]]>
+        </script>
+
+        <div id="content">
+
+            <div id="choix"> 
+                <div class="return"><a href="#entete">&darr; Menu &darr;</a></div>
+                <div id="choixlang">
+                    <a href="/Scratch/fr/blog/Yesod-excellent-ideas/" onclick="setLanguage('fr')">en Français</a>
+                </div>
+                <div class="flush"></div>
+            </div>
+            <div id="titre">
+                <h1>
+                    Yesod excellent ideas
+                </h1>
+                
+            </div>
+            <div class="flush"></div>
+
+            
+
+            
+
+            <div class="flush"></div>
+            <div id="afterheader">
+                <div class="corps">
+                    <p><img alt="Title image" src="/Scratch/img/blog/Yesod-excellent-ideas/main.png" /></p>
+
+
+<div class="intro">
+
+
+<p><span class="sc"><abbr title="Too long; didn't read">tl;dr</abbr>: </span></p>
+
+<p>I follows the <a href="http://www.yesodweb.com">yesod web framework</a> for some times now. And I believe it reached the point where you should really consider to use it. But instead of telling you why you should learn Haskell and use yesod, I prefer to talk about new ideas used by yesod I didn&rsquo;t saw in other frameworks.</p>
+
+
+</div>
+
+
+<h2 id="type-safety">Type safety</h2>
+
+<p>Let&rsquo;s start by an obligatory link from <a href="http://xkcd.com">xkcd</a>:</p>
+
+<p><img src="http://imgs.xkcd.com/comics/exploits_of_a_mom.png" alt="SQL injection by a mom" /></p>
+
+<p>When you create a web application, a lot of time is spent dealing with strings.
+Strings for URL, HTML, JavaScript, CSS, SQL, etc&hellip;
+To prevent malicious usage you have to protect each strings to be sure, no script will pass from one point to another.
+Suppose a user enter this user name:</p>
+
+<pre class="twilight">
+Newton<span class="Keyword">&lt;</span>script<span class="Keyword">&gt;</span><span class="SupportFunction">alert</span>(<span class="String"><span class="String">&quot;</span>An apple fall<span class="String">&quot;</span></span>)<span class="Keyword">&lt;</span>/script<span class="Keyword">&gt;</span>
+</pre>
+
+<p>You must transform each <code>&lt;</code> into <code>&amp;lt;</code>.
+Without this transformation alert will appear each time you try to display this user name.
+Safe types are the chains around all strings you&rsquo;ll use.</p>
+
+<p>Yesod does its best to handle cross scripting issues. Both between the client and the server and between the server and your DB.
+Here is an example:</p>
+
+<pre class="twilight"><span class="MetaTagInline"><span class="MetaTagInline">&lt;</span><span class="MetaTagInline">a</span> <span class="MetaTagInline">href</span>=@[<span class="MetaTagInline">AnotherPageR</span>]<span class="MetaTagInline">&gt;</span></span>Go to the other page
+</pre>
+
+<p>As <code>AnotherPageR</code> is of type URL and it could not contains something nefarious.
+It will be an URL safe. Not something like:</p>
+
+<pre class="twilight">
+falselink&quot;&gt;<span class="EmbeddedSource"><span class="EmbeddedSource">&lt;</span><span class="MetaTagInline">script</span><span class="EmbeddedSource">&gt;</span> bad_code<span class="EmbeddedSource">(</span><span class="EmbeddedSource">)</span><span class="EmbeddedSource">;</span> <span class="EmbeddedSource">&lt;/</span><span class="MetaTagInline">script</span><span class="EmbeddedSource">&gt;</span></span><span class="MetaTagInline"><span class="MetaTagInline">&lt;</span><span class="MetaTagInline">a</span> <span class="MetaTagInline">href</span>=<span class="String"><span class="String">&quot;</span>pipo</span></span>
+</pre>
+
+<p>Type safety is not magic, but it will help a lot resolving these issues.</p>
+
+<h2 id="widgets">Widgets</h2>
+
+<p>Yesod widget are different from just JavaScript widget.
+In yesod widget are a set of small parts of a web application.
+A bit of CSS, a bit of HTML and a bit of JS for example.
+If you want to use many widgets in a same page yesod do the work.
+Some examples of widgets are:</p>
+
+<ul>
+  <li>the footer of a webpage,</li>
+  <li>the header of a webpage with a menu,</li>
+  <li>a button which appears only when scrolling down, </li>
+  <li>etc&hellip;</li>
+</ul>
+
+<p>For each of this part, you might need, </p>
+
+<ul>
+  <li>a bit of HTML, </li>
+  <li>a bit of CSS and </li>
+  <li>a bit of javascript.</li>
+</ul>
+
+<p>Some in the header, some in the body.</p>
+
+<p>You can declare a widget as this (note I use a very high meta-language):</p>
+
+<pre><code>htmlheader = ...
+cssheader = ...
+javascriptheader = ...
+htmlbody = ...
+</code></pre>
+
+<p>The real syntax is:</p>
+
+<pre class="twilight">
+toWidgetHeader cassiusFile <span class="String"><span class="String">&quot;</span>button.cassius<span class="String">&quot;</span></span>
+toWidgetHeader juliusFile <span class="String"><span class="String">&quot;</span>button.julius<span class="String">&quot;</span></span>
+toWidget       hamletFile <span class="String"><span class="String">&quot;</span>buttonTemplate.hamlet<span class="String">&quot;</span></span>
+</pre>
+
+<p>Note the awesome Shakespearean inspired name convention.
+Another good reason to use yesod.</p>
+
+<ul>
+  <li>Cassius <em>&amp;</em> Lucius of CSS (a lot similar to SASS and SCSS),</li>
+  <li>Julius for JavaScript (not a CoffeeScript is somewhere in the source of yesod),</li>
+  <li>Hamlet for HTML (similar to haml)</li>
+</ul>
+
+<p>And when your page render, yesod make it easy to render everything nicely:</p>
+
+<pre class="twilight">
+myBigWidget =  menuWidget &gt;&gt; contentWidget &gt;&gt; footerWidget
+</pre>
+
+<p>Furthermore, if you use say 10 widgets each with a bit of CSS, yesod will create a unique and compressed CSS file. Except if you expressed a need to change the header by using different CSS. </p>
+
+<p>This is just awesome!</p>
+
+<h2 id="optimized-routing">Optimized routing</h2>
+
+<p>In standard routing system you have for each entry a couple: regexp → handler</p>
+
+<p>The only way to discover the right rules is to match each regexp to the current URL. Then you can see behaviour such as, if you change the order of the rules you can lose or win time.</p>
+
+<p>On the other hand yesod compile the routes. Therefore it can optimize it.
+Of course two routes must not interfere.</p>
+
+<pre class="twilight">
+/blog/2003  Date2003R
+/blog/$DATE DateR
+</pre>
+
+<p>is invalid by default (you can make it valid, but I don&rsquo;t think it is a good idea).</p>
+
+<p>You&rsquo;d better</p>
+
+<pre class="twilight">
+/blog/$DATE DateR
+</pre>
+
+<p>and make the test inside the handler</p>
+
+<h2 id="why-yesod">Why yesod?</h2>
+
+<p>From a very subjective point of vue and from what I heard, Haskell is a node.js done as it should be.</p>
+
+<ol>
+  <li><em>Speed</em>. This is just astounding. Look at <a href="http://snapframework.com/blog/2010/11/17/snap-0.3-benchmarks">this</a> and then to <a href="http://www.yesodweb.com/blog/2011/02/warp-speed-ahead">this</a>.</li>
+  <li><em>Haskell</em>. This is certainly hard to learn but it is just incredibly awesome. If you want to make you a favor. Just learn Haskell. It will be difficult, far more than you can imagine. It is very different from all other languages I used.</li>
+  <li><em>Good ideas, excellent community</em>. I follow yesod from some month now and the speed at which the project progress is incredible.</li>
+</ol>
+
+<p>If you are a haskeller, I believe you shouldn&rsquo;t fear the special syntax imposed by the standard yesod way of doing things.
+Just try it more than the firsts basic tutorials. </p>
+
+<p>Until here I believe it goes in the right direction. 
+Even if I believe the real future is by generating HTML pages from the client (using javascript) and server limited to serve JSON (or XML, or any object representation system).</p>
+
+<p>I cannot stress too much about how I believe Yesod is good.</p>
+
+                </div>
+            
+                
+
+                <div id="choixrss">
+                    <a id="rss" href="http://feeds.feedburner.com/yannespositocomen">
+                        Subscribe
+                    </a>
+                </div>
+                <script type="text/javascript">
+                    $(document).ready(function(){ 
+                            $('#comment').hide(); 
+                            $('#clickcomment').click(showComments); 
+                        });
+                    function showComments() {
+                        $('#comment').show();
+                        $('#clickcomment').fadeOut();
+                    }
+                    document.write('<div id="clickcomment">Comments</div>');
+                </script>
+                <div class="flush"></div>
+                <div class="corps" id="comment">
+                    <h2 class="first">comments</h2>
+                    <noscript>
+                        You must enable javascript to comment.
+                    </noscript>
+                    
+    <script type="text/javascript">
+    var idcomments_acct = 'a307f0044511ff1b5cfca573fc0a52e7';
+    var idcomments_post_id = '/Scratch/en/blog/Yesod-excellent-ideas/';
+    var idcomments_post_url = 'http://yannesposito.com/Scratch/en/blog/Yesod-excellent-ideas/';
+    </script>
+    <span id="IDCommentsPostTitle" style="display:none"></span>
+    <script type='text/javascript' src='/Scratch/js/genericCommentWrapperV2.js'></script>
+    
+                </div>
+
+            <div id="entete" class="corps_spaced">
+                <div id="liens">
+                    <ul><li><a href="/Scratch/en/">Home</a></li>
+<li><a href="/Scratch/en/blog/">Blog</a></li>
+<li><a href="/Scratch/en/softwares/">Softwares</a></li>
+<li><a href="/Scratch/en/about/">About</a></li></ul>
+                </div>
+                <div class="flush"></div>
+                <hr/>
+                <div id="next_before_articles">
+                    <div id="previous_articles">
+                        previous entries
+                        
+                        <div class="previous_article">
+                            <a href="/Scratch/en/blog/Higher-order-function-in-zsh/"><span class="nicer">«</span>&nbsp;Higher order function in zsh</a>
+                        </div>
+                        
+                        
+                        <div class="previous_article">
+                            <a href="/Scratch/en/blog/programming-language-experience/"><span class="nicer">«</span>&nbsp;Programming Language Experience</a>
+                        </div>
+                        
+                        
+                        <div class="previous_article">
+                            <a href="/Scratch/en/blog/Learn-Vim-Progressively/"><span class="nicer">«</span>&nbsp;Learn Vim Progressively</a>
+                        </div>
+                        
+                        
+                    </div>
+                    <div id="next_articles">
+                        next entries
+                        
+                        
+                        
+                        
+                    </div>
+                    <div class="flush"></div>
+                </div>
+            </div>
+
+
+            <div id="bottom">
+                <div>
+                    <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Copyright ©, Yann Esposito</a>
+                </div>
+                <div id="lastmod">
+                    Created: 10/04/2011
+                    Modified: 10/19/2011 
+                </div>
+                <div>
+                    Entirely done with
+                    <a href="http://www.vim.org">Vim</a>
+                    and 
+                    <a href="http://nanoc.stoneship.org">nanoc</a>
+                </div>
+                <div>
+                    <a href="/Scratch/en/validation/">Validation</a> 
+                    <a href="http://validator.w3.org/check?uri=referer"> [xhtml] </a>
+                    .
+                    <a href="http://jigsaw.w3.org/css-validator/check/referer?profile=css3"> [css] </a>
+                    .
+                    <a href="http://validator.w3.org/feed/check.cgi?url=http%3A//yannesposito.com/Scratch/en/blog/feed/feed.xml">[rss]</a>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <script type="text/javascript">
+        var clicky = { log: function(){ return; }, goal: function(){ return; }};
+        var clicky_site_id = 66374971;
+        (function() {
+              var s = document.createElement('script');
+              s.type = 'text/javascript';
+              s.async = true;
+              s.src = ( document.location.protocol == 'https:' ? 'https://static.getclicky.com/js' : 'http://static.getclicky.com/js' );
+              ( document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0] ).appendChild( s );
+        })();
+</script>
+<noscript><p><img alt="Clicky" width="1" height="1" src="http://in.getclicky.com/66374971ns.gif" /></p></noscript>
+    
+    </body>
+</html>
