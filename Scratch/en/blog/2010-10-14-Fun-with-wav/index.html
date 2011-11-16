@@ -6,7 +6,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         
         
-        <meta name="keywords" content="wav, C, format">
+        <meta name="keywords" content="wav, C, format, programming">
         
         <link rel="shortcut icon" type="image/x-icon" href="/Scratch/img/favicon.ico" />
         <link rel="stylesheet" type="text/css" href="/Scratch/assets/css/main.css" />
@@ -22,10 +22,6 @@
         <!--[if lt IE 9]>
         <script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE9.js"></script>
         <![endif]-->
-        <!-- < % if containMaths %>
-        <script type="text/javascript" src="/Scratch/js/MathJax/MathJax.js"></script>
-        < % end %>
-        -->
         <title>Fun with wav</title>
     </head>
     <body lang="en" class="article">
@@ -84,8 +80,8 @@ This header was optimized to take as few space as possible.
 The header is then a block of packed bytes.</p>
 
 <ul>
-  <li>The 4th first bytes must contains <code>RIFF</code> in ASCII,</li>
-  <li>the following 4th Bytes is an 32 bits integer giving the size of the file minus 8, etc&hellip;</li>
+  <li>The 4<sup>th</sup> first bytes must contains <code>RIFF</code> in ASCII,</li>
+  <li>the following 4<sup>th</sup> Bytes is an 32 bits integer giving the size of the file minus 8, etc&hellip;</li>
 </ul>
 
 <p>Surprisingly, I believe that reading this kind of file is easier in <code>C</code> than in most higher level language.
@@ -487,7 +483,7 @@ data <span class="Keyword">=</span> <span class="Variable">ARGF</span>.<span cla
                 </div>
                 <div id="lastmod">
                     Created: 10/14/2010
-                    Modified: 10/26/2011 
+                    Modified: 11/16/2011 
                 </div>
                 <div>
                     Entirely done with
@@ -506,18 +502,5 @@ data <span class="Keyword">=</span> <span class="Variable">ARGF</span>.<span cla
             </div>
             <div class="clear"></div>
         </div>
-        <script type="text/javascript">
-        var clicky = { log: function(){ return; }, goal: function(){ return; }};
-        var clicky_site_id = 66374971;
-        (function() {
-              var s = document.createElement('script');
-              s.type = 'text/javascript';
-              s.async = true;
-              s.src = ( document.location.protocol == 'https:' ? 'https://static.getclicky.com/js' : 'http://static.getclicky.com/js' );
-              ( document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0] ).appendChild( s );
-        })();
-</script>
-<noscript><p><img alt="Clicky" width="1" height="1" src="http://in.getclicky.com/66374971ns.gif" /></p></noscript>
-    
     </body>
 </html>
