@@ -2,13 +2,41 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <id>http://yannesposito.com/</id>
   <title>Yogsototh's last blogs entries</title>
-  <updated>2011-10-04T08:18:59Z</updated>
+  <updated>2011-10-20T09:39:36Z</updated>
   <link href="http://yannesposito.com/" rel="alternate"/>
   <link href="http://feeds.feedburner.com/yannespositocomfr" rel="self"/>
   <author>
     <name>Yann Esposito</name>
     <uri>http://yannesposito.com</uri>
   </author>
+  <entry>
+    <id>tag:yannesposito.com,2011-10-20:/Scratch/fr/blog/SVG-and-m4-fractals/</id>
+    <title type="html">Accro&#238;tre le pouvoir des languages d&#233;ficients.</title>
+    <published>2011-10-20T09:39:36Z</published>
+    <updated>2011-10-20T09:39:36Z</updated>
+    <author>
+      <name>Yann Esposito</name>
+      <uri>yannesposito.com</uri>
+    </author>
+    <link href="http://yannesposito.com/Scratch/fr/blog/SVG-and-m4-fractals/" rel="alternate"/>
+    <content type="html">&lt;p&gt;&lt;img alt="Yesod logo made in SVG and m4" src="/Scratch/img/blog/SVG-and-m4-fractals/main.png" /&gt;&lt;/p&gt;
+
+
+&lt;div class="intro"&gt;
+
+
+&lt;p&gt;&lt;span class="sc"&gt;&lt;abbr title="Trop long &#224; lire"&gt;tl&#224;l&lt;/abbr&gt;&amp;nbsp;: &lt;/span&gt; Utiliser m4 pour accro&#238;tre le pouvoir d&amp;rsquo;&lt;span class="sc"&gt;xslt&lt;/span&gt; et d&amp;rsquo;&lt;span class="sc"&gt;svg&lt;/span&gt;. Example cool, les fractales.&lt;/p&gt;
+
+
+&lt;/div&gt;
+
+
+&lt;p&gt;Lorsqu&amp;rsquo;&lt;span class="sc"&gt;xml&lt;/span&gt; f&#251;t invent&#233; beaucoup pensaient que c&amp;rsquo;&#233;tait l&amp;rsquo;avenir.
+Passer de fichiers plat &#224; des fichiers structur&#233;s standardis&#233;s f&#251;t un grand progr&#232;s dans beaucoup de domaines.
+Cerain se mirent &#224; voir du &lt;span class="sc"&gt;xml&lt;/span&gt; de partout.
+&#192; tel point que les les format compatibles &lt;span class="sc"&gt;xml&lt;/span&gt; naquirent de toute part.
+Non seulement comme format de fichie...&lt;/p&gt;&lt;/p&gt;</content>
+  </entry>
   <entry>
     <id>tag:yannesposito.com,2011-10-04:/Scratch/fr/blog/Yesod-excellent-ideas/</id>
     <title type="html">Les id&#233;es de yesod</title>
@@ -999,20 +1027,5 @@ a.....&lt;span class="Constant"&gt;&lt;strong&gt;a......b&lt;/strong&gt;&lt;/spa
 &lt;p&gt;&#192; savoir avant de d&#233;buter  l&amp;rsquo;article. Je suis, comme beaucoup, un ancien utilisateur de &lt;em&gt;subversion&lt;/em&gt;. Je trouve subversion tr&#232;s bien, mais j&amp;rsquo;ai &#233;t&#233; conquis par les capacit&#233;s suppl&#233;mentaires apport&#233;es par les syst&#232;mes de versions concurrentes &lt;em&gt;d&#233;centralis&#233;s&lt;/em&gt;.&lt;/p&gt;
 
 &lt;p&gt;Il y a deux fa&#231;on de percevoir les syst&#232;me...&lt;/p&gt;</content>
-  </entry>
-  <entry>
-    <id>tag:yannesposito.com,2009-12-06:/Scratch/fr/blog/2009-12-06-iphone-call-filter/</id>
-    <title type="html">Filtrage d'appel avec l'iPhone</title>
-    <published>2009-12-06T09:35:34Z</published>
-    <updated>2009-12-06T09:35:34Z</updated>
-    <author>
-      <name>Yann Esposito</name>
-      <uri>yannesposito.com</uri>
-    </author>
-    <link href="http://yannesposito.com/Scratch/fr/blog/2009-12-06-iphone-call-filter/" rel="alternate"/>
-    <content type="html">&lt;p&gt;Il est vraiment incroyable que le filtrage d&amp;rsquo;appel soit impossible avec un iPhone&amp;nbsp;! Le &lt;em&gt;seul&lt;/em&gt; int&#233;r&#234;t que j&amp;rsquo;y vois, c&amp;rsquo;est une n&#233;gociation avec les op&#233;rateurs pour interdire aux utilisateurs de passer &#224; travers la publicit&#233;. C&amp;rsquo;est tout simplement inacceptable.&lt;/p&gt;
-
-&lt;p&gt;Je suis un utilisateur &#955; de l&amp;rsquo;iPhone. Le seul moyen de filtrer ses appels, de faire des blacklists ou autre c&amp;rsquo;est de &lt;em&gt;jailbreaker&lt;/em&gt; son iPhone. Et je n&amp;rsquo;en ai aucune envie. Alors si comme moi, vous trouvez &#231;a inacceptable, envoyez un mot &#224; Apple&amp;nbsp;: &lt;a href="http://www.apple.com/feedback/iphone.html"&gt;http://www.apple.com/feedback/iphone.html&lt;/a&gt;&lt;/p&gt;
-</content>
   </entry>
 </feed>

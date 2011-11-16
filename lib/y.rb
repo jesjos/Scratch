@@ -25,7 +25,9 @@ module Nanoc3::Filters
 
         def description(content)
             content.gsub(/<div class="math">(.+?)<\/div>/m) do
-                return %{$$ #{$1} $$}
+                %{$$ #{$1} $$}
+            end.gsub(/<script type="math\/tex">(.+?)<\/script>/m) do
+                %{$$ #{$1} $$}
             end
         end
 
@@ -99,19 +101,19 @@ module Nanoc3::Filters
     class YTypography < Nanoc3::Filter
         identifiers :ytypo
         def ytypofunc(content)
-            content.gsub(/<sc>(.*?)<\/sc>/m) do
+            content.gsub(/<sc>(.*?)<\/sc>/m) do # small caps
                %{<span class="sc">}+$1+%{</span>}
-            end.gsub(/''(.*?)''/m)do
+            end.gsub(/''(.*?)''/m)do # use '' to code
                %{<code>}+$1+%{</code>}
-            end.gsub(/\(c\)/) do
+            end.gsub(/\(c\)/) do # (c) to small ©
                 %{<small>&copy;</small>}
-            end.gsub(/\(r\)/) do
+            end.gsub(/\(r\)/) do # (r) to small ®
                 %{<small>&reg;</small>}
-            end.gsub(/-(&gt;|>)/) do
+            end.gsub(/-(&gt;|>)/) do # -> to →
                 %{&rarr;}
-            end.gsub(/(&lt;|<)-/) do
+            end.gsub(/(&lt;|<)-/) do # <- to ←
                 %{&larr;}
-            end.gsub(/1st/) do
+            end.gsub(/1st/) do # numbering
                 %{1<sup>st</sup>}
             end.gsub(/1(ere?)/) do
                 %{1<sup>#{$1}</sup>}
@@ -119,8 +121,12 @@ module Nanoc3::Filters
                 %{2<sup>nd</sup>}
             end.gsub(/3rd/) do
                 %{3<sup>rd</sup>}
+            end.gsub(/(\d+)th/) do
+                %{#{$1}<sup>th</sup>}
             end.gsub(/([2-9])ème/) do
                 %{#{$1}<sup>ème</sup>}
+            end.gsub(%{<em>&amp;</em>}) do # nicer &
+                %{<em class="pala">&amp;</em>}
             end
         end
         def run(content, params={})
