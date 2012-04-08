@@ -658,7 +658,7 @@ f x y = x*x + y*y
 x = 3
 <span class="Entity">y</span> :: <span class="Constant">Float</span>
 y = 2.4
-main = <span class="Entity">print</span> (f x y) <span class="Comment"><span class="Comment">--</span> won't work because type x ‡ type y</span>
+main = <span class="Entity">print</span> (f x y) <span class="Comment"><span class="Comment">--</span> won't work because type x ≠ type y</span>
 </pre>
 </div>
 <p>The compiler complains. 
@@ -3739,7 +3739,7 @@ treeFromList' (x:xs) n = <span class="Constant">Node</span> x left right
                 </div>
                 <div id="lastmod">
                     Écrit le : 08/02/2012
-                    modifié le : 07/04/2012 
+                    modifié le : 08/04/2012 
                 </div>
                 <div>
                     Site entièrement réalisé avec
