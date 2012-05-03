@@ -12,6 +12,7 @@
         <link rel="stylesheet" type="text/css" href="/Scratch/assets/css/main.css" />
         <link rel="stylesheet" type="text/css" href="/Scratch/css/solarized.css" />
         <link rel="stylesheet" type="text/css" href="/Scratch/css/idc.css" />
+        <link href='http://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css'>
         <link rel="alternate" type="application/rss+xml" title="RSS" href="http://feeds.feedburner.com/yannespositocomen"/>
         
         <link rel="alternate" lang="fr" xml:lang="fr" title="Mon expérience avec les languages de programmation" type="text/html" hreflang="fr" href="/Scratch/fr/blog/programming-language-experience/" /> 
@@ -19,6 +20,8 @@
         <script type="text/javascript" src="/Scratch/js/jquery-1.3.1.min.js"></script>
         <script type="text/javascript" src="/Scratch/js/jquery.cookie.js"></script>
         <script type="text/javascript" src="/Scratch/js/index.js"></script>
+        <script type="text/javascript" src="/Scratch/js/highlight/highlight.pack.js"></script>                 
+        <script type="text/javascript" src="/Scratch/js/article.js"></script>                 
         <!--[if lt IE 9]>
         <script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE9.js"></script>
         <![endif]-->
@@ -66,8 +69,9 @@
 
 <h3 id="basic"><code>BASIC</code></h3>
 
-<p><img alt="Title image" src="/Scratch/img/blog/programming-language-experience/basic.gif" class="left" />
-The language of my firsts programs!
+<p><img alt="Title image" src="/Scratch/img/blog/programming-language-experience/basic.gif" class=" left" /></p>
+
+<p>The language of my firsts programs!
 I was about 10, with an <code>MO5</code> and <code>Amstrad CPC 6128</code> and even with my <code>Atari STe</code>.
 This is the language of <code>GOTO</code>s.
 Ô nostalgia.
@@ -78,26 +82,25 @@ It is not even good to learn programming.
 I know some compiler exists now.
 But this is not enough to try to learn it.</p>
 
-<pre class="twilight">
-READY
-10 PRINT <span class="String"><span class="String">&quot;</span>HELLO WORLD!<span class="String">&quot;</span></span>
+<pre><code class="zsh">READY
+10 PRINT "HELLO WORLD!"
 20 GOTO 10
 RUN
-</pre>
+</code></pre>
 
 <p>I also remember I copied some game source code from some magazine.
 Most lines were like:</p>
 
-<pre class="twilight">
-3110 DATA FA,01,FF,FF,FF,FF,00,23,22,43,DA,DE,EE,FF,FF,FF,00,03,4A,F2
-</pre>
+<pre><code class="zsh">3110 DATA FA,01,FF,FF,FF,FF,00,23,22,43,DA,DE,EE,FF,FF,FF,00,03,4A,F2
+</code></pre>
 
 <p>What a pleasure!</p>
 
 <h3 id="logo">Logo</h3>
 
-<p><img alt="Dragon fractal" src="/Scratch/img/blog/programming-language-experience/dragon.jpg" class="left" />
-I was about 10 when I played with logo to draw on the computer.</p>
+<p><img alt="Dragon fractal" src="/Scratch/img/blog/programming-language-experience/dragon.jpg" class=" left" /></p>
+
+<p>I was about 10 when I played with logo to draw on the computer.</p>
 
 <p>I remember the Bach&rsquo;s music while the program loaded.</p>
 
@@ -110,8 +113,7 @@ Making fractals is like a game for children.</p>
 
 <p>Here is an example of code. It draws the dragon fractal.</p>
 
-<pre class="twilight">
-HIDETURTLE
+<pre><code class="zsh">HIDETURTLE
 
 PENUP
 SETXY -200 0
@@ -120,10 +122,10 @@ PENDOWN
 
 to dragon :degree :size
     setpensize 1
-    <span class="Keyword">if</span> :size<span class="Keyword">&gt;</span>5  [setpensize 2]
-    <span class="Keyword">if</span> :size<span class="Keyword">&gt;</span>10 [setpensize 3]
-    <span class="Keyword">if</span> :size<span class="Keyword">&gt;</span>20 [setpensize 4]
-    <span class="Keyword">if</span> :size<span class="Keyword">&gt;</span>40 [setpensize 5]
+    if :size&gt;5  [setpensize 2]
+    if :size&gt;10 [setpensize 3]
+    if :size&gt;20 [setpensize 4]
+    if :size&gt;40 [setpensize 5]
     ifelse :degree=0 [ 
         fd :size 
     ][
@@ -135,7 +137,7 @@ to dragon :degree :size
 end
 
 dragon 6 3000
-</pre>
+</code></pre>
 
 <h3 id="pascal">Pascal</h3>
 
@@ -148,7 +150,7 @@ In the end I prefer C.</p>
 
 <h3 id="c">C</h3>
 
-<p><img alt="Pointer representation from Dancing links" src="/Scratch/img/blog/programming-language-experience/C.jpg" class="left" /></p>
+<p><img alt="Pointer representation from Dancing links" src="/Scratch/img/blog/programming-language-experience/C.jpg" class=" left" /></p>
 
 <p>The pointer&rsquo;s language.</p>
 
@@ -197,7 +199,7 @@ I mean an information system, the OOP is not so bad.</p>
 
 <h3 id="c-1">C++</h3>
 
-<p><img alt="Messy router" src="/Scratch/img/blog/programming-language-experience/cplusplus.jpg" class="left" /></p>
+<p><img alt="Messy router" src="/Scratch/img/blog/programming-language-experience/cplusplus.jpg" class=" left" /></p>
 
 <p>The ugly</p>
 
@@ -217,7 +219,7 @@ Except for some application, the alphabet must be far larger than that.</p>
 
 <h3 id="eiffel">Eiffel</h3>
 
-<p><img alt="Eiffel tower construction" src="/Scratch/img/blog/programming-language-experience/eiffel.jpg" class="left" /></p>
+<p><img alt="Eiffel tower construction" src="/Scratch/img/blog/programming-language-experience/eiffel.jpg" class=" left" /></p>
 
 <p>Yes, it is a really nice language. 
 Full object in mind. Far cleaner than C++.
@@ -228,7 +230,7 @@ At that time I programmed a lot with C and like its syntax.</p>
 
 <h3 id="java">Java</h3>
 
-<p><img alt="Holy Grail from the Monty Python" src="/Scratch/img/blog/programming-language-experience/grail.jpg" class="left" /></p>
+<p><img alt="Holy Grail from the Monty Python" src="/Scratch/img/blog/programming-language-experience/grail.jpg" class=" left" /></p>
 
 <p>The first time I heard about Java it was <em>le Grail</em>!</p>
 
@@ -272,7 +274,7 @@ Please note I didn&rsquo;t say Java programmer are bad programmer.</p>
 
 <h3 id="objective-c">Objective-C</h3>
 
-<p><img alt="Xcode Logo" src="/Scratch/img/blog/programming-language-experience/xcode_logo.png" class="left" /></p>
+<p><img alt="Xcode Logo" src="/Scratch/img/blog/programming-language-experience/xcode_logo.png" class=" left" /></p>
 
 <p>The language I learned and used only to make application on Apple<small>&copy;</small> platform.
 I learned Objective-C just after Python.
@@ -294,7 +296,7 @@ In the end you&rsquo;ll certainely find it better than expected.</p>
 
 <h3 id="php">PHP</h3>
 
-<p><img alt="A Jacky Touch Car" src="/Scratch/img/blog/programming-language-experience/php.jpg" class="left" /></p>
+<p><img alt="A Jacky Touch Car" src="/Scratch/img/blog/programming-language-experience/php.jpg" class=" left" /></p>
 
 <p>This small script language that we used all to make our website in the time of animated gifs.</p>
 
@@ -310,7 +312,7 @@ I make a bit of PHP not so long ago, and it was a pain to protect my application
 
 <h3 id="python">Python</h3>
 
-<p><img alt="Python. Do you speak it?" src="/Scratch/img/blog/programming-language-experience/python.jpg" class="left" /></p>
+<p><img alt="Python. Do you speak it?" src="/Scratch/img/blog/programming-language-experience/python.jpg" class=" left" /></p>
 
 <p>Revelation!</p>
 
@@ -337,9 +339,8 @@ I used it to modify hundred of XML files in an easier manner than XSLT.</p>
 Or at least, all other collaboratos must be excellent programmers.
 But the very good feature is the integration of some perl syntax.</p>
 
-<pre class="twilight">
-<span class="Variable"><span class="Variable">$</span>var</span> =~ <span class="StringRegexp"><span class="StringRegexp"><span class="SupportFunction">s</span>/</span>toto</span><span class="StringRegexp"><span class="StringRegexp">/</span>titi<span class="StringRegexp">/</span></span><span class="StringRegexp"><span class="StringRegexp"><span class="Keyword">g</span></span></span>
-</pre>
+<pre><code class="perl">$var =~ s/toto/titi/g
+</code></pre>
 
 <p>This program will replace every toto by titi inside the <code>$var</code> variable.
 The Perl code is often very compact and usally unreadable.
@@ -417,17 +418,15 @@ It contains a linear solver.
 This is really useful to draw things.
 For example if you write:</p>
 
-<pre class="twilight">
-<span class="Variable">AA</span><span class="Keyword">=</span><span class="Constant">1</span><span class="Keyword">/</span><span class="Constant">3</span>[<span class="Variable">A</span>,<span class="Variable">B</span>]
-</pre>
+<pre><code class="ruby">AA=1/3[A,B]
+</code></pre>
 
 <p>It will place the point <code>AA</code> between the point <code>A</code> and <code>B</code>.
 More precisely at the barycenter <code>(2xA + B)/3</code>.</p>
 
-<pre class="twilight">
-<span class="Variable">X</span><span class="Keyword">=</span>whatever[<span class="Variable">A</span>,<span class="Variable">B</span>]
-<span class="Variable">X</span><span class="Keyword">=</span>whatever[<span class="Variable">C</span>,<span class="Variable">D</span>]
-</pre>
+<pre><code class="ruby">X=whatever[A,B]
+X=whatever[C,D]
+</code></pre>
 
 <p>This second example, will place the point X at the intersection of the two segments <code>AB</code> and <code>CD</code>.</p>
 
@@ -576,7 +575,7 @@ But I used all of these languages.</p>
                 </div>
                 <div id="lastmod">
                     Created: 09/28/2011
-                    Modified: 10/26/2011 
+                    Modified: 04/26/2012 
                 </div>
                 <div>
                     Entirely done with

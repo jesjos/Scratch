@@ -12,6 +12,7 @@
         <link rel="stylesheet" type="text/css" href="/Scratch/assets/css/main.css" />
         <link rel="stylesheet" type="text/css" href="/Scratch/css/solarized.css" />
         <link rel="stylesheet" type="text/css" href="/Scratch/css/idc.css" />
+        <link href='http://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css'>
         <link rel="alternate" type="application/rss+xml" title="RSS" href="http://feeds.feedburner.com/yannespositocomfr"/>
         
         <link rel="alternate" lang="fr" xml:lang="fr" title="Haskell comme un vrai!" type="text/html" hreflang="fr" href="/Scratch/fr/blog/Haskell-the-Hard-Way/" /> 
@@ -19,6 +20,8 @@
         <script type="text/javascript" src="/Scratch/js/jquery-1.3.1.min.js"></script>
         <script type="text/javascript" src="/Scratch/js/jquery.cookie.js"></script>
         <script type="text/javascript" src="/Scratch/js/index.js"></script>
+        <script type="text/javascript" src="/Scratch/js/highlight/highlight.pack.js"></script>                 
+        <script type="text/javascript" src="/Scratch/js/article.js"></script>                 
         <!--[if lt IE 9]>
         <script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE9.js"></script>
         <![endif]-->
@@ -269,25 +272,26 @@ I will start with similarities between Haskell and other programming languages.
 Let&rsquo;s jump to the mandatory &ldquo;Hello World&rdquo;.</p>
 
 <div class="codehighlight">
-<pre class="twilight">
-main = <span class="Entity">putStrLn</span> <span class="String"><span class="String">&quot;</span>Hello World!<span class="String">&quot;</span></span>
-</pre>
+
+
+<pre><code class="haskell">main = putStrLn "Hello World!"
+</code></pre>
+
+
 </div>
 <p>To run it, you can save this code in a <code>hello.hs</code> and:</p>
 
-<pre class="twilight">
-<span class="Keyword">~</span> runhaskell ./hello.hs
-Hello World<span class="Keyword">!</span>
-</pre>
+<pre><code class="zsh">~ runhaskell ./hello.hs
+Hello World!
+</code></pre>
 
 <p>You could also download the literate Haskell source.
 You should see a link just above the introduction title.
 Download this file as <code>00_hello_world.lhs</code> and:</p>
 
-<pre class="twilight">
-<span class="Keyword">~</span> runhaskell 00_hello_world.lhs
-Hello World<span class="Keyword">!</span>
-</pre>
+<pre><code class="zsh">~ runhaskell 00_hello_world.lhs
+Hello World!
+</code></pre>
 
 <p><a href="code/01_basic/10_Introduction/00_hello_world.lhs" class="cut">01_basic/10_Introduction/<strong>00_hello_world.lhs</strong> </a></p>
 
@@ -297,41 +301,41 @@ Hello World<span class="Keyword">!</span>
 <p>Now, a program asking your name and replying &ldquo;Hello&rdquo; using the name you entered:</p>
 
 <div class="codehighlight">
-<pre class="twilight">
-main = <span class="Keyword">do</span>
-    <span class="Entity">print</span> <span class="String"><span class="String">&quot;</span>What is your name?<span class="String">&quot;</span></span>
-    name &lt;- <span class="Entity">getLine</span>
-    <span class="Entity">print</span> (<span class="String"><span class="String">&quot;</span>Hello <span class="String">&quot;</span></span> ++ name ++ <span class="String"><span class="String">&quot;</span>!<span class="String">&quot;</span></span>)
-</pre>
+
+
+<pre><code class="haskell">main = do
+    print "What is your name?"
+    name &lt;- getLine
+    print ("Hello " ++ name ++ "!")
+</code></pre>
+
+
 </div>
 <p>First, let us compare with a similar program in some imperative languages:</p>
 
-<pre class="twilight">
- <span class="Comment"><span class="Comment">#</span> Python</span>
-<span class="Keyword">print</span> <span class="String"><span class="String">&quot;</span>What is your name?<span class="String">&quot;</span></span>
-name <span class="Keyword">=</span> <span class="SupportFunction">raw_input</span>()
-<span class="Keyword">print</span> <span class="String"><span class="String">&quot;</span>Hello <span class="StringConstant">%s</span>!<span class="String">&quot;</span></span> <span class="Keyword">%</span> name
-</pre>
+<pre><code class="python"> # Python
+print "What is your name?"
+name = raw_input()
+print "Hello %s!" % name
+</code></pre>
 
-<pre class="twilight">
-<span class="Comment"> <span class="Comment">#</span> Ruby</span>
-puts <span class="String"><span class="String">&quot;</span>What is your name?<span class="String">&quot;</span></span>
-name <span class="Keyword">=</span> gets.<span class="Entity">chomp</span>
-puts <span class="String"><span class="String">&quot;</span>Hello <span class="StringEmbeddedSource"><span class="StringEmbeddedSource">#{</span>name<span class="StringEmbeddedSource">}</span></span>!<span class="String">&quot;</span></span>
-</pre>
+<pre><code class="ruby"> # Ruby
+puts "What is your name?"
+name = gets.chomp
+puts "Hello #{name}!"
+</code></pre>
 
-<pre class="twilight">
-<span class="Comment"><span class="Comment">//</span> In C</span>
-<span class="CCCPreprocessorLine"> #<span class="CCCPreprocessorDirective">include</span> <span class="String"><span class="String">&lt;</span>stdio.h<span class="String">&gt;</span></span></span>
-<span class="Storage">int</span> <span class="Entity">ma<span class="Entity">in</span></span> (<span class="Storage">int</span> argc, <span class="Storage">char</span> **argv) {
-    <span class="Storage">char</span> name[<span class="Constant">666</span>]; <span class="Comment"><span class="Comment">//</span> &lt;- An Evil Number!</span>
-    <span class="Comment"><span class="Comment">//</span> What if my name is more than 665 character long?</span>
-    <span class="SupportFunction">printf</span>(<span class="String"><span class="String">&quot;</span>What is your name?<span class="StringConstant">\n</span><span class="String">&quot;</span></span>); 
-    <span class="SupportFunction">scanf</span>(<span class="String"><span class="String">&quot;</span><span class="StringConstant">%s</span><span class="String">&quot;</span></span>, name);
-    <span class="SupportFunction">printf</span>(<span class="String"><span class="String">&quot;</span>Hello <span class="StringConstant">%s</span>!<span class="StringConstant">\n</span><span class="String">&quot;</span></span>, name);
-    <span class="Keyword">return</span> <span class="Constant">0</span>;
+<pre><code class="c">// In C
+ #include &lt;stdio.h&gt;
+int main (int argc, char **argv) {
+    char name[666]; // &lt;- An Evil Number!
+    // What if my name is more than 665 character long?
+    printf("What is your name?\n"); 
+    scanf("%s", name);
+    printf("Hello %s!\n", name);
+    return 0;
 }
-</pre>
+</code></pre>
 
 <p>The structure is the same, but there are some syntax differences.
 A major part of this tutorial will be dedicated to explaining why.</p>
@@ -396,47 +400,41 @@ If you meet a <code>&gt;&gt;=</code>, <code>&lt;$&gt;</code>, <code>&lt;-</code>
 
 <p>In <code>C</code>:</p>
 
-<pre class="twilight">
-<span class="Storage">int</span> f(<span class="Storage">int</span> x, <span class="Storage">int</span> y) {
-    <span class="Keyword">return</span> x*x + y*y;
+<pre><code class="c">int f(int x, int y) {
+    return x*x + y*y;
 }
-</pre>
+</code></pre>
 
 <p>In Javascript:</p>
 
-<pre class="twilight">
-<span class="Storage">function</span> <span class="Entity">f</span>(<span class="Variable">x,y</span>) {
-    <span class="Keyword">return</span> x<span class="Keyword">*</span>x <span class="Keyword">+</span> y<span class="Keyword">*</span>y;
+<pre><code class="javascript">function f(x,y) {
+    return x*x + y*y;
 }
-</pre>
+</code></pre>
 
 <p>in Python:</p>
 
-<pre class="twilight">
-<span class="Storage">def</span> <span class="Entity">f</span>(<span class="Variable">x</span>,<span class="Variable">y</span>):
-    <span class="Keyword">return</span> x<span class="Keyword">*</span>x <span class="Keyword">+</span> y<span class="Keyword">*</span>y
-</pre>
+<pre><code class="python">def f(x,y):
+    return x*x + y*y
+</code></pre>
 
 <p>in Ruby:</p>
 
-<pre class="twilight">
-<span class="Keyword">def</span> <span class="Entity">f</span>(<span class="Variable">x<span class="Variable">,</span>y</span>)
-    x<span class="Keyword">*</span>x <span class="Keyword">+</span> y<span class="Keyword">*</span>y
-<span class="Keyword">end</span>
-</pre>
+<pre><code class="ruby">def f(x,y)
+    x*x + y*y
+end
+</code></pre>
 
 <p>In Scheme:</p>
 
-<pre class="twilight">
-(<span class="Keyword">define</span> (<span class="Entity">f</span><span class="Variable"> x y</span>)
-    (<span class="SupportFunction">+</span> (<span class="SupportFunction">*</span> x x) (<span class="SupportFunction">*</span> y y)))
-</pre>
+<pre><code class="scheme">(define (f x y)
+    (+ (* x x) (* y y)))
+</code></pre>
 
 <p>Finally, the Haskell way is:</p>
 
-<pre class="twilight">
-f x y = x*x + y*y
-</pre>
+<pre><code class="haskell">f x y = x*x + y*y
+</code></pre>
 
 <p>Very clean. No parenthesis, no <code>def</code>.</p>
 
@@ -453,13 +451,16 @@ The compiler is smart enough to discover it for you.</p>
 <p>Let&rsquo;s play a little.</p>
 
 <div class="codehighlight">
-<pre class="twilight">
-<span class="Comment"><span class="Comment">--</span> We declare the type using ::</span>
-<span class="Entity">f</span> :: <span class="Constant">Int</span> -&gt; <span class="Constant">Int</span> -&gt; <span class="Constant">Int</span>
+
+
+<pre><code class="haskell">-- We declare the type using ::
+f :: Int -&gt; Int -&gt; Int
 f x y = x*x + y*y
 
-main = <span class="Entity">print</span> (f 2 3)
-</pre>
+main = print (f 2 3)
+</code></pre>
+
+
 </div>
 <pre><code>~ runhaskell 20_very_basic.lhs
 13
@@ -473,12 +474,15 @@ main = <span class="Entity">print</span> (f 2 3)
 <p>Now try</p>
 
 <div class="codehighlight">
-<pre class="twilight">
-<span class="Entity">f</span> :: <span class="Constant">Int</span> -&gt; <span class="Constant">Int</span> -&gt; <span class="Constant">Int</span>
+
+
+<pre><code class="haskell">f :: Int -&gt; Int -&gt; Int
 f x y = x*x + y*y
 
-main = <span class="Entity">print</span> (f 2.3 4.2)
-</pre>
+main = print (f 2.3 4.2)
+</code></pre>
+
+
 </div>
 <p>You get this error:</p>
 
@@ -503,11 +507,14 @@ don&rsquo;t declare the type for <code>f</code>.
 Haskell will infer the most general type for us:</p>
 
 <div class="codehighlight">
-<pre class="twilight">
-f x y = x*x + y*y
 
-main = <span class="Entity">print</span> (f 2.3 4.2)
-</pre>
+
+<pre><code class="haskell">f x y = x*x + y*y
+
+main = print (f 2.3 4.2)
+</code></pre>
+
+
 </div>
 <p>It works! 
 Great, we don&rsquo;t have to declare a new function for every single type.
@@ -632,12 +639,15 @@ It is time to make a real application.</p>
 <p>But just before that, we should verify the type system works as expected:</p>
 
 <div class="codehighlight">
-<pre class="twilight">
-<span class="Entity">f</span> :: <span class="Constant">Num</span> <span class="Variable">a</span> =&gt; <span class="Variable">a</span> -&gt; <span class="Variable">a</span> -&gt; <span class="Variable">a</span>
+
+
+<pre><code class="haskell">f :: Num a =&gt; a -&gt; a -&gt; a
 f x y = x*x + y*y
 
-main = <span class="Entity">print</span> (f 3 2.4)
-</pre>
+main = print (f 3 2.4)
+</code></pre>
+
+
 </div>
 <p>It works, because, <code>3</code> is a valid representation both for Fractional numbers like Float and for Integer.
 As <code>2.4</code> is a Fractional number, <code>3</code> is then interpreted as being also a Fractional number.</p>
@@ -650,16 +660,19 @@ As <code>2.4</code> is a Fractional number, <code>3</code> is then interpreted a
 <p>If we force our function to work with different types, it will fail:</p>
 
 <div class="codehighlight">
-<pre class="twilight">
-<span class="Entity">f</span> :: <span class="Constant">Num</span> <span class="Variable">a</span> =&gt; <span class="Variable">a</span> -&gt; <span class="Variable">a</span> -&gt; <span class="Variable">a</span>
+
+
+<pre><code class="haskell">f :: Num a =&gt; a -&gt; a -&gt; a
 f x y = x*x + y*y
 
-<span class="Entity">x</span> :: <span class="Constant">Int</span>
+x :: Int
 x = 3
-<span class="Entity">y</span> :: <span class="Constant">Float</span>
+y :: Float
 y = 2.4
-main = <span class="Entity">print</span> (f x y) <span class="Comment"><span class="Comment">--</span> won't work because type x ≠ type y</span>
-</pre>
+main = print (f x y) -- won't work because type x ≠ type y
+</code></pre>
+
+
 </div>
 <p>The compiler complains. 
 The two parameters must have the same type.</p>
@@ -813,29 +826,38 @@ But it is considered a good practice to do so.</p>
 <p><em>Infix notation</em></p>
 
 <div class="codehighlight">
-<pre class="twilight">
-<span class="Entity">square</span> :: <span class="Constant">Num</span> <span class="Variable">a</span> =&gt; <span class="Variable">a</span> -&gt; <span class="Variable">a</span>  
+
+
+<pre><code class="haskell">square :: Num a =&gt; a -&gt; a  
 square x = x^2
-</pre>
+</code></pre>
+
+
 </div>
 <p>Note <code>^</code> use infix notation. 
 For each infix operator there its associated prefix notation.
 You just have to put it inside parenthesis.</p>
 
 <div class="codehighlight">
-<pre class="twilight">
-square' x = (^) x 2
+
+
+<pre><code class="haskell">square' x = (^) x 2
 
 square'' x = (^2) x
-</pre>
+</code></pre>
+
+
 </div>
 <p>We can remove <code>x</code> in the left and right side!
 It&rsquo;s called η-reduction.</p>
 
 <div class="codehighlight">
-<pre class="twilight">
-square''' = (^2)
-</pre>
+
+
+<pre><code class="haskell">square''' = (^2)
+</code></pre>
+
+
 </div>
 <p>Note we can declare function with <code>'</code> in their name.
 Here:</p>
@@ -849,10 +871,13 @@ Here:</p>
 <p>An implementation of the absolute function.</p>
 
 <div class="codehighlight">
-<pre class="twilight">
-<span class="Entity">absolute</span> :: (<span class="Constant">Ord</span> <span class="Variable">a</span>, <span class="Constant">Num</span> <span class="Variable">a</span>) =&gt; <span class="Variable">a</span> -&gt; <span class="Variable">a</span>
-absolute x = <span class="Keyword">if</span> x &gt;= 0 <span class="Keyword">then</span> x <span class="Keyword">else</span> -x
-</pre>
+
+
+<pre><code class="haskell">absolute :: (Ord a, Num a) =&gt; a -&gt; a
+absolute x = if x &gt;= 0 then x else -x
+</code></pre>
+
+
 </div>
 <p>Note: the <code>if .. then .. else</code> Haskell notation is more like the
 <code>¤?¤:¤</code> C operator. You cannot forget the <code>else</code>.</p>
@@ -860,11 +885,14 @@ absolute x = <span class="Keyword">if</span> x &gt;= 0 <span class="Keyword">the
 <p>Another equivalent version:</p>
 
 <div class="codehighlight">
-<pre class="twilight">
-absolute' x
+
+
+<pre><code class="haskell">absolute' x
     | x &gt;= 0 = x
-    | <span class="Keyword">otherwise</span> = -x
-</pre>
+    | otherwise = -x
+</code></pre>
+
+
 </div>
 <blockquote>
   <p>Notation warning: indentation is <em>important</em> in Haskell.
@@ -874,17 +902,20 @@ Like in Python, a bad indentation could break your code!</p>
 <div style="display:none">
 
 <div class="codehighlight">
-<pre class="twilight">
-main = <span class="Keyword">do</span>
-      <span class="Entity">print</span> $ square 10
-      <span class="Entity">print</span> $ square' 10
-      <span class="Entity">print</span> $ square'' 10
-      <span class="Entity">print</span> $ square''' 10
-      <span class="Entity">print</span> $ absolute 10
-      <span class="Entity">print</span> $ absolute (-10)
-      <span class="Entity">print</span> $ absolute' 10
-      <span class="Entity">print</span> $ absolute' (-10)
-</pre>
+
+
+<pre><code class="haskell">main = do
+      print $ square 10
+      print $ square' 10
+      print $ square'' 10
+      print $ square''' 10
+      print $ absolute 10
+      print $ absolute (-10)
+      print $ absolute' 10
+      print $ absolute' (-10)
+</code></pre>
+
+
 </div>
 </div>
 
@@ -915,17 +946,16 @@ The end result will be both more elegant and easier to adapt. </p>
 <p>To show differences between the functional and imperative approach,
 I&rsquo;ll start by providing an imperative solution (in Javascript):</p>
 
-<pre class="twilight">
-<span class="Storage">function</span> <span class="Entity">evenSum</span>(<span class="Variable">list</span>) {
-    <span class="Storage">var</span> result <span class="Keyword">=</span> <span class="Constant">0</span>;
-    <span class="Keyword">for</span> (<span class="Storage">var</span> i<span class="Keyword">=</span><span class="Constant">0</span>; i<span class="Keyword">&lt;</span> list.<span class="SupportConstant">length</span> ; i<span class="Keyword">++</span>) {
-        <span class="Keyword">if</span> (list[i] <span class="Keyword">%</span> <span class="Constant">2</span> <span class="Keyword">==</span><span class="Constant">0</span>) {
-            result <span class="Keyword">+</span><span class="Keyword">=</span> list[i];
+<pre><code class="javascript">function evenSum(list) {
+    var result = 0;
+    for (var i=0; i&lt; list.length ; i++) {
+        if (list[i] % 2 ==0) {
+            result += list[i];
         }
     }
-    <span class="Keyword">return</span> result;
+    return result;
 }
-</pre>
+</code></pre>
 
 <p>But, in Haskell we don&rsquo;t have variables, nor for loop.
 One solution to achieve the same result without loops is to use recursion.</p>
@@ -940,61 +970,56 @@ Most of the time Haskell will handle recursive functions efficiently.</p>
 <p>Here is a <code>C</code> version of the recursive function.
 Note that for simplicity, I assume the int list ends with the first <code>0</code> value.</p>
 
-<pre class="twilight">
-<span class="Storage">int</span> evenSum(<span class="Storage">int</span> *list) {
-    <span class="Keyword">return</span> accumSum(<span class="Constant">0</span>,list);
+<pre><code class="c">int evenSum(int *list) {
+    return accumSum(0,list);
 }
 
-<span class="Storage">int</span> <span class="Entity">accumS<span class="Entity">um</span></span>(<span class="Storage">int</span> n, <span class="Storage">int</span> *list) {
-    <span class="Storage">int</span> x;
-    <span class="Storage">int</span> *xs;
-    <span class="Keyword">if</span> (*list == <span class="Constant">0</span>) { <span class="Comment"><span class="Comment">//</span> if the list is empty</span>
-        <span class="Keyword">return</span> n;
-    } <span class="Keyword">else</span> {
-        x = list[<span class="Constant">0</span>]; <span class="Comment"><span class="Comment">//</span> let x be the first element of the list</span>
-        xs = list+<span class="Constant">1</span>; <span class="Comment"><span class="Comment">//</span> let xs be the list without x</span>
-        <span class="Keyword">if</span> ( <span class="Constant">0</span> == (x%<span class="Constant">2</span>) ) { <span class="Comment"><span class="Comment">//</span> if x is even</span>
-            <span class="Keyword">return</span> accumSum(n+x, xs);
-        } <span class="Keyword">else</span> {
-            <span class="Keyword">return</span> accumSum(n, xs);
+int accumSum(int n, int *list) {
+    int x;
+    int *xs;
+    if (*list == 0) { // if the list is empty
+        return n;
+    } else {
+        x = list[0]; // let x be the first element of the list
+        xs = list+1; // let xs be the list without x
+        if ( 0 == (x%2) ) { // if x is even
+            return accumSum(n+x, xs);
+        } else {
+            return accumSum(n, xs);
         }
     }
 }
-</pre>
+</code></pre>
 
 <p>Keep this code in mind. We will translate it into Haskell.
 But before, I need to introduce three simple but useful functions we will use:</p>
 
-<pre class="twilight">
-<span class="Entity">even</span> :: <span class="Constant">Integral</span> <span class="Variable">a</span> =&gt; <span class="Variable">a</span> -&gt; <span class="Constant">Bool</span>
-<span class="Entity">head</span> :: [<span class="Variable">a</span>] -&gt; <span class="Variable">a</span>
-<span class="Entity">tail</span> :: [<span class="Variable">a</span>] -&gt; [<span class="Variable">a</span>]
-</pre>
+<pre><code class="haskell">even :: Integral a =&gt; a -&gt; Bool
+head :: [a] -&gt; a
+tail :: [a] -&gt; [a]
+</code></pre>
 
 <p><code>even</code> verifies if a number is even.</p>
 
-<pre class="twilight">
-<span class="Entity">even</span> :: <span class="Constant">Integral</span> <span class="Variable">a</span> =&gt; <span class="Variable">a</span> -&gt; <span class="Constant">Bool</span>
-<span class="Entity">even</span> 3  ⇒ <span class="Constant">False</span>
-<span class="Entity">even</span> 2  ⇒ <span class="Constant">True</span>
-</pre>
+<pre><code class="haskell">even :: Integral a =&gt; a -&gt; Bool
+even 3  ⇒ False
+even 2  ⇒ True
+</code></pre>
 
 <p><code>head</code> returns the first element of a list:</p>
 
-<pre class="twilight">
-<span class="Entity">head</span> :: [<span class="Variable">a</span>] -&gt; <span class="Variable">a</span>
-<span class="Entity">head</span> [1,2,3] ⇒ 1
-<span class="Entity">head</span> []      ⇒ <span class="Constant">ERROR</span>
-</pre>
+<pre><code class="haskell">head :: [a] -&gt; a
+head [1,2,3] ⇒ 1
+head []      ⇒ ERROR
+</code></pre>
 
 <p><code>tail</code> returns all elements of a list, except the first:</p>
 
-<pre class="twilight">
-<span class="Entity">tail</span> :: [<span class="Variable">a</span>] -&gt; [<span class="Variable">a</span>]
-<span class="Entity">tail</span> [1,2,3] ⇒ [2,3]
-<span class="Entity">tail</span> [3]     ⇒ []
-<span class="Entity">tail</span> []      ⇒ <span class="Constant">ERROR</span>
-</pre>
+<pre><code class="haskell">tail :: [a] -&gt; [a]
+tail [1,2,3] ⇒ [2,3]
+tail [3]     ⇒ []
+tail []      ⇒ ERROR
+</code></pre>
 
 <p>Note that for any non empty list <code>l</code>,
 <code>l ⇔ (head l):(tail l)</code></p>
@@ -1006,20 +1031,23 @@ But before, I need to introduce three simple but useful functions we will use:</
 The function <code>evenSum</code> returns the sum of all even numbers in a list:</p>
 
 <div class="codehighlight">
-<pre class="twilight">
-<span class="Comment"><span class="Comment">--</span> Version 1</span>
-<span class="Entity">evenSum</span> :: [<span class="Constant">Integer</span>] -&gt; <span class="Constant">Integer</span>
+
+
+<pre><code class="haskell">-- Version 1
+evenSum :: [Integer] -&gt; Integer
 
 evenSum l = accumSum 0 l
 
-accumSum n l = <span class="Keyword">if</span> l == []
-                  <span class="Keyword">then</span> n
-                  <span class="Keyword">else</span> <span class="Keyword">let</span> x = <span class="Entity">head</span> l 
-                           xs = <span class="Entity">tail</span> l 
-                       <span class="Keyword">in</span> <span class="Keyword">if</span> <span class="Entity">even</span> x
-                              <span class="Keyword">then</span> accumSum (n+x) xs
-                              <span class="Keyword">else</span> accumSum n xs
-</pre>
+accumSum n l = if l == []
+                  then n
+                  else let x = head l 
+                           xs = tail l 
+                       in if even x
+                              then accumSum (n+x) xs
+                              else accumSum n xs
+</code></pre>
+
+
 </div>
 <p>To test a function you can use <code>ghci</code>:</p>
 
@@ -1061,16 +1089,18 @@ accumSum (0+2+4) []
 In reality many things can be improved.
 First, we can generalize the type.</p>
 
-<pre class="twilight">
-<span class="Entity">evenSum</span> :: <span class="Constant">Integral</span> <span class="Variable">a</span> =&gt; [<span class="Variable">a</span>] -&gt; <span class="Variable">a</span>
-</pre>
+<pre><code class="haskell">evenSum :: Integral a =&gt; [a] -&gt; a
+</code></pre>
 
 <div style="display:none">
 
 <div class="codehighlight">
-<pre class="twilight">
-main = <span class="Keyword">do</span> <span class="Entity">print</span> $ evenSum [1..10]
-</pre>
+
+
+<pre><code class="haskell">main = do print $ evenSum [1..10]
+</code></pre>
+
+
 </div>
 </div>
 
@@ -1083,27 +1113,33 @@ main = <span class="Keyword">do</span> <span class="Entity">print</span> $ evenS
 This way our <code>accumSum</code> function won&rsquo;t pollute the global namespace.</p>
 
 <div class="codehighlight">
-<pre class="twilight">
-<span class="Comment"><span class="Comment">--</span> Version 2</span>
-<span class="Entity">evenSum</span> :: <span class="Constant">Integral</span> <span class="Variable">a</span> =&gt; [<span class="Variable">a</span>] -&gt; <span class="Variable">a</span>
+
+
+<pre><code class="haskell">-- Version 2
+evenSum :: Integral a =&gt; [a] -&gt; a
 
 evenSum l = accumSum 0 l
-    <span class="Keyword">where</span> accumSum n l = 
-            <span class="Keyword">if</span> l == []
-                <span class="Keyword">then</span> n
-                <span class="Keyword">else</span> <span class="Keyword">let</span> x = <span class="Entity">head</span> l 
-                         xs = <span class="Entity">tail</span> l 
-                     <span class="Keyword">in</span> <span class="Keyword">if</span> <span class="Entity">even</span> x
-                            <span class="Keyword">then</span> accumSum (n+x) xs
-                            <span class="Keyword">else</span> accumSum n xs
-</pre>
+    where accumSum n l = 
+            if l == []
+                then n
+                else let x = head l 
+                         xs = tail l 
+                     in if even x
+                            then accumSum (n+x) xs
+                            else accumSum n xs
+</code></pre>
+
+
 </div>
 <div style="display:none">
 
 <div class="codehighlight">
-<pre class="twilight">
-main = <span class="Entity">print</span> $ evenSum [1..10]
-</pre>
+
+
+<pre><code class="haskell">main = print $ evenSum [1..10]
+</code></pre>
+
+
 </div>
 </div>
 
@@ -1115,16 +1151,19 @@ main = <span class="Entity">print</span> $ evenSum [1..10]
 <p>Next, we can use pattern matching.</p>
 
 <div class="codehighlight">
-<pre class="twilight">
-<span class="Comment"><span class="Comment">--</span> Version 3</span>
+
+
+<pre><code class="haskell">-- Version 3
 evenSum l = accumSum 0 l
-    <span class="Keyword">where</span> 
+    where 
         accumSum n [] = n
         accumSum n (x:xs) = 
-             <span class="Keyword">if</span> <span class="Entity">even</span> x
-                <span class="Keyword">then</span> accumSum (n+x) xs
-                <span class="Keyword">else</span> accumSum n xs
-</pre>
+             if even x
+                then accumSum (n+x) xs
+                else accumSum n xs
+</code></pre>
+
+
 </div>
 <p>What is pattern matching? 
 Use values instead of general parameter names<sup id="fnref:021301"><a href="#fn:021301" rel="footnote">3</a></sup>.</p>
@@ -1132,30 +1171,27 @@ Use values instead of general parameter names<sup id="fnref:021301"><a href="#fn
 <p>Instead of saying: <code>foo l = if l == [] then &lt;x&gt; else &lt;y&gt;</code>
 You simply state:  </p>
 
-<pre class="twilight">
-foo [] =  &lt;x&gt;
+<pre><code class="haskell">foo [] =  &lt;x&gt;
 foo l  =  &lt;y&gt;
-</pre>
+</code></pre>
 
 <p>But pattern matching goes even further.
 It is also able to inspect the inner data of a complex value.
 We can replace</p>
 
-<pre class="twilight">
-foo l =  <span class="Keyword">let</span> x  = <span class="Entity">head</span> l 
-             xs = <span class="Entity">tail</span> l
-         <span class="Keyword">in</span> <span class="Keyword">if</span> <span class="Entity">even</span> x 
-             <span class="Keyword">then</span> foo (n+x) xs
-             <span class="Keyword">else</span> foo n xs
-</pre>
+<pre><code class="haskell">foo l =  let x  = head l 
+             xs = tail l
+         in if even x 
+             then foo (n+x) xs
+             else foo n xs
+</code></pre>
 
 <p>with</p>
 
-<pre class="twilight">
-foo (x:xs) = <span class="Keyword">if</span> <span class="Entity">even</span> x 
-                 <span class="Keyword">then</span> foo (n+x) xs
-                 <span class="Keyword">else</span> foo n xs
-</pre>
+<pre><code class="haskell">foo (x:xs) = if even x 
+                 then foo (n+x) xs
+                 else foo n xs
+</code></pre>
 
 <p>This is a very useful feature.
 It makes our code both terser and easier to read.</p>
@@ -1163,9 +1199,12 @@ It makes our code both terser and easier to read.</p>
 <div style="display:none">
 
 <div class="codehighlight">
-<pre class="twilight">
-main = <span class="Entity">print</span> $ evenSum [1..10]
-</pre>
+
+
+<pre><code class="haskell">main = print $ evenSum [1..10]
+</code></pre>
+
+
 </div>
 </div>
 
@@ -1177,38 +1216,42 @@ main = <span class="Entity">print</span> $ evenSum [1..10]
 <p>In Haskell you can simplify function definition by η-reducing them.
 For example, instead of writing:</p>
 
-<pre class="twilight">
-f x = (some expresion) x
-</pre>
+<pre><code class="haskell">f x = (some expresion) x
+</code></pre>
 
 <p>you can simply write</p>
 
-<pre class="twilight">
-f = some expression
-</pre>
+<pre><code class="haskell">f = some expression
+</code></pre>
 
 <p>We use this method to remove the <code>l</code>:</p>
 
 <div class="codehighlight">
-<pre class="twilight">
-<span class="Comment"><span class="Comment">--</span> Version 4</span>
-<span class="Entity">evenSum</span> :: <span class="Constant">Integral</span> <span class="Variable">a</span> =&gt; [<span class="Variable">a</span>] -&gt; <span class="Variable">a</span>
+
+
+<pre><code class="haskell">-- Version 4
+evenSum :: Integral a =&gt; [a] -&gt; a
 
 evenSum = accumSum 0
-    <span class="Keyword">where</span> 
+    where 
         accumSum n [] = n
         accumSum n (x:xs) = 
-             <span class="Keyword">if</span> <span class="Entity">even</span> x
-                <span class="Keyword">then</span> accumSum (n+x) xs
-                <span class="Keyword">else</span> accumSum n xs
-</pre>
+             if even x
+                then accumSum (n+x) xs
+                else accumSum n xs
+</code></pre>
+
+
 </div>
 <div style="display:none">
 
 <div class="codehighlight">
-<pre class="twilight">
-main = <span class="Entity">print</span> $ evenSum [1..10]
-</pre>
+
+
+<pre><code class="haskell">main = print $ evenSum [1..10]
+</code></pre>
+
+
 </div>
 </div>
 
@@ -1227,27 +1270,24 @@ Higher order functions are functions taking functions as parameter.</p>
 
 <p>Here are some examples:</p>
 
-<pre class="twilight">
-<span class="Entity">filter</span> :: (<span class="Variable">a</span> -&gt; <span class="Constant">Bool</span>) -&gt; [<span class="Variable">a</span>] -&gt; [<span class="Variable">a</span>]
-<span class="Entity">map</span> :: (<span class="Variable">a</span> -&gt; <span class="Variable">b</span>) -&gt; [<span class="Variable">a</span>] -&gt; [<span class="Variable">b</span>]
-<span class="Entity">foldl</span> :: (<span class="Variable">a</span> -&gt; <span class="Variable">b</span> -&gt; <span class="Variable">a</span>) -&gt; <span class="Variable">a</span> -&gt; [<span class="Variable">b</span>] -&gt; <span class="Variable">a</span>
-</pre>
+<pre><code class="haskell">filter :: (a -&gt; Bool) -&gt; [a] -&gt; [a]
+map :: (a -&gt; b) -&gt; [a] -&gt; [b]
+foldl :: (a -&gt; b -&gt; a) -&gt; a -&gt; [b] -&gt; a
+</code></pre>
 
 <p>Let&rsquo;s proceed by small steps.</p>
 
-<pre class="twilight">
-<span class="Comment"><span class="Comment">--</span> Version 5</span>
-evenSum l = mysum 0 (<span class="Entity">filter</span> <span class="Entity">even</span> l)
-    <span class="Keyword">where</span> 
+<pre><code class="haskell">-- Version 5
+evenSum l = mysum 0 (filter even l)
+    where 
       mysum n [] = n
       mysum n (x:xs) = mysum (n+x) xs 
-</pre>
+</code></pre>
 
 <p>where</p>
 
-<pre class="twilight">
-<span class="Entity">filter</span> <span class="Entity">even</span> [1..10] ⇔  [2,4,6,8,10]
-</pre>
+<pre><code class="haskell">filter even [1..10] ⇔  [2,4,6,8,10]
+</code></pre>
 
 <p>The function <code>filter</code> takes a function of type (<code>a -&gt; Bool</code>) and a list of type <code>[a]</code>. It returns a list containing only elements for which the function returned <code>true</code>.</p>
 
@@ -1270,15 +1310,13 @@ myfunc list = foldl <span class="yellow">bar</span> <span class="blue">initialVa
 <p>If you really want to know how the magic works.
 Here is the definition of <code>foldl</code>.</p>
 
-<pre class="twilight">
-<span class="Entity">foldl</span> f z [] = z
-<span class="Entity">foldl</span> f z (x:xs) = <span class="Entity">foldl</span> f (f z x) xs
-</pre>
+<pre><code class="haskell">foldl f z [] = z
+foldl f z (x:xs) = foldl f (f z x) xs
+</code></pre>
 
-<pre class="twilight">
-<span class="Entity">foldl</span> f z [x1,...xn]
+<pre><code class="haskell">foldl f z [x1,...xn]
 ⇔  f (... (f (f z x1) x2) ...) xn
-</pre>
+</code></pre>
 
 <p>But as Haskell is lazy, it doesn&rsquo;t evaluate <code>(f z x)</code> and pushes it to the stack.
 This is why we generally use <code>foldl'</code> instead of <code>foldl</code>;
@@ -1288,39 +1326,43 @@ don&rsquo;t worry, just follow the code as if <code>foldl</code> and <code>foldl
 
 <p>Now our new version of <code>evenSum</code> becomes:</p>
 
-<pre class="twilight">
-<span class="Comment"><span class="Comment">--</span> Version 6</span>
-<span class="Comment"><span class="Comment">--</span> foldl' isn't accessible by default</span>
-<span class="Comment"><span class="Comment">--</span> we need to import it from the module Data.List</span>
-<span class="Keyword">import</span> <span class="Constant">Data</span>.<span class="Constant">List</span>
-evenSum l = <span class="Entity">foldl</span>' mysum 0 (<span class="Entity">filter</span> <span class="Entity">even</span> l)
-  <span class="Keyword">where</span> mysum acc value = acc + value
-</pre>
+<pre><code class="haskell">-- Version 6
+-- foldl' isn't accessible by default
+-- we need to import it from the module Data.List
+import Data.List
+evenSum l = foldl' mysum 0 (filter even l)
+  where mysum acc value = acc + value
+</code></pre>
 
 <p>Version we can simplify by using directly a lambda notation.
 This way we don&rsquo;t have to create the temporary name <code>mysum</code>.</p>
 
 <div class="codehighlight">
-<pre class="twilight">
-<span class="Comment"><span class="Comment">--</span> Version 7</span>
-<span class="Comment"><span class="Comment">--</span> Generally it is considered a good practice</span>
-<span class="Comment"><span class="Comment">--</span> to import only the necessary function(s)</span>
-<span class="Keyword">import</span> <span class="Constant">Data</span>.<span class="Constant">List</span> (<span class="Entity">foldl</span>')
-evenSum l = <span class="Entity">foldl</span>' (\x y -&gt; x+y) 0 (<span class="Entity">filter</span> <span class="Entity">even</span> l)
-</pre>
+
+
+<pre><code class="haskell">-- Version 7
+-- Generally it is considered a good practice
+-- to import only the necessary function(s)
+import Data.List (foldl')
+evenSum l = foldl' (\x y -&gt; x+y) 0 (filter even l)
+</code></pre>
+
+
 </div>
 <p>And of course, we note that</p>
 
-<pre class="twilight">
-(\x y -&gt; x+y) ⇔ <span class="Entity">(+)</span>
-</pre>
+<pre><code class="haskell">(\x y -&gt; x+y) ⇔ (+)
+</code></pre>
 
 <div style="display:none">
 
 <div class="codehighlight">
-<pre class="twilight">
-main = <span class="Entity">print</span> $ evenSum [1..10]
-</pre>
+
+
+<pre><code class="haskell">main = print $ evenSum [1..10]
+</code></pre>
+
+
 </div>
 </div>
 
@@ -1331,12 +1373,11 @@ main = <span class="Entity">print</span> $ evenSum [1..10]
 
 <p>Finally</p>
 
-<pre class="twilight">
-<span class="Comment"><span class="Comment">--</span> Version 8</span>
-<span class="Keyword">import</span> <span class="Constant">Data</span>.<span class="Constant">List</span> (<span class="Entity">foldl</span>')
-<span class="Entity">evenSum</span> :: <span class="Constant">Integral</span> <span class="Variable">a</span> =&gt; [<span class="Variable">a</span>] -&gt; <span class="Variable">a</span>
-evenSum l = <span class="Entity">foldl</span>' <span class="Entity">(+)</span> 0 (<span class="Entity">filter</span> <span class="Entity">even</span> l)
-</pre>
+<pre><code class="haskell">-- Version 8
+import Data.List (foldl')
+evenSum :: Integral a =&gt; [a] -&gt; a
+evenSum l = foldl' (+) 0 (filter even l)
+</code></pre>
 
 <p><code>foldl'</code> isn&rsquo;t the easiest function to intuit.
 If you are not used to it, you should study it a bit.</p>
@@ -1357,31 +1398,32 @@ If you are not used to it, you should study it a bit.</p>
 <p>Another useful higher order function is <code>(.)</code>.
 The <code>(.)</code> function corresponds to the mathematical composition.</p>
 
-<pre class="twilight">
-(f . g . h) x ⇔  f ( g (h x))
-</pre>
+<pre><code class="haskell">(f . g . h) x ⇔  f ( g (h x))
+</code></pre>
 
 <p>We can take advantage of this operator to η-reduce our function:</p>
 
-<pre class="twilight">
-<span class="Comment"><span class="Comment">--</span> Version 9</span>
-<span class="Keyword">import</span> <span class="Constant">Data</span>.<span class="Constant">List</span> (<span class="Entity">foldl</span>')
-<span class="Entity">evenSum</span> :: <span class="Constant">Integral</span> <span class="Variable">a</span> =&gt; [<span class="Variable">a</span>] -&gt; <span class="Variable">a</span>
-evenSum = (<span class="Entity">foldl</span>' <span class="Entity">(+)</span> 0) . (<span class="Entity">filter</span> <span class="Entity">even</span>)
-</pre>
+<pre><code class="haskell">-- Version 9
+import Data.List (foldl')
+evenSum :: Integral a =&gt; [a] -&gt; a
+evenSum = (foldl' (+) 0) . (filter even)
+</code></pre>
 
 <p>Also, we could rename some parts to make it clearer:</p>
 
 <div class="codehighlight">
-<pre class="twilight">
-<span class="Comment"><span class="Comment">--</span> Version 10 </span>
-<span class="Keyword">import</span> <span class="Constant">Data</span>.<span class="Constant">List</span> (<span class="Entity">foldl</span>')
-<span class="Entity">sum</span>' :: (<span class="Constant">Num</span> a) =&gt; [a] -&gt; a
-<span class="Entity">sum</span>' = <span class="Entity">foldl</span>' <span class="Entity">(+)</span> 0
-<span class="Entity">evenSum</span> :: <span class="Constant">Integral</span> <span class="Variable">a</span> =&gt; [<span class="Variable">a</span>] -&gt; <span class="Variable">a</span>
-evenSum = <span class="Entity">sum</span>' . (<span class="Entity">filter</span> <span class="Entity">even</span>)
+
+
+<pre><code class="haskell">-- Version 10 
+import Data.List (foldl')
+sum' :: (Num a) =&gt; [a] -&gt; a
+sum' = foldl' (+) 0
+evenSum :: Integral a =&gt; [a] -&gt; a
+evenSum = sum' . (filter even)
  
-</pre>
+</code></pre>
+
+
 </div>
 <p>It is time to discuss a bit.
 What did we gain by using higher order functions?</p>
@@ -1397,11 +1439,14 @@ We want to get the sum of all even square of element of the list.</p>
 <p>Update the version 10 is extremely easy:</p>
 
 <div class="codehighlight">
-<pre class="twilight">
-squareEvenSum = <span class="Entity">sum</span>' . (<span class="Entity">filter</span> <span class="Entity">even</span>) . (<span class="Entity">map</span> (^2))
-squareEvenSum' = evenSum . (<span class="Entity">map</span> (^2))
-squareEvenSum'' = <span class="Entity">sum</span>' . (<span class="Entity">map</span> (^2)) . (<span class="Entity">filter</span> <span class="Entity">even</span>)
-</pre>
+
+
+<pre><code class="haskell">squareEvenSum = sum' . (filter even) . (map (^2))
+squareEvenSum' = evenSum . (map (^2))
+squareEvenSum'' = sum' . (map (^2)) . (filter even)
+</code></pre>
+
+
 </div>
 <p>We just had to add another &ldquo;transformation function&rdquo;<sup id="fnref:0216"><a href="#fn:0216" rel="footnote">4</a></sup>.</p>
 
@@ -1442,9 +1487,12 @@ essential aspect of Haskell: <em>Types</em>.</p>
 <div style="display:none">
 
 <div class="codehighlight">
-<pre class="twilight">
-main = <span class="Entity">print</span> $ evenSum [1..10]
-</pre>
+
+
+<pre><code class="haskell">main = print $ evenSum [1..10]
+</code></pre>
+
+
 </div>
 </div>
 
@@ -1481,9 +1529,8 @@ Haskell&rsquo;s saving grace is that it can <em>infer</em> types.</p>
 <p>Here is a simple example. 
 The <code>square</code> function in Haskell:</p>
 
-<pre class="twilight">
-square x = x * x
-</pre>
+<pre><code class="haskell">square x = x * x
+</code></pre>
 
 <p>This function can <code>square</code> any Numeral type.
 You can provide <code>square</code> with an <code>Int</code>, an <code>Integer</code>, a <code>Float</code> a <code>Fractional</code> and even <code>Complex</code>. Proof by example:</p>
@@ -1506,49 +1553,47 @@ Prelude Data.Complex&gt; square (2 :+ 1)
 
 <p>Now compare with the amount of code necessary in C:</p>
 
-<pre class="twilight">
-<span class="Storage">int</span>     <span class="Entity">int_squa<span class="Entity">re</span></span>(<span class="Storage">int</span> x) { <span class="Keyword">return</span> x*x; }
+<pre><code class="c">int     int_square(int x) { return x*x; }
 
-<span class="Storage">float</span>   <span class="Entity">float_squa<span class="Entity">re</span></span>(<span class="Storage">float</span> x) {<span class="Keyword">return</span> x*x; }
+float   float_square(float x) {return x*x; }
 
-complex <span class="Entity">complex_squa<span class="Entity">re</span></span> (complex z) {
+complex complex_square (complex z) {
     complex tmp; 
     tmp.real = z.real * z.real - z.img * z.img;
-    tmp.img = <span class="Constant">2</span> * z.img * z.real;
+    tmp.img = 2 * z.img * z.real;
 }
 
 complex x,y;
 y = complex_square(x);
-</pre>
+</code></pre>
 
 <p>For each type, you need to write a new function.
 The only way to work around this problem is to use some meta-programming trick.
 For example using the pre-processor.
 In C++ there is a better way, the C++ templates:</p>
 
-<pre class="twilight">
-<span class="CCCPreprocessorLine">#<span class="CCCPreprocessorDirective">include</span> <span class="String"><span class="String">&lt;</span>iostream<span class="String">&gt;</span></span></span>
-<span class="CCCPreprocessorLine">#<span class="CCCPreprocessorDirective">include</span> <span class="String"><span class="String">&lt;</span>complex<span class="String">&gt;</span></span></span>
-<span class="Keyword">using</span> <span class="Keyword">namespace</span> std;
+<pre><code class="c++">#include &lt;iostream&gt;
+#include &lt;complex&gt;
+using namespace std;
 
-<span class="Storage">template</span>&lt;<span class="Storage">typename</span> T&gt;
-T <span class="Entity">squa<span class="Entity">re</span></span>(T x)
+template&lt;typename T&gt;
+T square(T x)
 {
-    <span class="Keyword">return</span> x*x;
+    return x*x;
 }
 
-<span class="Storage">int</span> <span class="Entity">ma<span class="Entity">in</span></span>() {
-    <span class="Comment"><span class="Comment">//</span> int</span>
-    <span class="Storage">int</span> sqr_of_five = square(<span class="Constant">5</span>);
+int main() {
+    // int
+    int sqr_of_five = square(5);
     cout &lt;&lt; sqr_of_five &lt;&lt; endl;
-    <span class="Comment"><span class="Comment">//</span> double</span>
-    cout &lt;&lt; (<span class="Storage">double</span>)square(<span class="Constant">5.3</span>) &lt;&lt; endl;
-    <span class="Comment"><span class="Comment">//</span> complex</span>
-    cout &lt;&lt; square( complex&lt;<span class="Storage">double</span>&gt;(<span class="Constant">5</span>,<span class="Constant">3</span>) ) 
+    // double
+    cout &lt;&lt; (double)square(5.3) &lt;&lt; endl;
+    // complex
+    cout &lt;&lt; square( complex&lt;double&gt;(5,3) ) 
          &lt;&lt; endl;
-    <span class="Keyword">return</span> <span class="Constant">0</span>;
+    return 0;
 }
-</pre>
+</code></pre>
 
 <p>C++ does a far better job than C. 
 For more complex function the syntax can be hard to follow:
@@ -1578,19 +1623,22 @@ Generally, in Haskell:</p>
 First you can use aliases or type synonyms.</p>
 
 <div class="codehighlight">
-<pre class="twilight">
-<span class="Keyword">type</span> <span class="Constant">Name</span>   = <span class="Constant">String</span>
-<span class="Keyword">type</span> <span class="Constant">Color</span>  = <span class="Constant">String</span>
 
-<span class="Entity">showInfos</span> :: <span class="Constant">Name</span> -&gt;  <span class="Constant">Color</span> -&gt; <span class="Constant">String</span>
-showInfos name color =  <span class="String"><span class="String">&quot;</span>Name: <span class="String">&quot;</span></span> ++ name
-                        ++ <span class="String"><span class="String">&quot;</span>, Color: <span class="String">&quot;</span></span> ++ color
-<span class="Entity">name</span> :: <span class="Constant">Name</span>
-name = <span class="String"><span class="String">&quot;</span>Robin<span class="String">&quot;</span></span>
-<span class="Entity">color</span> :: <span class="Constant">Color</span>
-color = <span class="String"><span class="String">&quot;</span>Blue<span class="String">&quot;</span></span>
-main = <span class="Entity">putStrLn</span> $ showInfos name color
-</pre>
+
+<pre><code class="haskell">type Name   = String
+type Color  = String
+
+showInfos :: Name -&gt;  Color -&gt; String
+showInfos name color =  "Name: " ++ name
+                        ++ ", Color: " ++ color
+name :: Name
+name = "Robin"
+color :: Color
+color = "Blue"
+main = putStrLn $ showInfos name color
+</code></pre>
+
+
 </div>
 <p><a href="code/02_Hard_Part/21_Types.lhs" class="cut">02_Hard_Part/<strong>21_Types.lhs</strong> </a></p>
 
@@ -1600,9 +1648,8 @@ main = <span class="Entity">putStrLn</span> $ showInfos name color
 <p>But it doesn&rsquo;t protect you much.
 Try to swap the two parameter of <code>showInfos</code> and run the program:</p>
 
-<pre class="twilight">
-    <span class="Entity">putStrLn</span> $ showInfos color name
-</pre>
+<pre><code class="haskell">    putStrLn $ showInfos color name
+</code></pre>
 
 <p>It will compile and execute.
 In fact you can replace Name, Color and String everywhere.
@@ -1611,18 +1658,21 @@ The compiler will treat them as completely identical.</p>
 <p>Another method is to create your own types using the keyword <code>data</code>.</p>
 
 <div class="codehighlight">
-<pre class="twilight">
-<span class="Keyword">data</span> <span class="Constant">Name</span>   = <span class="Constant">NameConstr</span> <span class="Constant">String</span>
-<span class="Keyword">data</span> <span class="Constant">Color</span>  = <span class="Constant">ColorConstr</span> <span class="Constant">String</span>
 
-<span class="Entity">showInfos</span> :: <span class="Constant">Name</span> -&gt;  <span class="Constant">Color</span> -&gt; <span class="Constant">String</span>
-showInfos (<span class="Constant">NameConstr</span> name) (<span class="Constant">ColorConstr</span> color) =
-      <span class="String"><span class="String">&quot;</span>Name: <span class="String">&quot;</span></span> ++ name ++ <span class="String"><span class="String">&quot;</span>, Color: <span class="String">&quot;</span></span> ++ color
 
-name  = <span class="Constant">NameConstr</span> <span class="String"><span class="String">&quot;</span>Robin<span class="String">&quot;</span></span>
-color = <span class="Constant">ColorConstr</span> <span class="String"><span class="String">&quot;</span>Blue<span class="String">&quot;</span></span>
-main = <span class="Entity">putStrLn</span> $ showInfos name color
-</pre>
+<pre><code class="haskell">data Name   = NameConstr String
+data Color  = ColorConstr String
+
+showInfos :: Name -&gt;  Color -&gt; String
+showInfos (NameConstr name) (ColorConstr color) =
+      "Name: " ++ name ++ ", Color: " ++ color
+
+name  = NameConstr "Robin"
+color = ColorConstr "Blue"
+main = putStrLn $ showInfos name color
+</code></pre>
+
+
 </div>
 <p>Now if you switch parameters of <code>showInfos</code>, the compiler complains!
 A possible mistake you could never do again.
@@ -1630,50 +1680,45 @@ The only price is to be more verbose. </p>
 
 <p>Also remark constructor are functions:</p>
 
-<pre class="twilight">
-<span class="Constant">NameConstr</span>  :: <span class="Constant">String</span> -&gt; <span class="Constant">Name</span>
-<span class="Constant">ColorConstr</span> :: <span class="Constant">String</span> -&gt; <span class="Constant">Color</span>
-</pre>
+<pre><code class="haskell">NameConstr  :: String -&gt; Name
+ColorConstr :: String -&gt; Color
+</code></pre>
 
 <p>The syntax of <code>data</code> is mainly:</p>
 
-<pre class="twilight">
-<span class="Keyword">data</span> <span class="Constant">TypeName</span> =   <span class="Constant">ConstructorName</span>  [types]
-                | <span class="Constant">ConstructorName2</span> [types]
+<pre><code class="haskell">data TypeName =   ConstructorName  [types]
+                | ConstructorName2 [types]
                 | ...
-</pre>
+</code></pre>
 
 <p>Generally the usage is to use the same name for the
 DataTypeName and DataTypeConstructor.</p>
 
 <p>Example:</p>
 
-<pre class="twilight">
-<span class="Keyword">data</span> <span class="Constant">Complex</span> = <span class="Constant">Num</span> a =&gt; <span class="Constant">Complex</span> a a
-</pre>
+<pre><code class="haskell">data Complex = Num a =&gt; Complex a a
+</code></pre>
 
 <p>Also you can use the record syntax:</p>
 
-<pre class="twilight">
-<span class="Keyword">data</span> <span class="Constant">DataTypeName</span> = <span class="Constant">DataConstructor</span> {
-                      <span class="Entity">field1</span> :: [<span class="Variable">type</span> <span class="Variable">of</span> <span class="Variable">field1</span>]
-                    , field2 :: [<span class="Keyword">type</span> <span class="Keyword">of</span> field2]
+<pre><code class="haskell">data DataTypeName = DataConstructor {
+                      field1 :: [type of field1]
+                    , field2 :: [type of field2]
                     ...
-                    , fieldn :: [<span class="Keyword">type</span> <span class="Keyword">of</span> fieldn] }
-</pre>
+                    , fieldn :: [type of fieldn] }
+</code></pre>
 
 <p>And many accessors are made for you.
 Furthermore you can use another order when setting values.</p>
 
 <p>Example:</p>
 
-<pre class="twilight">
-<span class="Keyword">data</span> <span class="Constant">Complex</span> = <span class="Constant">Num</span> a =&gt; <span class="Constant">Complex</span> { real :: a, img :: a}
-c = <span class="Constant">Complex</span> 1.0 2.0
-z = <span class="Constant">Complex</span> { real = 3, img = 4 }
+<pre><code class="haskell">data Complex = Num a =&gt; Complex { real :: a, img :: a}
+c = Complex 1.0 2.0
+z = Complex { real = 3, img = 4 }
 real c ⇒ 1.0
 img z ⇒ 4
-</pre>
+</code></pre>
 
 <p><a href="code/02_Hard_Part/22_Types.lhs" class="cut">02_Hard_Part/<strong>22_Types.lhs</strong> </a></p>
 
@@ -1685,43 +1730,50 @@ img z ⇒ 4
 <p>You already encountered a recursive type: lists.
 You can re-create lists, but with a more verbose syntax:</p>
 
-<pre class="twilight">
-<span class="Keyword">data</span> <span class="Constant">List</span> a = <span class="Constant">Empty</span> | <span class="Constant">Cons</span> a (<span class="Constant">List</span> a)
-</pre>
+<pre><code class="haskell">data List a = Empty | Cons a (List a)
+</code></pre>
 
 <p>If you really want to use an easier syntax you can use an infix name for constructors.</p>
 
-<pre class="twilight">
-<span class="Keyword">infixr</span> 5 :::
-<span class="Keyword">data</span> <span class="Constant">List</span> a = <span class="Constant">Nil</span> | a ::: (<span class="Constant">List</span> a)
-</pre>
+<pre><code class="haskell">infixr 5 :::
+data List a = Nil | a ::: (List a)
+</code></pre>
 
 <p>The number after <code>infixr</code> is the priority.</p>
 
 <p>If you want to be able to print (<code>Show</code>), read (<code>Read</code>), test equality (<code>Eq</code>) and compare (<code>Ord</code>) your new data structure you can tell Haskell to derive the appropriate functions for you.</p>
 
 <div class="codehighlight">
-<pre class="twilight">
-<span class="Keyword">infixr</span> 5 :::
-<span class="Keyword">data</span> <span class="Constant">List</span> a = <span class="Constant">Nil</span> | a ::: (<span class="Constant">List</span> a) 
-              <span class="Keyword">deriving</span> (<span class="Constant">Show</span>,<span class="Constant">Read</span>,<span class="Constant">Eq</span>,<span class="Constant">Ord</span>)
-</pre>
+
+
+<pre><code class="haskell">infixr 5 :::
+data List a = Nil | a ::: (List a) 
+              deriving (Show,Read,Eq,Ord)
+</code></pre>
+
+
 </div>
 <p>When you add <code>deriving (Show)</code> to your data declaration, Haskell create a <code>show</code> function for you.
 We&rsquo;ll see soon how you can use your own <code>show</code> function.</p>
 
 <div class="codehighlight">
-<pre class="twilight">
-convertList [] = <span class="Constant">Nil</span>
+
+
+<pre><code class="haskell">convertList [] = Nil
 convertList (x:xs) = x ::: convertList xs
-</pre>
+</code></pre>
+
+
 </div>
 <div class="codehighlight">
-<pre class="twilight">
-main = <span class="Keyword">do</span>
-      <span class="Entity">print</span> (0 ::: 1 ::: <span class="Constant">Nil</span>)
-      <span class="Entity">print</span> (convertList [0,1])
-</pre>
+
+
+<pre><code class="haskell">main = do
+      print (0 ::: 1 ::: Nil)
+      print (convertList [0,1])
+</code></pre>
+
+
 </div>
 <p>This prints:</p>
 
@@ -1741,23 +1793,29 @@ main = <span class="Keyword">do</span>
 <p>We&rsquo;ll just give another standard example: binary trees.</p>
 
 <div class="codehighlight">
-<pre class="twilight">
-<span class="Keyword">import</span> <span class="Constant">Data</span>.<span class="Constant">List</span>
 
-<span class="Keyword">data</span> <span class="Constant">BinTree</span> a = <span class="Constant">Empty</span> 
-                 | <span class="Constant">Node</span> a (<span class="Constant">BinTree</span> a) (<span class="Constant">BinTree</span> a) 
-                              <span class="Keyword">deriving</span> (<span class="Constant">Show</span>)
-</pre>
+
+<pre><code class="haskell">import Data.List
+
+data BinTree a = Empty 
+                 | Node a (BinTree a) (BinTree a) 
+                              deriving (Show)
+</code></pre>
+
+
 </div>
 <p>We will also create a function which turns a list into an ordered binary tree.</p>
 
 <div class="codehighlight">
-<pre class="twilight">
-<span class="Entity">treeFromList</span> :: (<span class="Constant">Ord</span> <span class="Variable">a</span>) =&gt; [<span class="Variable">a</span>] -&gt; <span class="Constant">BinTree</span> <span class="Variable">a</span>
-treeFromList [] = <span class="Constant">Empty</span>
-treeFromList (x:xs) = <span class="Constant">Node</span> x (treeFromList (<span class="Entity">filter</span> (&lt;x) xs))
-                             (treeFromList (<span class="Entity">filter</span> (&gt;x) xs))
-</pre>
+
+
+<pre><code class="haskell">treeFromList :: (Ord a) =&gt; [a] -&gt; BinTree a
+treeFromList [] = Empty
+treeFromList (x:xs) = Node x (treeFromList (filter (&lt;x) xs))
+                             (treeFromList (filter (&gt;x) xs))
+</code></pre>
+
+
 </div>
 <p>Look at how elegant this function is.
 In plain English: </p>
@@ -1774,9 +1832,12 @@ In plain English: </p>
 </ul>
 
 <div class="codehighlight">
-<pre class="twilight">
-main = <span class="Entity">print</span> $ treeFromList [7,2,4,8]
-</pre>
+
+
+<pre><code class="haskell">main = print $ treeFromList [7,2,4,8]
+</code></pre>
+
+
 </div>
 <p>You should obtain the following:</p>
 
@@ -1800,11 +1861,14 @@ And it might also be useful to make our BinTree an instance of (<code>Eq</code> 
 We will be able to test equality and compare trees.</p>
 
 <div class="codehighlight">
-<pre class="twilight">
-<span class="Keyword">data</span> <span class="Constant">BinTree</span> a = <span class="Constant">Empty</span> 
-                 | <span class="Constant">Node</span> a (<span class="Constant">BinTree</span> a) (<span class="Constant">BinTree</span> a) 
-                  <span class="Keyword">deriving</span> (<span class="Constant">Eq</span>,<span class="Constant">Ord</span>)
-</pre>
+
+
+<pre><code class="haskell">data BinTree a = Empty 
+                 | Node a (BinTree a) (BinTree a) 
+                  deriving (Eq,Ord)
+</code></pre>
+
+
 </div>
 <p>Without the <code>deriving (Show)</code>, Haskell doesn&rsquo;t create a <code>show</code> method for us.
 We will create our own version of <code>show</code>.
@@ -1812,81 +1876,89 @@ To achieve this, we must declare that our newly created type <code>BinTree a</co
 is an instance of the type class <code>Show</code>.
 The general syntax is:</p>
 
-<pre class="twilight">
-<span class="Keyword">instance</span> <span class="Constant">Show</span> (<span class="Constant">BinTree</span> a) <span class="Keyword">where</span>
-   <span class="Entity">show</span> t = ... <span class="Comment"><span class="Comment">--</span> You declare your function here</span>
-</pre>
+<pre><code class="haskell">instance Show (BinTree a) where
+   show t = ... -- You declare your function here
+</code></pre>
 
 <p>Here is my version of how to show a binary tree.
 Don&rsquo;t worry about the apparent complexity.
 I made a lot of improvements in order to display even stranger objects.</p>
 
 <div class="codehighlight">
-<pre class="twilight">
-<span class="Comment"><span class="Comment">--</span> declare BinTree a to be an instance of Show</span>
-<span class="Keyword">instance</span> (<span class="Constant">Show</span> a) =&gt; <span class="Constant">Show</span> (<span class="Constant">BinTree</span> a) <span class="Keyword">where</span>
-  <span class="Comment"><span class="Comment">--</span> will start by a '&lt;' before the root</span>
-  <span class="Comment"><span class="Comment">--</span> and put a : a begining of line</span>
-  <span class="Entity">show</span> t = <span class="String"><span class="String">&quot;</span>&lt; <span class="String">&quot;</span></span> ++ replace<span class="String"><span class="String"> '</span><span class="StringConstant">\n</span><span class="String">'</span></span> <span class="String"><span class="String">&quot;</span><span class="StringConstant">\n</span>: <span class="String">&quot;</span></span> (treeshow <span class="String"><span class="String">&quot;</span><span class="String">&quot;</span></span> t)
-    <span class="Keyword">where</span>
-    <span class="Comment"><span class="Comment">--</span> treeshow pref Tree </span>
-    <span class="Comment"><span class="Comment">--</span>   shows a tree and starts each line with pref</span>
-    <span class="Comment"><span class="Comment">--</span> We don't display the Empty tree</span>
-    treeshow pref <span class="Constant">Empty</span> = <span class="String"><span class="String">&quot;</span><span class="String">&quot;</span></span>
-    <span class="Comment"><span class="Comment">--</span> Leaf</span>
-    treeshow pref (<span class="Constant">Node</span> x <span class="Constant">Empty</span> <span class="Constant">Empty</span>) = 
+
+
+<pre><code class="haskell">-- declare BinTree a to be an instance of Show
+instance (Show a) =&gt; Show (BinTree a) where
+  -- will start by a '&lt;' before the root
+  -- and put a : a begining of line
+  show t = "&lt; " ++ replace '\n' "\n: " (treeshow "" t)
+    where
+    -- treeshow pref Tree 
+    --   shows a tree and starts each line with pref
+    -- We don't display the Empty tree
+    treeshow pref Empty = ""
+    -- Leaf
+    treeshow pref (Node x Empty Empty) = 
                   (pshow pref x)
 
-    <span class="Comment"><span class="Comment">--</span> Right branch is empty</span>
-    treeshow pref (<span class="Constant">Node</span> x left <span class="Constant">Empty</span>) = 
-                  (pshow pref x) ++ <span class="String"><span class="String">&quot;</span><span class="StringConstant">\n</span><span class="String">&quot;</span></span> ++
-                  (showSon pref <span class="String"><span class="String">&quot;</span>`--<span class="String">&quot;</span></span> <span class="String"><span class="String">&quot;</span>   <span class="String">&quot;</span></span> left)
+    -- Right branch is empty
+    treeshow pref (Node x left Empty) = 
+                  (pshow pref x) ++ "\n" ++
+                  (showSon pref "`--" "   " left)
 
-    <span class="Comment"><span class="Comment">--</span> Left branch is empty</span>
-    treeshow pref (<span class="Constant">Node</span> x <span class="Constant">Empty</span> right) = 
-                  (pshow pref x) ++ <span class="String"><span class="String">&quot;</span><span class="StringConstant">\n</span><span class="String">&quot;</span></span> ++
-                  (showSon pref <span class="String"><span class="String">&quot;</span>`--<span class="String">&quot;</span></span> <span class="String"><span class="String">&quot;</span>   <span class="String">&quot;</span></span> right)
+    -- Left branch is empty
+    treeshow pref (Node x Empty right) = 
+                  (pshow pref x) ++ "\n" ++
+                  (showSon pref "`--" "   " right)
 
-    <span class="Comment"><span class="Comment">--</span> Tree with left and right children non empty</span>
-    treeshow pref (<span class="Constant">Node</span> x left right) = 
-                  (pshow pref x) ++ <span class="String"><span class="String">&quot;</span><span class="StringConstant">\n</span><span class="String">&quot;</span></span> ++
-                  (showSon pref <span class="String"><span class="String">&quot;</span>|--<span class="String">&quot;</span></span> <span class="String"><span class="String">&quot;</span>|  <span class="String">&quot;</span></span> left) ++ <span class="String"><span class="String">&quot;</span><span class="StringConstant">\n</span><span class="String">&quot;</span></span> ++
-                  (showSon pref <span class="String"><span class="String">&quot;</span>`--<span class="String">&quot;</span></span> <span class="String"><span class="String">&quot;</span>   <span class="String">&quot;</span></span> right)
+    -- Tree with left and right children non empty
+    treeshow pref (Node x left right) = 
+                  (pshow pref x) ++ "\n" ++
+                  (showSon pref "|--" "|  " left) ++ "\n" ++
+                  (showSon pref "`--" "   " right)
 
-    <span class="Comment"><span class="Comment">--</span> shows a tree using some prefixes to make it nice</span>
+    -- shows a tree using some prefixes to make it nice
     showSon pref before next t = 
                   pref ++ before ++ treeshow (pref ++ next) t
 
-    <span class="Comment"><span class="Comment">--</span> pshow replaces &quot;\n&quot; by &quot;\n&quot;++pref</span>
-    pshow pref x = replace<span class="String"><span class="String"> '</span><span class="StringConstant">\n</span><span class="String">'</span></span> (<span class="String"><span class="String">&quot;</span><span class="StringConstant">\n</span><span class="String">&quot;</span></span>++pref) (<span class="Entity">show</span> x)
+    -- pshow replaces "\n" by "\n"++pref
+    pshow pref x = replace '\n' ("\n"++pref) (show x)
 
-    <span class="Comment"><span class="Comment">--</span> replaces one char by another string</span>
+    -- replaces one char by another string
     replace c new string =
-      <span class="Entity">concatMap</span> (change c new) string
-      <span class="Keyword">where</span>
+      concatMap (change c new) string
+      where
           change c new x 
               | x == c = new
-              | <span class="Keyword">otherwise</span> = x:[] <span class="Comment"><span class="Comment">--</span> &quot;x&quot;</span>
-</pre>
+              | otherwise = x:[] -- "x"
+</code></pre>
+
+
 </div>
 <p>The <code>treeFromList</code> method remains identical.</p>
 
 <div class="codehighlight">
-<pre class="twilight">
-<span class="Entity">treeFromList</span> :: (<span class="Constant">Ord</span> <span class="Variable">a</span>) =&gt; [<span class="Variable">a</span>] -&gt; <span class="Constant">BinTree</span> <span class="Variable">a</span>
-treeFromList [] = <span class="Constant">Empty</span>
-treeFromList (x:xs) = <span class="Constant">Node</span> x (treeFromList (<span class="Entity">filter</span> (&lt;x) xs))
-                             (treeFromList (<span class="Entity">filter</span> (&gt;x) xs))
-</pre>
+
+
+<pre><code class="haskell">treeFromList :: (Ord a) =&gt; [a] -&gt; BinTree a
+treeFromList [] = Empty
+treeFromList (x:xs) = Node x (treeFromList (filter (&lt;x) xs))
+                             (treeFromList (filter (&gt;x) xs))
+</code></pre>
+
+
 </div>
 <p>And now, we can play:</p>
 
 <div class="codehighlight">
-<pre class="twilight">
-main = <span class="Keyword">do</span>
-  <span class="Entity">putStrLn</span> <span class="String"><span class="String">&quot;</span>Int binary tree:<span class="String">&quot;</span></span>
-  <span class="Entity">print</span> $ treeFromList [7,2,4,8,1,3,6,21,12,23]
-</pre>
+
+
+<pre><code class="haskell">main = do
+  putStrLn "Int binary tree:"
+  print $ treeFromList [7,2,4,8,1,3,6,21,12,23]
+</code></pre>
+
+
 </div>
 <pre><code>Int binary tree:
 &lt; 7
@@ -1907,10 +1979,13 @@ And each following line starts with a <code>:</code>.
 But we could also use another type.</p>
 
 <div class="codehighlight">
-<pre class="twilight">
-  <span class="Entity">putStrLn</span> <span class="String"><span class="String">&quot;</span><span class="StringConstant">\n</span>String binary tree:<span class="String">&quot;</span></span>
-  <span class="Entity">print</span> $ treeFromList [<span class="String"><span class="String">&quot;</span>foo<span class="String">&quot;</span></span>,<span class="String"><span class="String">&quot;</span>bar<span class="String">&quot;</span></span>,<span class="String"><span class="String">&quot;</span>baz<span class="String">&quot;</span></span>,<span class="String"><span class="String">&quot;</span>gor<span class="String">&quot;</span></span>,<span class="String"><span class="String">&quot;</span>yog<span class="String">&quot;</span></span>]
-</pre>
+
+
+<pre><code class="haskell">  putStrLn "\nString binary tree:"
+  print $ treeFromList ["foo","bar","baz","gor","yog"]
+</code></pre>
+
+
 </div>
 <pre><code>String binary tree:
 &lt; "foo"
@@ -1924,11 +1999,14 @@ But we could also use another type.</p>
 make tree of trees!</p>
 
 <div class="codehighlight">
-<pre class="twilight">
-  <span class="Entity">putStrLn</span> <span class="String"><span class="String">&quot;</span><span class="StringConstant">\n</span>Binary tree of Char binary trees:<span class="String">&quot;</span></span>
-  <span class="Entity">print</span> ( treeFromList 
-           (<span class="Entity">map</span> treeFromList [<span class="String"><span class="String">&quot;</span>baz<span class="String">&quot;</span></span>,<span class="String"><span class="String">&quot;</span>zara<span class="String">&quot;</span></span>,<span class="String"><span class="String">&quot;</span>bar<span class="String">&quot;</span></span>]))
-</pre>
+
+
+<pre><code class="haskell">  putStrLn "\nBinary tree of Char binary trees:"
+  print ( treeFromList 
+           (map treeFromList ["baz","zara","bar"]))
+</code></pre>
+
+
 </div>
 <pre><code>Binary tree of Char binary trees:
 &lt; &lt; 'b'
@@ -1947,25 +2025,27 @@ make tree of trees!</p>
 <p><img alt="Yo Dawg Tree" src="/Scratch/img/blog/Haskell-the-Hard-Way/yo_dawg_tree.jpg" /></p>
 
 <div class="codehighlight">
-<pre class="twilight">
-  <span class="Entity">putStrLn</span> <span class="String"><span class="String">&quot;</span><span class="StringConstant">\n</span>Tree of Binary trees of Char binary trees:<span class="String">&quot;</span></span>
-  <span class="Entity">print</span> $ (treeFromList . <span class="Entity">map</span> (treeFromList . <span class="Entity">map</span> treeFromList))
-             [ [<span class="String"><span class="String">&quot;</span>YO<span class="String">&quot;</span></span>,<span class="String"><span class="String">&quot;</span>DAWG<span class="String">&quot;</span></span>]
-             , [<span class="String"><span class="String">&quot;</span>I<span class="String">&quot;</span></span>,<span class="String"><span class="String">&quot;</span>HEARD<span class="String">&quot;</span></span>]
-             , [<span class="String"><span class="String">&quot;</span>I<span class="String">&quot;</span></span>,<span class="String"><span class="String">&quot;</span>HEARD<span class="String">&quot;</span></span>]
-             , [<span class="String"><span class="String">&quot;</span>YOU<span class="String">&quot;</span></span>,<span class="String"><span class="String">&quot;</span>LIKE<span class="String">&quot;</span></span>,<span class="String"><span class="String">&quot;</span>TREES<span class="String">&quot;</span></span>] ]
-</pre>
+
+
+<pre><code class="haskell">  putStrLn "\nTree of Binary trees of Char binary trees:"
+  print $ (treeFromList . map (treeFromList . map treeFromList))
+             [ ["YO","DAWG"]
+             , ["I","HEARD"]
+             , ["I","HEARD"]
+             , ["YOU","LIKE","TREES"] ]
+</code></pre>
+
+
 </div>
 <p>Which is equivalent to</p>
 
-<pre class="twilight">
-<span class="Entity">print</span> ( treeFromList (
-          <span class="Entity">map</span> treeFromList 
-             [ <span class="Entity">map</span> treeFromList [<span class="String"><span class="String">&quot;</span>YO<span class="String">&quot;</span></span>,<span class="String"><span class="String">&quot;</span>DAWG<span class="String">&quot;</span></span>]
-             , <span class="Entity">map</span> treeFromList [<span class="String"><span class="String">&quot;</span>I<span class="String">&quot;</span></span>,<span class="String"><span class="String">&quot;</span>HEARD<span class="String">&quot;</span></span>]
-             , <span class="Entity">map</span> treeFromList [<span class="String"><span class="String">&quot;</span>I<span class="String">&quot;</span></span>,<span class="String"><span class="String">&quot;</span>HEARD<span class="String">&quot;</span></span>]
-             , <span class="Entity">map</span> treeFromList [<span class="String"><span class="String">&quot;</span>YOU<span class="String">&quot;</span></span>,<span class="String"><span class="String">&quot;</span>LIKE<span class="String">&quot;</span></span>,<span class="String"><span class="String">&quot;</span>TREES<span class="String">&quot;</span></span>] ]))
-</pre>
+<pre><code class="haskell">print ( treeFromList (
+          map treeFromList 
+             [ map treeFromList ["YO","DAWG"]
+             , map treeFromList ["I","HEARD"]
+             , map treeFromList ["I","HEARD"]
+             , map treeFromList ["YOU","LIKE","TREES"] ]))
+</code></pre>
 
 <p>and gives:</p>
 
@@ -2028,17 +2108,20 @@ Laziness is just a common implementation for non-strict languages.</p>
 <p>For example in Haskell you can do:</p>
 
 <div class="codehighlight">
-<pre class="twilight">
-<span class="Comment"><span class="Comment">--</span> numbers = [1,2,..]</span>
-<span class="Entity">numbers</span> :: [<span class="Constant">Integer</span>]
-numbers = 0:<span class="Entity">map</span> (1+) numbers
 
-<span class="Entity">take</span>' n [] = []
-<span class="Entity">take</span>' 0 l = []
-<span class="Entity">take</span>' n (x:xs) = x:<span class="Entity">take</span>' (n-1) xs
 
-main = <span class="Entity">print</span> $ <span class="Entity">take</span>' 10 numbers
-</pre>
+<pre><code class="haskell">-- numbers = [1,2,..]
+numbers :: [Integer]
+numbers = 0:map (1+) numbers
+
+take' n [] = []
+take' 0 l = []
+take' n (x:xs) = x:take' (n-1) xs
+
+main = print $ take' 10 numbers
+</code></pre>
+
+
 </div>
 <p>And it stops.</p>
 
@@ -2066,55 +2149,61 @@ Also, there is a built-in function <code>take</code> which is equivalent to our 
 This code is mostly the same as the previous one.
 
 <div class="codehighlight">
-<pre class="twilight">
-<span class="Keyword">import</span> <span class="Constant">Debug</span>.<span class="Constant">Trace</span> (trace)
-<span class="Keyword">import</span> <span class="Constant">Data</span>.<span class="Constant">List</span>
-<span class="Keyword">data</span> <span class="Constant">BinTree</span> a = <span class="Constant">Empty</span> 
-                 | <span class="Constant">Node</span> a (<span class="Constant">BinTree</span> a) (<span class="Constant">BinTree</span> a) 
-                  <span class="Keyword">deriving</span> (<span class="Constant">Eq</span>,<span class="Constant">Ord</span>)
-</pre>
+
+
+<pre><code class="haskell">import Debug.Trace (trace)
+import Data.List
+data BinTree a = Empty 
+                 | Node a (BinTree a) (BinTree a) 
+                  deriving (Eq,Ord)
+</code></pre>
+
+
 </div>
 <div class="codehighlight">
-<pre class="twilight">
-<span class="Comment"><span class="Comment">--</span> declare BinTree a to be an instance of Show</span>
-<span class="Keyword">instance</span> (<span class="Constant">Show</span> a) =&gt; <span class="Constant">Show</span> (<span class="Constant">BinTree</span> a) <span class="Keyword">where</span>
-  <span class="Comment"><span class="Comment">--</span> will start by a '&lt;' before the root</span>
-  <span class="Comment"><span class="Comment">--</span> and put a : a begining of line</span>
-  <span class="Entity">show</span> t = <span class="String"><span class="String">&quot;</span>&lt; <span class="String">&quot;</span></span> ++ replace<span class="String"><span class="String"> '</span><span class="StringConstant">\n</span><span class="String">'</span></span> <span class="String"><span class="String">&quot;</span><span class="StringConstant">\n</span>: <span class="String">&quot;</span></span> (treeshow <span class="String"><span class="String">&quot;</span><span class="String">&quot;</span></span> t)
-    <span class="Keyword">where</span>
-    treeshow pref <span class="Constant">Empty</span> = <span class="String"><span class="String">&quot;</span><span class="String">&quot;</span></span>
-    treeshow pref (<span class="Constant">Node</span> x <span class="Constant">Empty</span> <span class="Constant">Empty</span>) = 
+
+
+<pre><code class="haskell">-- declare BinTree a to be an instance of Show
+instance (Show a) =&gt; Show (BinTree a) where
+  -- will start by a '&lt;' before the root
+  -- and put a : a begining of line
+  show t = "&lt; " ++ replace '\n' "\n: " (treeshow "" t)
+    where
+    treeshow pref Empty = ""
+    treeshow pref (Node x Empty Empty) = 
                   (pshow pref x)
 
-    treeshow pref (<span class="Constant">Node</span> x left <span class="Constant">Empty</span>) = 
-                  (pshow pref x) ++ <span class="String"><span class="String">&quot;</span><span class="StringConstant">\n</span><span class="String">&quot;</span></span> ++
-                  (showSon pref <span class="String"><span class="String">&quot;</span>`--<span class="String">&quot;</span></span> <span class="String"><span class="String">&quot;</span>   <span class="String">&quot;</span></span> left)
+    treeshow pref (Node x left Empty) = 
+                  (pshow pref x) ++ "\n" ++
+                  (showSon pref "`--" "   " left)
 
-    treeshow pref (<span class="Constant">Node</span> x <span class="Constant">Empty</span> right) = 
-                  (pshow pref x) ++ <span class="String"><span class="String">&quot;</span><span class="StringConstant">\n</span><span class="String">&quot;</span></span> ++
-                  (showSon pref <span class="String"><span class="String">&quot;</span>`--<span class="String">&quot;</span></span> <span class="String"><span class="String">&quot;</span>   <span class="String">&quot;</span></span> right)
+    treeshow pref (Node x Empty right) = 
+                  (pshow pref x) ++ "\n" ++
+                  (showSon pref "`--" "   " right)
 
-    treeshow pref (<span class="Constant">Node</span> x left right) = 
-                  (pshow pref x) ++ <span class="String"><span class="String">&quot;</span><span class="StringConstant">\n</span><span class="String">&quot;</span></span> ++
-                  (showSon pref <span class="String"><span class="String">&quot;</span>|--<span class="String">&quot;</span></span> <span class="String"><span class="String">&quot;</span>|  <span class="String">&quot;</span></span> left) ++ <span class="String"><span class="String">&quot;</span><span class="StringConstant">\n</span><span class="String">&quot;</span></span> ++
-                  (showSon pref <span class="String"><span class="String">&quot;</span>`--<span class="String">&quot;</span></span> <span class="String"><span class="String">&quot;</span>   <span class="String">&quot;</span></span> right)
+    treeshow pref (Node x left right) = 
+                  (pshow pref x) ++ "\n" ++
+                  (showSon pref "|--" "|  " left) ++ "\n" ++
+                  (showSon pref "`--" "   " right)
 
-    <span class="Comment"><span class="Comment">--</span> show a tree using some prefixes to make it nice</span>
+    -- show a tree using some prefixes to make it nice
     showSon pref before next t = 
                   pref ++ before ++ treeshow (pref ++ next) t
 
-    <span class="Comment"><span class="Comment">--</span> pshow replace &quot;\n&quot; by &quot;\n&quot;++pref</span>
-    pshow pref x = replace<span class="String"><span class="String"> '</span><span class="StringConstant">\n</span><span class="String">'</span></span> (<span class="String"><span class="String">&quot;</span><span class="StringConstant">\n</span><span class="String">&quot;</span></span>++pref) (<span class="String"><span class="String">&quot;</span> <span class="String">&quot;</span></span> ++ <span class="Entity">show</span> x)
+    -- pshow replace "\n" by "\n"++pref
+    pshow pref x = replace '\n' ("\n"++pref) (" " ++ show x)
 
-    <span class="Comment"><span class="Comment">--</span> replace on char by another string</span>
+    -- replace on char by another string
     replace c new string =
-      <span class="Entity">concatMap</span> (change c new) string
-      <span class="Keyword">where</span>
+      concatMap (change c new) string
+      where
           change c new x 
               | x == c = new
-              | <span class="Keyword">otherwise</span> = x:[] <span class="Comment"><span class="Comment">--</span> &quot;x&quot;</span>
+              | otherwise = x:[] -- "x"
 
-</pre>
+</code></pre>
+
+
 </div>
 </div>
 
@@ -2122,31 +2211,36 @@ This code is mostly the same as the previous one.
 Here is an infinite binary tree:</p>
 
 <div class="codehighlight">
-<pre class="twilight">
-nullTree = <span class="Constant">Node</span> 0 nullTree nullTree
-</pre>
+
+
+<pre><code class="haskell">nullTree = Node 0 nullTree nullTree
+</code></pre>
+
+
 </div>
 <p>A complete binary tree where each node is equal to 0.
 Now I will prove you can manipulate this object using the following function:</p>
 
 <div class="codehighlight">
-<pre class="twilight">
-<span class="Comment"><span class="Comment">--</span> take all element of a BinTree </span>
-<span class="Comment"><span class="Comment">--</span> up to some depth</span>
-treeTakeDepth _ <span class="Constant">Empty</span> = <span class="Constant">Empty</span>
-treeTakeDepth 0 _     = <span class="Constant">Empty</span>
-treeTakeDepth n (<span class="Constant">Node</span> x left right) = <span class="Keyword">let</span>
+
+
+<pre><code class="haskell">-- take all element of a BinTree 
+-- up to some depth
+treeTakeDepth _ Empty = Empty
+treeTakeDepth 0 _     = Empty
+treeTakeDepth n (Node x left right) = let
           nl = treeTakeDepth (n-1) left
           nr = treeTakeDepth (n-1) right
-          <span class="Keyword">in</span>
-              <span class="Constant">Node</span> x nl nr
-</pre>
+          in
+              Node x nl nr
+</code></pre>
+
+
 </div>
 <p>See what occurs for this program:</p>
 
-<pre class="twilight">
-main = <span class="Entity">print</span> $ treeTakeDepth 4 nullTree
-</pre>
+<pre><code class="haskell">main = print $ treeTakeDepth 4 nullTree
+</code></pre>
 
 <p>This code compiles, runs and stops giving the following result:</p>
 
@@ -2171,26 +2265,32 @@ main = <span class="Entity">print</span> $ treeTakeDepth 4 nullTree
 let&rsquo;s make a slightly more interesting tree:</p>
 
 <div class="codehighlight">
-<pre class="twilight">
-iTree = <span class="Constant">Node</span> 0 (dec iTree) (inc iTree)
-        <span class="Keyword">where</span>
-           dec (<span class="Constant">Node</span> x l r) = <span class="Constant">Node</span> (x-1) (dec l) (dec r) 
-           inc (<span class="Constant">Node</span> x l r) = <span class="Constant">Node</span> (x+1) (inc l) (inc r) 
-</pre>
+
+
+<pre><code class="haskell">iTree = Node 0 (dec iTree) (inc iTree)
+        where
+           dec (Node x l r) = Node (x-1) (dec l) (dec r) 
+           inc (Node x l r) = Node (x+1) (inc l) (inc r) 
+</code></pre>
+
+
 </div>
 <p>Another way to create this tree is to use a higher order function.
 This function should be similar to <code>map</code>, but should work on <code>BinTree</code> instead of list.
 Here is such a function:</p>
 
 <div class="codehighlight">
-<pre class="twilight">
-<span class="Comment"><span class="Comment">--</span> apply a function to each node of Tree</span>
-<span class="Entity">treeMap</span> :: (<span class="Variable">a</span> -&gt; <span class="Variable">b</span>) -&gt; <span class="Constant">BinTree</span> <span class="Variable">a</span> -&gt; <span class="Constant">BinTree</span> <span class="Variable">b</span>
-treeMap f <span class="Constant">Empty</span> = <span class="Constant">Empty</span>
-treeMap f (<span class="Constant">Node</span> x left right) = <span class="Constant">Node</span> (f x) 
+
+
+<pre><code class="haskell">-- apply a function to each node of Tree
+treeMap :: (a -&gt; b) -&gt; BinTree a -&gt; BinTree b
+treeMap f Empty = Empty
+treeMap f (Node x left right) = Node (f x) 
                                      (treeMap f left) 
                                      (treeMap f right)
-</pre>
+</code></pre>
+
+
 </div>
 <p><em>Hint</em>: I won&rsquo;t talk more about this here. 
 If you are interested by the generalization of <code>map</code> to other data structures,
@@ -2199,17 +2299,19 @@ search for functor and <code>fmap</code>.</p>
 <p>Our definition is now:</p>
 
 <div class="codehighlight">
-<pre class="twilight">
-<span class="Entity">infTreeTwo</span> :: <span class="Constant">BinTree</span> <span class="Constant">Int</span>
-infTreeTwo = <span class="Constant">Node</span> 0 (treeMap (\x -&gt; x-1) infTreeTwo) 
+
+
+<pre><code class="haskell">infTreeTwo :: BinTree Int
+infTreeTwo = Node 0 (treeMap (\x -&gt; x-1) infTreeTwo) 
                     (treeMap (\x -&gt; x+1) infTreeTwo) 
-</pre>
+</code></pre>
+
+
 </div>
 <p>Look at the result for </p>
 
-<pre class="twilight">
-main = <span class="Entity">print</span> $ treeTakeDepth 4 infTreeTwo
-</pre>
+<pre><code class="haskell">main = print $ treeTakeDepth 4 infTreeTwo
+</code></pre>
 
 <pre><code>&lt;  0
 : |-- -1
@@ -2231,11 +2333,14 @@ main = <span class="Entity">print</span> $ treeTakeDepth 4 infTreeTwo
 <div style="display:none">
 
 <div class="codehighlight">
-<pre class="twilight">
-main = <span class="Keyword">do</span>
-  <span class="Entity">print</span> $ treeTakeDepth 4 nullTree
-  <span class="Entity">print</span> $ treeTakeDepth 4 infTreeTwo
-</pre>
+
+
+<pre><code class="haskell">main = do
+  print $ treeTakeDepth 4 nullTree
+  print $ treeTakeDepth 4 infTreeTwo
+</code></pre>
+
+
 </div>
 </div>
 
@@ -2312,15 +2417,18 @@ Print the sum of the numbers</p>
 </blockquote>
 
 <div class="codehighlight">
-<pre class="twilight">
-<span class="Entity">toList</span> :: <span class="Constant">String</span> -&gt; [<span class="Constant">Integer</span>]
-toList input = <span class="Entity">read</span> (<span class="String"><span class="String">&quot;</span>[<span class="String">&quot;</span></span> ++ input ++ <span class="String"><span class="String">&quot;</span>]<span class="String">&quot;</span></span>)
 
-main = <span class="Keyword">do</span>
-  <span class="Entity">putStrLn</span> <span class="String"><span class="String">&quot;</span>Enter a list of numbers (separated by comma):<span class="String">&quot;</span></span>
-  input &lt;- <span class="Entity">getLine</span>
-  <span class="Entity">print</span> $ <span class="Entity">sum</span> (toList input)
-</pre>
+
+<pre><code class="haskell">toList :: String -&gt; [Integer]
+toList input = read ("[" ++ input ++ "]")
+
+main = do
+  putStrLn "Enter a list of numbers (separated by comma):"
+  input &lt;- getLine
+  print $ sum (toList input)
+</code></pre>
+
+
 </div>
 <p>It should be straightforward to understand the behavior of this program.
 Let&rsquo;s analyze the types in more detail.</p>
@@ -2388,16 +2496,18 @@ Use the type <code>Maybe</code>.
 It is a very common type in Haskell.</p>
 
 <div class="codehighlight">
-<pre class="twilight">
-<span class="Keyword">import</span> <span class="Constant">Data</span>.<span class="Constant">Maybe</span>
-</pre>
+
+
+<pre><code class="haskell">import Data.Maybe
+</code></pre>
+
+
 </div>
 <p>What is this thing? <code>Maybe</code> is a type which takes one parameter.
 Its definition is:</p>
 
-<pre class="twilight">
-<span class="Keyword">data</span> <span class="Constant">Maybe</span> a = <span class="Constant">Nothing</span> | <span class="Constant">Just</span> a
-</pre>
+<pre><code class="haskell">data Maybe a = Nothing | Just a
+</code></pre>
 
 <p>This is a nice way to tell there was an error while trying to create/compute
 a value.
@@ -2409,36 +2519,45 @@ Don&rsquo;t try to understand too much of this function.
 I use a lower level function than <code>read</code>; <code>reads</code>.</p>
 
 <div class="codehighlight">
-<pre class="twilight">
-<span class="Entity">maybeRead</span> :: <span class="Constant">Read</span> <span class="Variable">a</span> =&gt; <span class="Constant">String</span> -&gt; <span class="Constant">Maybe</span> <span class="Variable">a</span>
-maybeRead s = <span class="Keyword">case</span> <span class="Entity">reads</span> s <span class="Keyword">of</span>
-                  [(x,<span class="String"><span class="String">&quot;</span><span class="String">&quot;</span></span>)]    -&gt; <span class="Constant">Just</span> x
-                  _           -&gt; <span class="Constant">Nothing</span>
-</pre>
+
+
+<pre><code class="haskell">maybeRead :: Read a =&gt; String -&gt; Maybe a
+maybeRead s = case reads s of
+                  [(x,"")]    -&gt; Just x
+                  _           -&gt; Nothing
+</code></pre>
+
+
 </div>
 <p>Now to be a bit more readable, we define a function which goes like this:
 If the string has the wrong format, it will return <code>Nothing</code>.
 Otherwise, for example for &ldquo;1,2,3&rdquo;, it will return <code>Just [1,2,3]</code>.</p>
 
 <div class="codehighlight">
-<pre class="twilight">
-<span class="Entity">getListFromString</span> :: <span class="Constant">String</span> -&gt; <span class="Constant">Maybe</span> [<span class="Constant">Integer</span>]
-getListFromString str = maybeRead $ <span class="String"><span class="String">&quot;</span>[<span class="String">&quot;</span></span> ++ str ++ <span class="String"><span class="String">&quot;</span>]<span class="String">&quot;</span></span>
-</pre>
+
+
+<pre><code class="haskell">getListFromString :: String -&gt; Maybe [Integer]
+getListFromString str = maybeRead $ "[" ++ str ++ "]"
+</code></pre>
+
+
 </div>
 <p>We simply have to test the value in our main function.</p>
 
 <div class="codehighlight">
-<pre class="twilight">
-<span class="Entity">main</span> :: <span class="Constant">IO</span> ()
-main = <span class="Keyword">do</span>
-  <span class="Entity">putStrLn</span> <span class="String"><span class="String">&quot;</span>Enter a list of numbers (separated by comma):<span class="String">&quot;</span></span>
-  input &lt;- <span class="Entity">getLine</span>
-  <span class="Keyword">let</span> maybeList = getListFromString input <span class="Keyword">in</span>
-      <span class="Keyword">case</span> maybeList <span class="Keyword">of</span>
-          <span class="Constant">Just</span> l  -&gt; <span class="Entity">print</span> (<span class="Entity">sum</span> l)
-          <span class="Constant">Nothing</span> -&gt; <span class="Entity">error</span> <span class="String"><span class="String">&quot;</span>Bad format. Good Bye.<span class="String">&quot;</span></span>
-</pre>
+
+
+<pre><code class="haskell">main :: IO ()
+main = do
+  putStrLn "Enter a list of numbers (separated by comma):"
+  input &lt;- getLine
+  let maybeList = getListFromString input in
+      case maybeList of
+          Just l  -&gt; print (sum l)
+          Nothing -&gt; error "Bad format. Good Bye."
+</code></pre>
+
+
 </div>
 <p>In case of error, we display a nice error message.</p>
 
@@ -2474,31 +2593,37 @@ I certainly forget many advantages, but the three main reasons are:</p>
 <p>We keep the first part:</p>
 
 <div class="codehighlight">
-<pre class="twilight">
-<span class="Keyword">import</span> <span class="Constant">Data</span>.<span class="Constant">Maybe</span>
 
-<span class="Entity">maybeRead</span> :: <span class="Constant">Read</span> <span class="Variable">a</span> =&gt; <span class="Constant">String</span> -&gt; <span class="Constant">Maybe</span> <span class="Variable">a</span>
-maybeRead s = <span class="Keyword">case</span> <span class="Entity">reads</span> s <span class="Keyword">of</span>
-                  [(x,<span class="String"><span class="String">&quot;</span><span class="String">&quot;</span></span>)]    -&gt; <span class="Constant">Just</span> x
-                  _           -&gt; <span class="Constant">Nothing</span>
-<span class="Entity">getListFromString</span> :: <span class="Constant">String</span> -&gt; <span class="Constant">Maybe</span> [<span class="Constant">Integer</span>]
-getListFromString str = maybeRead $ <span class="String"><span class="String">&quot;</span>[<span class="String">&quot;</span></span> ++ str ++ <span class="String"><span class="String">&quot;</span>]<span class="String">&quot;</span></span>
-</pre>
+
+<pre><code class="haskell">import Data.Maybe
+
+maybeRead :: Read a =&gt; String -&gt; Maybe a
+maybeRead s = case reads s of
+                  [(x,"")]    -&gt; Just x
+                  _           -&gt; Nothing
+getListFromString :: String -&gt; Maybe [Integer]
+getListFromString str = maybeRead $ "[" ++ str ++ "]"
+</code></pre>
+
+
 </div>
 <p>Now, we create a function which will ask the user for an list of integers
 until the input is right.</p>
 
 <div class="codehighlight">
-<pre class="twilight">
-<span class="Entity">askUser</span> :: <span class="Constant">IO</span> [<span class="Constant">Integer</span>]
-askUser = <span class="Keyword">do</span>
-  <span class="Entity">putStrLn</span> <span class="String"><span class="String">&quot;</span>Enter a list of numbers (separated by comma):<span class="String">&quot;</span></span>
-  input &lt;- <span class="Entity">getLine</span>
-  <span class="Keyword">let</span> maybeList = getListFromString input <span class="Keyword">in</span>
-      <span class="Keyword">case</span> maybeList <span class="Keyword">of</span>
-          <span class="Constant">Just</span> l  -&gt; <span class="Entity">return</span> l
-          <span class="Constant">Nothing</span> -&gt; askUser
-</pre>
+
+
+<pre><code class="haskell">askUser :: IO [Integer]
+askUser = do
+  putStrLn "Enter a list of numbers (separated by comma):"
+  input &lt;- getLine
+  let maybeList = getListFromString input in
+      case maybeList of
+          Just l  -&gt; return l
+          Nothing -&gt; askUser
+</code></pre>
+
+
 </div>
 <p>This function is of type <code>IO [Integer]</code>. 
 Such a type means that we retrieved a value of type <code>[Integer]</code> through some IO actions.
@@ -2515,12 +2640,15 @@ Just practice a little and remember to think about the type.</p>
 <p>Finally our main function is quite simpler:</p>
 
 <div class="codehighlight">
-<pre class="twilight">
-<span class="Entity">main</span> :: <span class="Constant">IO</span> ()
-main = <span class="Keyword">do</span>
+
+
+<pre><code class="haskell">main :: IO ()
+main = do
   list &lt;- askUser
-  <span class="Entity">print</span> $ <span class="Entity">sum</span> list
-</pre>
+  print $ sum list
+</code></pre>
+
+
 </div>
 <p>We have finished with our introduction to <code>IO</code>.
 This was quite fast. Here are the main things to remember:</p>
@@ -2597,21 +2725,20 @@ It looks a bit like magic.</p>
 <p>For now let&rsquo;s just forget all about the pure parts of our program, and focus
 on the impure parts:</p>
 
-<pre class="twilight">
-<span class="Entity">askUser</span> :: <span class="Constant">IO</span> [<span class="Constant">Integer</span>]
-askUser = <span class="Keyword">do</span>
-  <span class="Entity">putStrLn</span> <span class="String"><span class="String">&quot;</span>Enter a list of numbers (separated by commas):<span class="String">&quot;</span></span>
-  input &lt;- <span class="Entity">getLine</span>
-  <span class="Keyword">let</span> maybeList = getListFromString input <span class="Keyword">in</span>
-      <span class="Keyword">case</span> maybeList <span class="Keyword">of</span>
-          <span class="Constant">Just</span> l  -&gt; <span class="Entity">return</span> l
-          <span class="Constant">Nothing</span> -&gt; askUser
+<pre><code class="haskell">askUser :: IO [Integer]
+askUser = do
+  putStrLn "Enter a list of numbers (separated by commas):"
+  input &lt;- getLine
+  let maybeList = getListFromString input in
+      case maybeList of
+          Just l  -&gt; return l
+          Nothing -&gt; askUser
 
-<span class="Entity">main</span> :: <span class="Constant">IO</span> ()
-main = <span class="Keyword">do</span>
+main :: IO ()
+main = do
   list &lt;- askUser
-  <span class="Entity">print</span> $ <span class="Entity">sum</span> list
-</pre>
+  print $ sum list
+</code></pre>
 
 <p>First remark; it looks like an imperative structure.
 Haskell is powerful enough to make impure code look imperative.
@@ -2630,9 +2757,8 @@ The fact that a file exists or not can be seen as different states of the world.
 It is explicitly said <code>main</code> is a function that <em>potentially</em> changes the state of the world.
 Its type is then something like:</p>
 
-<pre class="twilight">
-<span class="Entity">main</span> :: <span class="Constant">World</span> -&gt; <span class="Constant">World</span>
-</pre>
+<pre><code class="haskell">main :: World -&gt; World
+</code></pre>
 
 <p>Not all functions may have access to this variable.
 Those which have access to this variable are impure.
@@ -2641,27 +2767,24 @@ Functions to which the world variable isn&rsquo;t provided are pure<sup id="fnre
 <p>Haskell considers the state of the world as an input variable to <code>main</code>.
 But the real type of main is closer to this one<sup id="fnref:032002"><a href="#fn:032002" rel="footnote">7</a></sup>:</p>
 
-<pre class="twilight">
-<span class="Entity">main</span> :: <span class="Constant">World</span> -&gt; ((),<span class="Constant">World</span>)
-</pre>
+<pre><code class="haskell">main :: World -&gt; ((),World)
+</code></pre>
 
 <p>The <code>()</code> type is the null type.
 Nothing to see here.</p>
 
 <p>Now let&rsquo;s rewrite our main function with this in mind:</p>
 
-<pre class="twilight">
-main w0 =
-    <span class="Keyword">let</span> (list,w1) = askUser w0 <span class="Keyword">in</span>
-    <span class="Keyword">let</span> (x,w2) = <span class="Entity">print</span> (<span class="Entity">sum</span> list,w1) <span class="Keyword">in</span>
+<pre><code class="haskell">main w0 =
+    let (list,w1) = askUser w0 in
+    let (x,w2) = print (sum list,w1) in
     x 
-</pre>
+</code></pre>
 
 <p>First, we note that all functions which have side effects must have the type:</p>
 
-<pre class="twilight">
-<span class="Constant">World</span> -&gt; (a,<span class="Constant">World</span>)
-</pre>
+<pre><code class="haskell">World -&gt; (a,World)
+</code></pre>
 
 <p>Where <code>a</code> is the type of the result.
 For example, a <code>getChar</code> function should have the type <code>World -&gt; (Char,World)</code>.</p>
@@ -2694,35 +2817,32 @@ Under the hood, <code>print</code> will evaluate as:</p>
 <p>Now, if you look at the style of the main function, it is clearly awkward.
 Let&rsquo;s try to do the same to the askUser function:</p>
 
-<pre class="twilight">
-<span class="Entity">askUser</span> :: <span class="Constant">World</span> -&gt; ([<span class="Constant">Integer</span>],<span class="Constant">World</span>)
-</pre>
+<pre><code class="haskell">askUser :: World -&gt; ([Integer],World)
+</code></pre>
 
 <p>Before:</p>
 
-<pre class="twilight">
-<span class="Entity">askUser</span> :: <span class="Constant">IO</span> [<span class="Constant">Integer</span>]
-askUser = <span class="Keyword">do</span>
-  <span class="Entity">putStrLn</span> <span class="String"><span class="String">&quot;</span>Enter a list of numbers:<span class="String">&quot;</span></span>
-  input &lt;- <span class="Entity">getLine</span>
-  <span class="Keyword">let</span> maybeList = getListFromString input <span class="Keyword">in</span>
-      <span class="Keyword">case</span> maybeList <span class="Keyword">of</span>
-          <span class="Constant">Just</span> l  -&gt; <span class="Entity">return</span> l
-          <span class="Constant">Nothing</span> -&gt; askUser
-</pre>
+<pre><code class="haskell">askUser :: IO [Integer]
+askUser = do
+  putStrLn "Enter a list of numbers:"
+  input &lt;- getLine
+  let maybeList = getListFromString input in
+      case maybeList of
+          Just l  -&gt; return l
+          Nothing -&gt; askUser
+</code></pre>
 
 <p>After:</p>
 
-<pre class="twilight">
-askUser w0 =
-    <span class="Keyword">let</span> (_,w1)     = <span class="Entity">putStrLn</span> <span class="String"><span class="String">&quot;</span>Enter a list of numbers:<span class="String">&quot;</span></span> <span class="Keyword">in</span>
-    <span class="Keyword">let</span> (input,w2) = <span class="Entity">getLine</span> w1 <span class="Keyword">in</span>
-    <span class="Keyword">let</span> (l,w3)     = <span class="Keyword">case</span> getListFromString input <span class="Keyword">of</span>
-                      <span class="Constant">Just</span> l   -&gt; (l,w2)
-                      <span class="Constant">Nothing</span>  -&gt; askUser w2
-    <span class="Keyword">in</span>
+<pre><code class="haskell">askUser w0 =
+    let (_,w1)     = putStrLn "Enter a list of numbers:" in
+    let (input,w2) = getLine w1 in
+    let (l,w3)     = case getListFromString input of
+                      Just l   -&gt; (l,w2)
+                      Nothing  -&gt; askUser w2
+    in
         (l,w3)
-</pre>
+</code></pre>
 
 <p>This is similar, but awkward.
 Look at all these temporary <code>w?</code> names.</p>
@@ -2733,38 +2853,34 @@ Look at all these temporary <code>w?</code> names.</p>
 We see a pattern.
 Each line is of the form:</p>
 
-<pre class="twilight">
-<span class="Keyword">let</span> (y,w') = action x w <span class="Keyword">in</span>
-</pre>
+<pre><code class="haskell">let (y,w') = action x w in
+</code></pre>
 
 <p>Even if for some line the first <code>x</code> argument isn&rsquo;t needed.
 The output type is a couple, <code>(answer, newWorldValue)</code>.
 Each function <code>f</code> must have a type similar to:</p>
 
-<pre class="twilight">
-<span class="Entity">f</span> :: <span class="Constant">World</span> -&gt; (<span class="Variable">a,World</span>)
-</pre>
+<pre><code class="haskell">f :: World -&gt; (a,World)
+</code></pre>
 
 <p>Not only this, but we can also note that we always follow the same usage pattern:</p>
 
-<pre class="twilight">
-<span class="Keyword">let</span> (y,w1) = action1 w0 <span class="Keyword">in</span>
-<span class="Keyword">let</span> (z,w2) = action2 w1 <span class="Keyword">in</span>
-<span class="Keyword">let</span> (t,w3) = action3 w2 <span class="Keyword">in</span>
+<pre><code class="haskell">let (y,w1) = action1 w0 in
+let (z,w2) = action2 w1 in
+let (t,w3) = action3 w2 in
 ...
-</pre>
+</code></pre>
 
 <p>Each action can take from 0 to n parameters.
 And in particular, each action can take a parameter from the result of a line above.</p>
 
 <p>For example, we could also have:</p>
 
-<pre class="twilight">
-<span class="Keyword">let</span> (_,w1) = action1 x w0   <span class="Keyword">in</span>
-<span class="Keyword">let</span> (z,w2) = action2 w1     <span class="Keyword">in</span>
-<span class="Keyword">let</span> (_,w3) = action3 x z w2 <span class="Keyword">in</span>
+<pre><code class="haskell">let (_,w1) = action1 x w0   in
+let (z,w2) = action2 w1     in
+let (_,w3) = action3 x z w2 in
 ...
-</pre>
+</code></pre>
 
 <p>And of course <code>actionN w :: (World) -&gt; (a,World)</code>.</p>
 
@@ -2782,7 +2898,7 @@ let (y,w2) = action2 w1 in
 </code></pre>
 </blockquote>
 
-<p><img alt="Jocker pencil trick" src="/Scratch/img/blog/Haskell-the-Hard-Way/jocker_pencil_trick.jpg" class="left" /></p>
+<p><img alt="Jocker pencil trick" src="/Scratch/img/blog/Haskell-the-Hard-Way/jocker_pencil_trick.jpg" class=" left" /></p>
 
 <p>Now, we will do a magic trick.
 We will make the temporary world symbol &ldquo;disappear&rdquo;.
@@ -2790,25 +2906,22 @@ We will <code>bind</code> the two lines.
 Let&rsquo;s define the <code>bind</code> function.
 Its type is quite intimidating at first:</p>
 
-<pre class="twilight">
-<span class="Entity">bind</span> :: (<span class="Constant">World</span> -&gt; (<span class="Variable">a,World</span>)) 
-        -&gt; (a -&gt; (<span class="Constant">World</span> -&gt; (b,<span class="Constant">World</span>))) 
-        -&gt; (<span class="Constant">World</span> -&gt; (b,<span class="Constant">World</span>)) 
-</pre>
+<pre><code class="haskell">bind :: (World -&gt; (a,World)) 
+        -&gt; (a -&gt; (World -&gt; (b,World))) 
+        -&gt; (World -&gt; (b,World)) 
+</code></pre>
 
 <p>But remember that <code>(World -&gt; (a,World))</code> is the type for an IO action.
 Now let&rsquo;s rename it for clarity:</p>
 
-<pre class="twilight">
-<span class="Keyword">type</span> <span class="Constant">IO</span> a = <span class="Constant">World</span> -&gt; (a, <span class="Constant">World</span>)
-</pre>
+<pre><code class="haskell">type IO a = World -&gt; (a, World)
+</code></pre>
 
 <p>Some example of functions:</p>
 
-<pre class="twilight">
-<span class="Entity">getLine</span> :: <span class="Constant">IO</span> <span class="Constant">String</span>
-<span class="Entity">print</span> :: <span class="Constant">Show</span> <span class="Variable">a</span> =&gt; <span class="Variable">a</span> -&gt; <span class="Constant">IO</span> ()
-</pre>
+<pre><code class="haskell">getLine :: IO String
+print :: Show a =&gt; a -&gt; IO ()
+</code></pre>
 
 <p><code>getLine</code> is an IO action which takes a world as parameter and returns a couple <code>(String,World)</code>.
 Which can be summarized as: <code>getLine</code> is of type <code>IO String</code>.
@@ -2823,71 +2936,63 @@ This means it changes the state of the world, but doesn&rsquo;t yield anymore da
 
 <p>This type helps us simplify the type of <code>bind</code>:</p>
 
-<pre class="twilight">
-<span class="Entity">bind</span> :: <span class="Constant">IO</span> <span class="Variable">a</span> 
-        -&gt; (a -&gt; <span class="Constant">IO</span> b) 
-        -&gt; <span class="Constant">IO</span> b
-</pre>
+<pre><code class="haskell">bind :: IO a 
+        -&gt; (a -&gt; IO b) 
+        -&gt; IO b
+</code></pre>
 
 <p>It says that <code>bind</code> takes two IO actions as parameter and return another IO action.</p>
 
 <p>Now, remember the <em>important</em> patterns. The first was:</p>
 
-<pre class="twilight">
-<span class="Keyword">let</span> (x,w1) = action1 w0 <span class="Keyword">in</span>
-<span class="Keyword">let</span> (y,w2) = action2 x w1 <span class="Keyword">in</span>
+<pre><code class="haskell">let (x,w1) = action1 w0 in
+let (y,w2) = action2 x w1 in
 (y,w2)
-</pre>
+</code></pre>
 
 <p>Look at the types:</p>
 
-<pre class="twilight">
-<span class="Entity">action1</span>  :: <span class="Constant">IO</span> <span class="Variable">a</span>
-<span class="Entity">action2</span>  :: <span class="Variable">a</span> -&gt; <span class="Constant">IO</span> <span class="Variable">b</span>
-(y,w2)   :: <span class="Constant">IO</span> b
-</pre>
+<pre><code class="haskell">action1  :: IO a
+action2  :: a -&gt; IO b
+(y,w2)   :: IO b
+</code></pre>
 
 <p>Doesn&rsquo;t it seem familiar?</p>
 
-<pre class="twilight">
-(bind action1 action2) w0 =
-    <span class="Keyword">let</span> (x, w1) = action1 w0
+<pre><code class="haskell">(bind action1 action2) w0 =
+    let (x, w1) = action1 w0
         (y, w2) = action2 x w1
-    <span class="Keyword">in</span>  (y, w2)
-</pre>
+    in  (y, w2)
+</code></pre>
 
 <p>The idea is to hide the World argument with this function. Let&rsquo;s go:
 As an example imagine if we wanted to simulate:</p>
 
-<pre class="twilight">
-<span class="Keyword">let</span> (line1,w1) = <span class="Entity">getLine</span> w0 <span class="Keyword">in</span>
-<span class="Keyword">let</span> ((),w2) = <span class="Entity">print</span> line1 <span class="Keyword">in</span>
+<pre><code class="haskell">let (line1,w1) = getLine w0 in
+let ((),w2) = print line1 in
 ((),w2)
-</pre>
+</code></pre>
 
 <p>Now, using the bind function:</p>
 
-<pre class="twilight">
-(res,w2) = (bind <span class="Entity">getLine</span> (\l -&gt; <span class="Entity">print</span> l)) w0
-</pre>
+<pre><code class="haskell">(res,w2) = (bind getLine (\l -&gt; print l)) w0
+</code></pre>
 
 <p>As print is of type (World &rarr; ((),World)), we know res = () (null type).
 If you didn&rsquo;t see what was magic here, let&rsquo;s try with three lines this time.</p>
 
-<pre class="twilight">
-<span class="Keyword">let</span> (line1,w1) = <span class="Entity">getLine</span> w0 <span class="Keyword">in</span>
-<span class="Keyword">let</span> (line2,w2) = <span class="Entity">getLine</span> w1 <span class="Keyword">in</span>
-<span class="Keyword">let</span> ((),w3) = <span class="Entity">print</span> (line1 ++ line2) <span class="Keyword">in</span>
+<pre><code class="haskell">let (line1,w1) = getLine w0 in
+let (line2,w2) = getLine w1 in
+let ((),w3) = print (line1 ++ line2) in
 ((),w3)
-</pre>
+</code></pre>
 
 <p>Which is equivalent to:</p>
 
-<pre class="twilight">
-(res,w3) = bind <span class="Entity">getLine</span> (\line1 -&gt;
-             bind <span class="Entity">getLine</span> (\line2 -&gt; 
-               <span class="Entity">print</span> (line1 ++ line2)))
-</pre>
+<pre><code class="haskell">(res,w3) = bind getLine (\line1 -&gt;
+             bind getLine (\line2 -&gt; 
+               print (line1 ++ line2)))
+</code></pre>
 
 <p>Didn&rsquo;t you notice something?
 Yes, no temporary World variables are used anywhere!
@@ -2898,69 +3003,62 @@ Let&rsquo;s use <code>(&gt;&gt;=)</code> instead of <code>bind</code>.
 <code>(&gt;&gt;=)</code> is an infix function like
 <code>(+)</code>; reminder <code>3 + 4 ⇔ (+) 3 4</code></p>
 
-<pre class="twilight">
-(res,w3) = <span class="Entity">getLine</span> &gt;&gt;=
-           \line1 -&gt; <span class="Entity">getLine</span> &gt;&gt;=
-           \line2 -&gt; <span class="Entity">print</span> (line1 ++ line2)
-</pre>
+<pre><code class="haskell">(res,w3) = getLine &gt;&gt;=
+           \line1 -&gt; getLine &gt;&gt;=
+           \line2 -&gt; print (line1 ++ line2)
+</code></pre>
 
 <p>Ho Ho Ho! Happy Christmas Everyone!
 Haskell has made syntactical sugar for us:</p>
 
-<pre class="twilight">
-<span class="Keyword">do</span>
+<pre><code class="haskell">do
   x &lt;- action1
   y &lt;- action2
   z &lt;- action3
   ...
-</pre>
+</code></pre>
 
 <p>Is replaced by:</p>
 
-<pre class="twilight">
-action1 &gt;&gt;= \x -&gt;
+<pre><code class="haskell">action1 &gt;&gt;= \x -&gt;
 action2 &gt;&gt;= \y -&gt;
 action3 &gt;&gt;= \z -&gt;
 ...
-</pre>
+</code></pre>
 
 <p>Note you can use <code>x</code> in <code>action2</code> and <code>x</code> and <code>y</code> in <code>action3</code>.</p>
 
 <p>But what about the lines not using the <code>&lt;-</code>?
 Easy, another function <code>blindBind</code>:</p>
 
-<pre class="twilight">
-<span class="Entity">blindBind</span> :: <span class="Constant">IO</span> <span class="Variable">a</span> -&gt; <span class="Constant">IO</span> <span class="Variable">b</span> -&gt; <span class="Constant">IO</span> <span class="Variable">b</span>
+<pre><code class="haskell">blindBind :: IO a -&gt; IO b -&gt; IO b
 blindBind action1 action2 w0 =
     bind action (\_ -&gt; action2) w0
-</pre>
+</code></pre>
 
 <p>I didn&rsquo;t simplify this definition for clarity purpose.
 Of course we can use a better notation, we&rsquo;ll use the <code>(&gt;&gt;)</code> operator.</p>
 
 <p>And</p>
 
-<pre class="twilight">
-<span class="Keyword">do</span>
+<pre><code class="haskell">do
     action1
     action2
     action3
-</pre>
+</code></pre>
 
 <p>Is transformed into</p>
 
-<pre class="twilight">
-action1 &gt;&gt;
+<pre><code class="haskell">action1 &gt;&gt;
 action2 &gt;&gt; 
 action3
-</pre>
+</code></pre>
 
 <p>Also, another function is quite useful.</p>
 
-<pre class="twilight">
-<span class="Entity">putInIO</span> :: <span class="Variable">a</span> -&gt; <span class="Constant">IO</span> <span class="Variable">a</span>
-putInIO x = <span class="Constant">IO</span> (\w -&gt; (x,w))
-</pre>
+<pre><code class="haskell">putInIO :: a -&gt; IO a
+putInIO x = IO (\w -&gt; (x,w))
+</code></pre>
 
 <p>This is the general way to put pure values inside the &ldquo;IO context&rdquo;.
 The general name for <code>putInIO</code> is <code>return</code>.
@@ -2971,48 +3069,50 @@ This is quite a bad name when you learn Haskell. <code>return</code> is very dif
 
 <p>To finish, let&rsquo;s translate our example:</p>
 
-<pre class="twilight">
+<pre><code class="haskell">
+askUser :: IO [Integer]
+askUser = do
+  putStrLn "Enter a list of numbers (separated by commas):"
+  input &lt;- getLine
+  let maybeList = getListFromString input in
+      case maybeList of
+          Just l  -&gt; return l
+          Nothing -&gt; askUser
 
-<span class="Entity">askUser</span> :: <span class="Constant">IO</span> [<span class="Constant">Integer</span>]
-askUser = <span class="Keyword">do</span>
-  <span class="Entity">putStrLn</span> <span class="String"><span class="String">&quot;</span>Enter a list of numbers (separated by commas):<span class="String">&quot;</span></span>
-  input &lt;- <span class="Entity">getLine</span>
-  <span class="Keyword">let</span> maybeList = getListFromString input <span class="Keyword">in</span>
-      <span class="Keyword">case</span> maybeList <span class="Keyword">of</span>
-          <span class="Constant">Just</span> l  -&gt; <span class="Entity">return</span> l
-          <span class="Constant">Nothing</span> -&gt; askUser
-
-<span class="Entity">main</span> :: <span class="Constant">IO</span> ()
-main = <span class="Keyword">do</span>
+main :: IO ()
+main = do
   list &lt;- askUser
-  <span class="Entity">print</span> $ <span class="Entity">sum</span> list
-</pre>
+  print $ sum list
+</code></pre>
 
 <p>Is translated into:</p>
 
 <div class="codehighlight">
-<pre class="twilight">
-<span class="Keyword">import</span> <span class="Constant">Data</span>.<span class="Constant">Maybe</span>
 
-<span class="Entity">maybeRead</span> :: <span class="Constant">Read</span> <span class="Variable">a</span> =&gt; <span class="Constant">String</span> -&gt; <span class="Constant">Maybe</span> <span class="Variable">a</span>
-maybeRead s = <span class="Keyword">case</span> <span class="Entity">reads</span> s <span class="Keyword">of</span>
-                  [(x,<span class="String"><span class="String">&quot;</span><span class="String">&quot;</span></span>)]    -&gt; <span class="Constant">Just</span> x
-                  _           -&gt; <span class="Constant">Nothing</span>
-<span class="Entity">getListFromString</span> :: <span class="Constant">String</span> -&gt; <span class="Constant">Maybe</span> [<span class="Constant">Integer</span>]
-getListFromString str = maybeRead $ <span class="String"><span class="String">&quot;</span>[<span class="String">&quot;</span></span> ++ str ++ <span class="String"><span class="String">&quot;</span>]<span class="String">&quot;</span></span>
-<span class="Entity">askUser</span> :: <span class="Constant">IO</span> [<span class="Constant">Integer</span>]
+
+<pre><code class="haskell">import Data.Maybe
+
+maybeRead :: Read a =&gt; String -&gt; Maybe a
+maybeRead s = case reads s of
+                  [(x,"")]    -&gt; Just x
+                  _           -&gt; Nothing
+getListFromString :: String -&gt; Maybe [Integer]
+getListFromString str = maybeRead $ "[" ++ str ++ "]"
+askUser :: IO [Integer]
 askUser = 
-    <span class="Entity">putStrLn</span> <span class="String"><span class="String">&quot;</span>Enter a list of numbers (sep. by commas):<span class="String">&quot;</span></span> &gt;&gt;
-    <span class="Entity">getLine</span> &gt;&gt;= \input -&gt;
-    <span class="Keyword">let</span> maybeList = getListFromString input <span class="Keyword">in</span>
-      <span class="Keyword">case</span> maybeList <span class="Keyword">of</span>
-        <span class="Constant">Just</span> l -&gt; <span class="Entity">return</span> l
-        <span class="Constant">Nothing</span> -&gt; askUser
+    putStrLn "Enter a list of numbers (sep. by commas):" &gt;&gt;
+    getLine &gt;&gt;= \input -&gt;
+    let maybeList = getListFromString input in
+      case maybeList of
+        Just l -&gt; return l
+        Nothing -&gt; askUser
 
-<span class="Entity">main</span> :: <span class="Constant">IO</span> ()
+main :: IO ()
 main = askUser &gt;&gt;=
-  \list -&gt; <span class="Entity">print</span> $ <span class="Entity">sum</span> list
-</pre>
+  \list -&gt; print $ sum list
+</code></pre>
+
+
 </div>
 <p>You can compile this code to verify it keeps working.</p>
 
@@ -3046,19 +3146,18 @@ To be an instance of this type class, you must provide the functions <code>(&gt;
 The function <code>(&gt;&gt;)</code> will be derived from <code>(&gt;&gt;=)</code>.
 Here is how the type class <code>Monad</code> is declared (mostly):</p>
 
-<pre class="twilight">
-<span class="Keyword">class</span> <span class="Constant">Monad</span> m  <span class="Keyword">where</span>
-  <span class="Entity">(&gt;&gt;=)</span> :: <span class="Variable">m</span> <span class="Variable">a</span> -&gt; (<span class="Variable">a</span> -&gt; <span class="Variable">m</span> <span class="Variable">b</span>) -&gt; <span class="Variable">m</span> <span class="Variable">b</span>
-  <span class="Entity">return</span> :: <span class="Variable">a</span> -&gt; <span class="Variable">m</span> <span class="Variable">a</span>
+<pre><code class="haskell">class Monad m  where
+  (&gt;&gt;=) :: m a -&gt; (a -&gt; m b) -&gt; m b
+  return :: a -&gt; m a
 
-  <span class="Entity">(&gt;&gt;)</span> :: <span class="Variable">m</span> <span class="Variable">a</span> -&gt; <span class="Variable">m</span> <span class="Variable">b</span> -&gt; <span class="Variable">m</span> <span class="Variable">b</span>
+  (&gt;&gt;) :: m a -&gt; m b -&gt; m b
   f &gt;&gt; g = f &gt;&gt;= \_ -&gt; g
 
-  <span class="Comment"><span class="Comment">--</span> You should generally safely ignore this function</span>
-  <span class="Comment"><span class="Comment">--</span> which I believe exists for historical reason</span>
-  <span class="Entity">fail</span> :: <span class="Constant">String</span> -&gt; <span class="Variable">m</span> <span class="Variable">a</span>
-  <span class="Entity">fail</span> = <span class="Entity">error</span>
-</pre>
+  -- You should generally safely ignore this function
+  -- which I believe exists for historical reason
+  fail :: String -&gt; m a
+  fail = error
+</code></pre>
 
 <blockquote>
   <p>Remarks:</p>
@@ -3095,38 +3194,41 @@ It is particularly useful to remove very deep <code>if..then..else..</code> cons
 if you can afford to follow a list of operations without being negative.</p>
 
 <div class="codehighlight">
-<pre class="twilight">
-deposit  value account = account + value
+
+
+<pre><code class="haskell">deposit  value account = account + value
 withdraw value account = account - value
 
-<span class="Entity">eligible</span> :: (<span class="Constant">Num</span> <span class="Variable">a,Ord</span> <span class="Variable">a</span>) =&gt; <span class="Variable">a</span> -&gt; <span class="Constant">Bool</span>
+eligible :: (Num a,Ord a) =&gt; a -&gt; Bool
 eligible account = 
-  <span class="Keyword">let</span> account1 = deposit 100 account <span class="Keyword">in</span>
-    <span class="Keyword">if</span> (account1 &lt; 0) 
-    <span class="Keyword">then</span> <span class="Constant">False</span>
-    <span class="Keyword">else</span> 
-      <span class="Keyword">let</span> account2 = withdraw 200 account1 <span class="Keyword">in</span>
-      <span class="Keyword">if</span> (account2 &lt; 0) 
-      <span class="Keyword">then</span> <span class="Constant">False</span>
-      <span class="Keyword">else</span> 
-        <span class="Keyword">let</span> account3 = deposit 100 account2 <span class="Keyword">in</span>
-        <span class="Keyword">if</span> (account3 &lt; 0) 
-        <span class="Keyword">then</span> <span class="Constant">False</span>
-        <span class="Keyword">else</span> 
-          <span class="Keyword">let</span> account4 = withdraw 300 account3 <span class="Keyword">in</span>
-          <span class="Keyword">if</span> (account4 &lt; 0) 
-          <span class="Keyword">then</span> <span class="Constant">False</span>
-          <span class="Keyword">else</span> 
-            <span class="Keyword">let</span> account5 = deposit 1000 account4 <span class="Keyword">in</span>
-            <span class="Keyword">if</span> (account5 &lt; 0) 
-            <span class="Keyword">then</span> <span class="Constant">False</span>
-            <span class="Keyword">else</span>
-              <span class="Constant">True</span>
+  let account1 = deposit 100 account in
+    if (account1 &lt; 0) 
+    then False
+    else 
+      let account2 = withdraw 200 account1 in
+      if (account2 &lt; 0) 
+      then False
+      else 
+        let account3 = deposit 100 account2 in
+        if (account3 &lt; 0) 
+        then False
+        else 
+          let account4 = withdraw 300 account3 in
+          if (account4 &lt; 0) 
+          then False
+          else 
+            let account5 = deposit 1000 account4 in
+            if (account5 &lt; 0) 
+            then False
+            else
+              True
 
-main = <span class="Keyword">do</span>
-  <span class="Entity">print</span> $ eligible 300 <span class="Comment"><span class="Comment">--</span> True</span>
-  <span class="Entity">print</span> $ eligible 299 <span class="Comment"><span class="Comment">--</span> False</span>
-</pre>
+main = do
+  print $ eligible 300 -- True
+  print $ eligible 299 -- False
+</code></pre>
+
+
 </div>
 <p><a href="code/03_Hell/02_Monads/10_Monads.lhs" class="cut">03_Hell/02_Monads/<strong>10_Monads.lhs</strong> </a></p>
 
@@ -3136,28 +3238,31 @@ main = <span class="Keyword">do</span>
 <p>Now, let&rsquo;s make it better using Maybe and the fact that it is a Monad</p>
 
 <div class="codehighlight">
-<pre class="twilight">
-<span class="Entity">deposit</span> :: (<span class="Constant">Num</span> <span class="Variable">a</span>) =&gt; <span class="Variable">a</span> -&gt; <span class="Variable">a</span> -&gt; <span class="Constant">Maybe</span> <span class="Variable">a</span>
-deposit value account = <span class="Constant">Just</span> (account + value)
 
-<span class="Entity">withdraw</span> :: (<span class="Constant">Num</span> <span class="Variable">a,Ord</span> <span class="Variable">a</span>) =&gt; <span class="Variable">a</span> -&gt; <span class="Variable">a</span> -&gt; <span class="Constant">Maybe</span> <span class="Variable">a</span>
-withdraw value account = <span class="Keyword">if</span> (account &lt; value) 
-                         <span class="Keyword">then</span> <span class="Constant">Nothing</span> 
-                         <span class="Keyword">else</span> <span class="Constant">Just</span> (account - value)
 
-<span class="Entity">eligible</span> :: (<span class="Constant">Num</span> <span class="Variable">a</span>, <span class="Constant">Ord</span> <span class="Variable">a</span>) =&gt; <span class="Variable">a</span> -&gt; <span class="Constant">Maybe</span> <span class="Constant">Bool</span>
-eligible account = <span class="Keyword">do</span>
+<pre><code class="haskell">deposit :: (Num a) =&gt; a -&gt; a -&gt; Maybe a
+deposit value account = Just (account + value)
+
+withdraw :: (Num a,Ord a) =&gt; a -&gt; a -&gt; Maybe a
+withdraw value account = if (account &lt; value) 
+                         then Nothing 
+                         else Just (account - value)
+
+eligible :: (Num a, Ord a) =&gt; a -&gt; Maybe Bool
+eligible account = do
   account1 &lt;- deposit 100 account 
   account2 &lt;- withdraw 200 account1 
   account3 &lt;- deposit 100 account2 
   account4 &lt;- withdraw 300 account3 
   account5 &lt;- deposit 1000 account4
-  <span class="Constant">Just</span> <span class="Constant">True</span>
+  Just True
 
-main = <span class="Keyword">do</span>
-  <span class="Entity">print</span> $ eligible 300 <span class="Comment"><span class="Comment">--</span> Just True</span>
-  <span class="Entity">print</span> $ eligible 299 <span class="Comment"><span class="Comment">--</span> Nothing</span>
-</pre>
+main = do
+  print $ eligible 300 -- Just True
+  print $ eligible 299 -- Nothing
+</code></pre>
+
+
 </div>
 <p><a href="code/03_Hell/02_Monads/11_Monads.lhs" class="cut">03_Hell/02_Monads/<strong>11_Monads.lhs</strong> </a></p>
 
@@ -3167,28 +3272,31 @@ main = <span class="Keyword">do</span>
 <p>Not bad, but we can make it even better:</p>
 
 <div class="codehighlight">
-<pre class="twilight">
-<span class="Entity">deposit</span> :: (<span class="Constant">Num</span> <span class="Variable">a</span>) =&gt; <span class="Variable">a</span> -&gt; <span class="Variable">a</span> -&gt; <span class="Constant">Maybe</span> <span class="Variable">a</span>
-deposit value account = <span class="Constant">Just</span> (account + value)
 
-<span class="Entity">withdraw</span> :: (<span class="Constant">Num</span> <span class="Variable">a,Ord</span> <span class="Variable">a</span>) =&gt; <span class="Variable">a</span> -&gt; <span class="Variable">a</span> -&gt; <span class="Constant">Maybe</span> <span class="Variable">a</span>
-withdraw value account = <span class="Keyword">if</span> (account &lt; value) 
-                         <span class="Keyword">then</span> <span class="Constant">Nothing</span> 
-                         <span class="Keyword">else</span> <span class="Constant">Just</span> (account - value)
 
-<span class="Entity">eligible</span> :: (<span class="Constant">Num</span> <span class="Variable">a</span>, <span class="Constant">Ord</span> <span class="Variable">a</span>) =&gt; <span class="Variable">a</span> -&gt; <span class="Constant">Maybe</span> <span class="Constant">Bool</span>
+<pre><code class="haskell">deposit :: (Num a) =&gt; a -&gt; a -&gt; Maybe a
+deposit value account = Just (account + value)
+
+withdraw :: (Num a,Ord a) =&gt; a -&gt; a -&gt; Maybe a
+withdraw value account = if (account &lt; value) 
+                         then Nothing 
+                         else Just (account - value)
+
+eligible :: (Num a, Ord a) =&gt; a -&gt; Maybe Bool
 eligible account =
   deposit 100 account &gt;&gt;=
   withdraw 200 &gt;&gt;=
   deposit 100  &gt;&gt;=
   withdraw 300 &gt;&gt;=
   deposit 1000 &gt;&gt;
-  <span class="Entity">return</span> <span class="Constant">True</span>
+  return True
 
-main = <span class="Keyword">do</span>
-  <span class="Entity">print</span> $ eligible 300 <span class="Comment"><span class="Comment">--</span> Just True</span>
-  <span class="Entity">print</span> $ eligible 299 <span class="Comment"><span class="Comment">--</span> Nothing</span>
-</pre>
+main = do
+  print $ eligible 300 -- Just True
+  print $ eligible 299 -- Nothing
+</code></pre>
+
+
 </div>
 <p>We have proven that Monads are a good way to make our code more elegant.
 Note this idea of code organization, in particular for <code>Maybe</code> can be used
@@ -3221,22 +3329,25 @@ But now a cooler example, lists.</p>
 Here we go:</p>
 
 <div class="codehighlight">
-<pre class="twilight">
-<span class="Keyword">import</span> <span class="Constant">Control</span>.<span class="Constant">Monad</span> (guard)
+
+
+<pre><code class="haskell">import Control.Monad (guard)
 
 allCases = [1..10]
 
-<span class="Entity">resolve</span> :: [(<span class="Constant">Int,Int,Int</span>)]
-resolve = <span class="Keyword">do</span>
+resolve :: [(Int,Int,Int)]
+resolve = do
               x &lt;- allCases
               y &lt;- allCases
               z &lt;- allCases
               guard $ 4*x + 2*y &lt; z
-              <span class="Entity">return</span> (x,y,z)
+              return (x,y,z)
 
-main = <span class="Keyword">do</span>
-  <span class="Entity">print</span> resolve
-</pre>
+main = do
+  print resolve
+</code></pre>
+
+
 </div>
 <p>MA. GIC.&nbsp;:</p>
 
@@ -3246,12 +3357,15 @@ main = <span class="Keyword">do</span>
 <p>For the list monad, there is also a syntactical sugar:</p>
 
 <div class="codehighlight">
-<pre class="twilight">
-  <span class="Entity">print</span> $ [ (x,y,z) | x &lt;- allCases, 
+
+
+<pre><code class="haskell">  print $ [ (x,y,z) | x &lt;- allCases, 
                       y &lt;- allCases, 
                       z &lt;- allCases, 
                       4*x + 2*y &lt; z ]
-</pre>
+</code></pre>
+
+
 </div>
 <p>I won&rsquo;t list all the monads, but there are many monads.
 Using monads simplifies the manipulation of several notions in pure languages.
@@ -3302,94 +3416,109 @@ keep it as much as possible.</p>
 This code is mostly the same as the one in the [tree section](#trees).
 
 <div class="codehighlight">
-<pre class="twilight">
-<span class="Keyword">import</span> <span class="Constant">Data</span>.<span class="Constant">List</span>
-<span class="Keyword">data</span> <span class="Constant">BinTree</span> a = <span class="Constant">Empty</span> 
-                 | <span class="Constant">Node</span> a (<span class="Constant">BinTree</span> a) (<span class="Constant">BinTree</span> a) 
-                  <span class="Keyword">deriving</span> (<span class="Constant">Eq</span>,<span class="Constant">Ord</span>)
 
-<span class="Comment"><span class="Comment">--</span> declare BinTree a to be an instance of Show</span>
-<span class="Keyword">instance</span> (<span class="Constant">Show</span> a) =&gt; <span class="Constant">Show</span> (<span class="Constant">BinTree</span> a) <span class="Keyword">where</span>
-  <span class="Comment"><span class="Comment">--</span> will start by a '&lt;' before the root</span>
-  <span class="Comment"><span class="Comment">--</span> and put a : a begining of line</span>
-  <span class="Entity">show</span> t = <span class="String"><span class="String">&quot;</span>&lt; <span class="String">&quot;</span></span> ++ replace<span class="String"><span class="String"> '</span><span class="StringConstant">\n</span><span class="String">'</span></span> <span class="String"><span class="String">&quot;</span><span class="StringConstant">\n</span>: <span class="String">&quot;</span></span> (treeshow <span class="String"><span class="String">&quot;</span><span class="String">&quot;</span></span> t)
-    <span class="Keyword">where</span>
-    treeshow pref <span class="Constant">Empty</span> = <span class="String"><span class="String">&quot;</span><span class="String">&quot;</span></span>
-    treeshow pref (<span class="Constant">Node</span> x <span class="Constant">Empty</span> <span class="Constant">Empty</span>) = 
+
+<pre><code class="haskell">import Data.List
+data BinTree a = Empty 
+                 | Node a (BinTree a) (BinTree a) 
+                  deriving (Eq,Ord)
+
+-- declare BinTree a to be an instance of Show
+instance (Show a) =&gt; Show (BinTree a) where
+  -- will start by a '&lt;' before the root
+  -- and put a : a begining of line
+  show t = "&lt; " ++ replace '\n' "\n: " (treeshow "" t)
+    where
+    treeshow pref Empty = ""
+    treeshow pref (Node x Empty Empty) = 
                   (pshow pref x)
 
-    treeshow pref (<span class="Constant">Node</span> x left <span class="Constant">Empty</span>) = 
-                  (pshow pref x) ++ <span class="String"><span class="String">&quot;</span><span class="StringConstant">\n</span><span class="String">&quot;</span></span> ++
-                  (showSon pref <span class="String"><span class="String">&quot;</span>`--<span class="String">&quot;</span></span> <span class="String"><span class="String">&quot;</span>   <span class="String">&quot;</span></span> left)
+    treeshow pref (Node x left Empty) = 
+                  (pshow pref x) ++ "\n" ++
+                  (showSon pref "`--" "   " left)
 
-    treeshow pref (<span class="Constant">Node</span> x <span class="Constant">Empty</span> right) = 
-                  (pshow pref x) ++ <span class="String"><span class="String">&quot;</span><span class="StringConstant">\n</span><span class="String">&quot;</span></span> ++
-                  (showSon pref <span class="String"><span class="String">&quot;</span>`--<span class="String">&quot;</span></span> <span class="String"><span class="String">&quot;</span>   <span class="String">&quot;</span></span> right)
+    treeshow pref (Node x Empty right) = 
+                  (pshow pref x) ++ "\n" ++
+                  (showSon pref "`--" "   " right)
 
-    treeshow pref (<span class="Constant">Node</span> x left right) = 
-                  (pshow pref x) ++ <span class="String"><span class="String">&quot;</span><span class="StringConstant">\n</span><span class="String">&quot;</span></span> ++
-                  (showSon pref <span class="String"><span class="String">&quot;</span>|--<span class="String">&quot;</span></span> <span class="String"><span class="String">&quot;</span>|  <span class="String">&quot;</span></span> left) ++ <span class="String"><span class="String">&quot;</span><span class="StringConstant">\n</span><span class="String">&quot;</span></span> ++
-                  (showSon pref <span class="String"><span class="String">&quot;</span>`--<span class="String">&quot;</span></span> <span class="String"><span class="String">&quot;</span>   <span class="String">&quot;</span></span> right)
+    treeshow pref (Node x left right) = 
+                  (pshow pref x) ++ "\n" ++
+                  (showSon pref "|--" "|  " left) ++ "\n" ++
+                  (showSon pref "`--" "   " right)
 
-    <span class="Comment"><span class="Comment">--</span> show a tree using some prefixes to make it nice</span>
+    -- show a tree using some prefixes to make it nice
     showSon pref before next t = 
                   pref ++ before ++ treeshow (pref ++ next) t
 
-    <span class="Comment"><span class="Comment">--</span> pshow replace &quot;\n&quot; by &quot;\n&quot;++pref</span>
-    pshow pref x = replace<span class="String"><span class="String"> '</span><span class="StringConstant">\n</span><span class="String">'</span></span> (<span class="String"><span class="String">&quot;</span><span class="StringConstant">\n</span><span class="String">&quot;</span></span>++pref) (<span class="Entity">show</span> x)
+    -- pshow replace "\n" by "\n"++pref
+    pshow pref x = replace '\n' ("\n"++pref) (show x)
 
-    <span class="Comment"><span class="Comment">--</span> replace on char by another string</span>
+    -- replace on char by another string
     replace c new string =
-      <span class="Entity">concatMap</span> (change c new) string
-      <span class="Keyword">where</span>
+      concatMap (change c new) string
+      where
           change c new x 
               | x == c = new
-              | <span class="Keyword">otherwise</span> = x:[] <span class="Comment"><span class="Comment">--</span> &quot;x&quot;</span>
+              | otherwise = x:[] -- "x"
 
-</pre>
+</code></pre>
+
+
 </div>
 </div>
 
 <p>Our first step is to create some pseudo-random number list:</p>
 
 <div class="codehighlight">
-<pre class="twilight">
-shuffle = <span class="Entity">map</span> (\x -&gt; (x*3123) <span class="Entity"><span class="Entity">`</span>mod<span class="Entity">`</span></span> 4331) [1..]
-</pre>
+
+
+<pre><code class="haskell">shuffle = map (\x -&gt; (x*3123) `mod` 4331) [1..]
+</code></pre>
+
+
 </div>
 <p>Just as a reminder, here is the definition of <code>treeFromList</code></p>
 
 <div class="codehighlight">
-<pre class="twilight">
-<span class="Entity">treeFromList</span> :: (<span class="Constant">Ord</span> <span class="Variable">a</span>) =&gt; [<span class="Variable">a</span>] -&gt; <span class="Constant">BinTree</span> <span class="Variable">a</span>
-treeFromList []    = <span class="Constant">Empty</span>
-treeFromList (x:xs) = <span class="Constant">Node</span> x (treeFromList (<span class="Entity">filter</span> (&lt;x) xs))
-                             (treeFromList (<span class="Entity">filter</span> (&gt;x) xs))
-</pre>
+
+
+<pre><code class="haskell">treeFromList :: (Ord a) =&gt; [a] -&gt; BinTree a
+treeFromList []    = Empty
+treeFromList (x:xs) = Node x (treeFromList (filter (&lt;x) xs))
+                             (treeFromList (filter (&gt;x) xs))
+</code></pre>
+
+
 </div>
 <p>and <code>treeTakeDepth</code>:</p>
 
 <div class="codehighlight">
-<pre class="twilight">
-treeTakeDepth _ <span class="Constant">Empty</span> = <span class="Constant">Empty</span>
-treeTakeDepth 0 _     = <span class="Constant">Empty</span>
-treeTakeDepth n (<span class="Constant">Node</span> x left right) = <span class="Keyword">let</span>
+
+
+<pre><code class="haskell">treeTakeDepth _ Empty = Empty
+treeTakeDepth 0 _     = Empty
+treeTakeDepth n (Node x left right) = let
           nl = treeTakeDepth (n-1) left
           nr = treeTakeDepth (n-1) right
-          <span class="Keyword">in</span>
-              <span class="Constant">Node</span> x nl nr
-</pre>
+          in
+              Node x nl nr
+</code></pre>
+
+
 </div>
 <p>See the result of:</p>
 
 <div class="codehighlight">
-<pre class="twilight">
-main = <span class="Keyword">do</span>
-      <span class="Entity">putStrLn</span> <span class="String"><span class="String">&quot;</span>take 10 shuffle<span class="String">&quot;</span></span>
-      <span class="Entity">print</span> $ <span class="Entity">take</span> 10 shuffle
-      <span class="Entity">putStrLn</span> <span class="String"><span class="String">&quot;</span><span class="StringConstant">\n</span>treeTakeDepth 4 (treeFromList shuffle)<span class="String">&quot;</span></span>
-      <span class="Entity">print</span> $ treeTakeDepth 4 (treeFromList shuffle)
-</pre>
+
+
+<pre><code class="haskell">main = do
+      putStrLn "take 10 shuffle"
+      print $ take 10 shuffle
+      putStrLn "\ntreeTakeDepth 4 (treeFromList shuffle)"
+      print $ treeTakeDepth 4 (treeFromList shuffle)
+</code></pre>
+
+
 </div>
 <pre><code>% runghc 02_Hard_Part/41_Infinites_Structures.lhs
 take 10 shuffle
@@ -3418,9 +3547,8 @@ Beware though, it will only work if you always have something to put into a bran
 
 <p>For example </p>
 
-<pre class="twilight">
-treeTakeDepth 4 (treeFromList [1..]) 
-</pre>
+<pre><code class="haskell">treeTakeDepth 4 (treeFromList [1..]) 
+</code></pre>
 
 <p>will loop forever. 
 Simply because it will try to access the head of <code>filter (&lt;1) [2..]</code>.
@@ -3446,62 +3574,68 @@ But <code>filter</code> is not smart enought to understand that the result is th
 This code is mostly the same as the preceding one.
 
 <div class="codehighlight">
-<pre class="twilight">
-<span class="Keyword">import</span> <span class="Constant">Debug</span>.<span class="Constant">Trace</span> (trace)
-<span class="Keyword">import</span> <span class="Constant">Data</span>.<span class="Constant">List</span>
-<span class="Keyword">data</span> <span class="Constant">BinTree</span> a = <span class="Constant">Empty</span> 
-                 | <span class="Constant">Node</span> a (<span class="Constant">BinTree</span> a) (<span class="Constant">BinTree</span> a) 
-                  <span class="Keyword">deriving</span> (<span class="Constant">Eq</span>,<span class="Constant">Ord</span>)
-</pre>
+
+
+<pre><code class="haskell">import Debug.Trace (trace)
+import Data.List
+data BinTree a = Empty 
+                 | Node a (BinTree a) (BinTree a) 
+                  deriving (Eq,Ord)
+</code></pre>
+
+
 </div>
 <div class="codehighlight">
-<pre class="twilight">
-<span class="Comment"><span class="Comment">--</span> declare BinTree a to be an instance of Show</span>
-<span class="Keyword">instance</span> (<span class="Constant">Show</span> a) =&gt; <span class="Constant">Show</span> (<span class="Constant">BinTree</span> a) <span class="Keyword">where</span>
-  <span class="Comment"><span class="Comment">--</span> will start by a '&lt;' before the root</span>
-  <span class="Comment"><span class="Comment">--</span> and put a : a begining of line</span>
-  <span class="Entity">show</span> t = <span class="String"><span class="String">&quot;</span>&lt; <span class="String">&quot;</span></span> ++ replace<span class="String"><span class="String"> '</span><span class="StringConstant">\n</span><span class="String">'</span></span> <span class="String"><span class="String">&quot;</span><span class="StringConstant">\n</span>: <span class="String">&quot;</span></span> (treeshow <span class="String"><span class="String">&quot;</span><span class="String">&quot;</span></span> t)
-    <span class="Keyword">where</span>
-    treeshow pref <span class="Constant">Empty</span> = <span class="String"><span class="String">&quot;</span><span class="String">&quot;</span></span>
-    treeshow pref (<span class="Constant">Node</span> x <span class="Constant">Empty</span> <span class="Constant">Empty</span>) = 
+
+
+<pre><code class="haskell">-- declare BinTree a to be an instance of Show
+instance (Show a) =&gt; Show (BinTree a) where
+  -- will start by a '&lt;' before the root
+  -- and put a : a begining of line
+  show t = "&lt; " ++ replace '\n' "\n: " (treeshow "" t)
+    where
+    treeshow pref Empty = ""
+    treeshow pref (Node x Empty Empty) = 
                   (pshow pref x)
 
-    treeshow pref (<span class="Constant">Node</span> x left <span class="Constant">Empty</span>) = 
-                  (pshow pref x) ++ <span class="String"><span class="String">&quot;</span><span class="StringConstant">\n</span><span class="String">&quot;</span></span> ++
-                  (showSon pref <span class="String"><span class="String">&quot;</span>`--<span class="String">&quot;</span></span> <span class="String"><span class="String">&quot;</span>   <span class="String">&quot;</span></span> left)
+    treeshow pref (Node x left Empty) = 
+                  (pshow pref x) ++ "\n" ++
+                  (showSon pref "`--" "   " left)
 
-    treeshow pref (<span class="Constant">Node</span> x <span class="Constant">Empty</span> right) = 
-                  (pshow pref x) ++ <span class="String"><span class="String">&quot;</span><span class="StringConstant">\n</span><span class="String">&quot;</span></span> ++
-                  (showSon pref <span class="String"><span class="String">&quot;</span>`--<span class="String">&quot;</span></span> <span class="String"><span class="String">&quot;</span>   <span class="String">&quot;</span></span> right)
+    treeshow pref (Node x Empty right) = 
+                  (pshow pref x) ++ "\n" ++
+                  (showSon pref "`--" "   " right)
 
-    treeshow pref (<span class="Constant">Node</span> x left right) = 
-                  (pshow pref x) ++ <span class="String"><span class="String">&quot;</span><span class="StringConstant">\n</span><span class="String">&quot;</span></span> ++
-                  (showSon pref <span class="String"><span class="String">&quot;</span>|--<span class="String">&quot;</span></span> <span class="String"><span class="String">&quot;</span>|  <span class="String">&quot;</span></span> left) ++ <span class="String"><span class="String">&quot;</span><span class="StringConstant">\n</span><span class="String">&quot;</span></span> ++
-                  (showSon pref <span class="String"><span class="String">&quot;</span>`--<span class="String">&quot;</span></span> <span class="String"><span class="String">&quot;</span>   <span class="String">&quot;</span></span> right)
+    treeshow pref (Node x left right) = 
+                  (pshow pref x) ++ "\n" ++
+                  (showSon pref "|--" "|  " left) ++ "\n" ++
+                  (showSon pref "`--" "   " right)
 
-    <span class="Comment"><span class="Comment">--</span> show a tree using some prefixes to make it nice</span>
+    -- show a tree using some prefixes to make it nice
     showSon pref before next t = 
                   pref ++ before ++ treeshow (pref ++ next) t
 
-    <span class="Comment"><span class="Comment">--</span> pshow replace &quot;\n&quot; by &quot;\n&quot;++pref</span>
-    pshow pref x = replace<span class="String"><span class="String"> '</span><span class="StringConstant">\n</span><span class="String">'</span></span> (<span class="String"><span class="String">&quot;</span><span class="StringConstant">\n</span><span class="String">&quot;</span></span>++pref) (<span class="String"><span class="String">&quot;</span> <span class="String">&quot;</span></span> ++ <span class="Entity">show</span> x)
+    -- pshow replace "\n" by "\n"++pref
+    pshow pref x = replace '\n' ("\n"++pref) (" " ++ show x)
 
-    <span class="Comment"><span class="Comment">--</span> replace on char by another string</span>
+    -- replace on char by another string
     replace c new string =
-      <span class="Entity">concatMap</span> (change c new) string
-      <span class="Keyword">where</span>
+      concatMap (change c new) string
+      where
           change c new x 
               | x == c = new
-              | <span class="Keyword">otherwise</span> = x:[] <span class="Comment"><span class="Comment">--</span> &quot;x&quot;</span>
+              | otherwise = x:[] -- "x"
 
-treeTakeDepth _ <span class="Constant">Empty</span> = <span class="Constant">Empty</span>
-treeTakeDepth 0 _     = <span class="Constant">Empty</span>
-treeTakeDepth n (<span class="Constant">Node</span> x left right) = <span class="Keyword">let</span>
+treeTakeDepth _ Empty = Empty
+treeTakeDepth 0 _     = Empty
+treeTakeDepth n (Node x left right) = let
           nl = treeTakeDepth (n-1) left
           nr = treeTakeDepth (n-1) right
-          <span class="Keyword">in</span>
-              <span class="Constant">Node</span> x nl nr
-</pre>
+          in
+              Node x nl nr
+</code></pre>
+
+
 </div>
 </div>
 
@@ -3513,16 +3647,19 @@ We generated only <code>4331</code> different numbers.
 To resolve this we make a slightly better <code>shuffle</code> function.</p>
 
 <div class="codehighlight">
-<pre class="twilight">
-shuffle = <span class="Entity">map</span> rand [1..]
-          <span class="Keyword">where</span> 
-              rand x = ((p x) <span class="Entity"><span class="Entity">`</span>mod` (x+c)) - ((x+c) `div<span class="Entity">`</span></span> 2)
-              p x = m*x^2 + n*x + o <span class="Comment"><span class="Comment">--</span> some polynome</span>
+
+
+<pre><code class="haskell">shuffle = map rand [1..]
+          where 
+              rand x = ((p x) `mod` (x+c)) - ((x+c) `div` 2)
+              p x = m*x^2 + n*x + o -- some polynome
               m = 3123    
               n = 31
               o = 7641
               c = 1237
-</pre>
+</code></pre>
+
+
 </div>
 <p>This shuffle function has the property (hopefully) not to have an upper nor lower bound.
 But having a better shuffle list isn&rsquo;t enough not to enter an infinite loop.</p>
@@ -3541,42 +3678,51 @@ Furthermore, by construction, each node value is unique in the tree.</p>
 <p>Here is our new version of <code>treeFromList</code>. We simply have replaced <code>filter</code> by <code>safefilter</code>.</p>
 
 <div class="codehighlight">
-<pre class="twilight">
-<span class="Entity">treeFromList</span> :: (<span class="Constant">Ord</span> <span class="Variable">a</span>, <span class="Constant">Show</span> <span class="Variable">a</span>) =&gt; [<span class="Variable">a</span>] -&gt; <span class="Constant">BinTree</span> <span class="Variable">a</span>
-treeFromList []    = <span class="Constant">Empty</span>
-treeFromList (x:xs) = <span class="Constant">Node</span> x left right
-          <span class="Keyword">where</span> 
+
+
+<pre><code class="haskell">treeFromList :: (Ord a, Show a) =&gt; [a] -&gt; BinTree a
+treeFromList []    = Empty
+treeFromList (x:xs) = Node x left right
+          where 
               left = treeFromList $ safefilter (&lt;x) xs
               right = treeFromList $ safefilter (&gt;x) xs
-</pre>
+</code></pre>
+
+
 </div>
 <p>This new function <code>safefilter</code> is almost equivalent to <code>filter</code> but don&rsquo;t enter infinite loop if the result is a finite list.
 If it cannot find an element for which the test is true after 10000 consecutive steps, then it considers to be the end of the search.</p>
 
 <div class="codehighlight">
-<pre class="twilight">
-<span class="Entity">safefilter</span> :: (<span class="Variable">a</span> -&gt; <span class="Constant">Bool</span>) -&gt; [<span class="Variable">a</span>] -&gt; [<span class="Variable">a</span>]
+
+
+<pre><code class="haskell">safefilter :: (a -&gt; Bool) -&gt; [a] -&gt; [a]
 safefilter f l = safefilter' f l nbTry
-  <span class="Keyword">where</span>
+  where
       nbTry = 10000
       safefilter' _ _ 0 = []
       safefilter' _ [] _ = []
       safefilter' f (x:xs) n = 
-                  <span class="Keyword">if</span> f x 
-                     <span class="Keyword">then</span> x : safefilter' f xs nbTry 
-                     <span class="Keyword">else</span> safefilter' f xs (n-1) 
-</pre>
+                  if f x 
+                     then x : safefilter' f xs nbTry 
+                     else safefilter' f xs (n-1) 
+</code></pre>
+
+
 </div>
 <p>Now run the program and be happy:</p>
 
 <div class="codehighlight">
-<pre class="twilight">
-main = <span class="Keyword">do</span>
-      <span class="Entity">putStrLn</span> <span class="String"><span class="String">&quot;</span>take 10 shuffle<span class="String">&quot;</span></span>
-      <span class="Entity">print</span> $ <span class="Entity">take</span> 10 shuffle
-      <span class="Entity">putStrLn</span> <span class="String"><span class="String">&quot;</span><span class="StringConstant">\n</span>treeTakeDepth 8 (treeFromList shuffle)<span class="String">&quot;</span></span>
-      <span class="Entity">print</span> $ treeTakeDepth 8 (treeFromList $ shuffle)
-</pre>
+
+
+<pre><code class="haskell">main = do
+      putStrLn "take 10 shuffle"
+      print $ take 10 shuffle
+      putStrLn "\ntreeTakeDepth 8 (treeFromList shuffle)"
+      print $ treeTakeDepth 8 (treeFromList $ shuffle)
+</code></pre>
+
+
 </div>
 <p>You should realize the time to print each value is different.
 This is because Haskell compute each value when it needs it.
@@ -3610,14 +3756,13 @@ treeFromList&rsquo; shuffle is infinite. And prove it.
 Disclaimer, this is only a conjecture.</li>
 </ul>
 
-<pre class="twilight">
-treeFromList' []  n = <span class="Constant">Empty</span>
-treeFromList' (x:xs) n = <span class="Constant">Node</span> x left right
-    <span class="Keyword">where</span>
+<pre><code class="haskell">treeFromList' []  n = Empty
+treeFromList' (x:xs) n = Node x left right
+    where
         left = treeFromList' (safefilter' (&lt;x) xs (f n)
         right = treeFromList' (safefilter' (&gt;x) xs (f n)
         f = ???
-</pre>
+</code></pre>
 
 <p><a href="code/04_Appendice/01_More_on_infinite_trees/11_Infinite_Trees.lhs" class="cut">04_Appendice/01_More_on_infinite_trees/<strong>11_Infinite_Trees.lhs</strong> </a></p>
 
@@ -3762,7 +3907,7 @@ Thank you man.</p>
                 </div>
                 <div id="lastmod">
                     Écrit le : 08/02/2012
-                    modifié le : 17/04/2012 
+                    modifié le : 26/04/2012 
                 </div>
                 <div>
                     Site entièrement réalisé avec

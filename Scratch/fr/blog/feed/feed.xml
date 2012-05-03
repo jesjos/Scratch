@@ -52,7 +52,7 @@
       <uri>yannesposito.com</uri>
     </author>
     <link rel="alternate" href="http://yannesposito.com/Scratch/fr/blog/Typography-and-the-Web/"/>
-    <content type="html">&lt;p&gt;&lt;img alt="Screenshot of first in small caps with and without ligatures." src="/Scratch/img/blog/Typography-and-the-Web/first_sc_screenshot.png" /&gt;&lt;/p&gt;
+    <content type="html">&lt;p&gt;&lt;img alt="Screenshot of first in small caps with and without ligatures." src="/Scratch/img/blog/Typography-and-the-Web/first_sc_screenshot.png" /&gt;;&lt;/p&gt;
 
 
 &lt;div class="intro"&gt;
@@ -75,7 +75,7 @@ We can all create better web typography ourselves, today.&#187;&lt;/p&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;&#171;Nous ne somme pas oblig&#233; d&amp;rsquo;attendre le d&#233;veloppement des navigateurs.
-Nous pouv...&lt;/p&gt;&lt;/blockquote&gt;&lt;/p&gt;</content>
+Nous pou...&lt;/p&gt;&lt;/blockquote&gt;&lt;/p&gt;</content>
   </entry>
   <entry>
     <id>tag:yannesposito.com,2012-01-15:/Scratch/fr/blog/Yesod-tutorial-for-newbies/</id>
@@ -223,14 +223,14 @@ Avant&amp;nbsp;:&lt;/p&gt;
 
 &lt;h3 id="basic"&gt;&lt;code&gt;BASIC&lt;/code&gt;&lt;/h3&gt;
 
-&lt;p&gt;&lt;img alt="Title image" src="/Scratch/img/blog/programming-language-experience/basic.gif" class="left" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Title image" src="/Scratch/img/blog/programming-language-experience/basic.gif" class=" left" /&gt;&lt;/p&gt;
 
 &lt;p&gt;Ah&amp;nbsp;! Le language de mes premiers programmes&amp;nbsp;! 
 Je devais avoir 10-11 ans. 
 Sous &lt;code&gt;MO5&lt;/code&gt;, &lt;code&gt;Amstrad CPC 6128&lt;/code&gt; et m&#234;me &lt;code&gt;Atari STe&lt;/code&gt;.
 Le langage des &lt;code&gt;GOTO&lt;/code&gt;s. 
 Je suis empleint de nostalgie rien que d&amp;rsquo;y penser. 
-C&amp;rsquo;est &#224; peu pr&#234;t le seul int&#233;r&#234;t de ce...&lt;/p&gt;&lt;/p&gt;&lt;/p&gt;</content>
+C&amp;rsquo;est &#224; peu pr&#234;t le seul int&#233;r&#234;t de c...&lt;/p&gt;&lt;/p&gt;&lt;/p&gt;</content>
   </entry>
   <entry>
     <id>tag:yannesposito.com,2011-08-25:/Scratch/fr/blog/Learn-Vim-Progressively/</id>
@@ -280,15 +280,21 @@ Sa prise en mais est difficile, mais p...&lt;/p&gt;&lt;/p&gt;</content>
 
 &lt;p&gt;Voici le script que j&amp;rsquo;utilise lorsque je veux avoir un &lt;code&gt;diff&lt;/code&gt; &#224; la git.&lt;/p&gt;
 
-&lt;div class="code"&gt;&lt;div class="file"&gt;&lt;a href="/Scratch/fr/blog/A-more-convenient-diff/code/ydiff"&gt; &amp;#x27A5; ydiff &lt;/a&gt;&lt;/div&gt;&lt;div class="withfile"&gt;
-&lt;pre class="twilight"&gt;
-&lt;span class="Comment"&gt;&lt;span class="Comment"&gt;#&lt;/span&gt;!/usr/bin/env zsh&lt;/span&gt;
+&lt;div class="codefile"&gt;&lt;a href="/Scratch/fr/blog/A-more-convenient-diff/code/ydiff"&gt;&amp;#x27A5; ydiff&lt;/a&gt;&lt;/div&gt;
 
-&lt;span class="Comment"&gt;&lt;span class="Comment"&gt;#&lt;/span&gt; Load colors helpers&lt;/span&gt;
-autoload -U colors &lt;span class="Keyword"&gt;&amp;amp;&amp;amp;&lt;/span&gt; colors
+&lt;pre&gt;&lt;code class="zsh"&gt;#!/usr/bin/env zsh
+
+# Load colors helpers
+autoload -U colors &amp;amp;&amp;amp; colors
 
 function colorize_diff {
-    &lt;span class="Keyword"&gt;...&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content>
+    while read line; do
+    case ${line[0]} in
+    +) print -n $fg[green];;
+    -) print -n $fg[red];;
+    @) # Display in cyan the @@ positions @@
+       if [[ ${line[1]} = '@' ]]; then
+           line=$(pri...&lt;/code&gt;&lt;/pre&gt;</content>
   </entry>
   <entry>
     <id>tag:yannesposito.com,2011-07-10:/Scratch/fr/blog/Haskell-Mandelbrot/</id>
@@ -302,11 +308,16 @@ function colorize_diff {
     <link rel="alternate" href="http://yannesposito.com/Scratch/fr/blog/Haskell-Mandelbrot/"/>
     <content type="html">&lt;p&gt;Voici le code &amp;ldquo;obfusqu&#233;&amp;rdquo;&amp;nbsp;:&lt;/p&gt;
 
-&lt;div class="code"&gt;&lt;div class="file"&gt;&lt;a href="/Scratch/fr/blog/Haskell-Mandelbrot/code/animandel.hs"&gt; &amp;#x27A5; animandel.hs &lt;/a&gt;&lt;/div&gt;&lt;div class="withfile"&gt;
-&lt;pre class="twilight"&gt;
-a=27;b=79;c=&lt;span class="Constant"&gt;C&lt;/span&gt;(-2.0,-1.0);d=&lt;span class="Constant"&gt;C&lt;/span&gt;(1.0,1.0);e=&lt;span class="Constant"&gt;C&lt;/span&gt;(-2.501,-1.003)
-&lt;span class="Keyword"&gt;newtype&lt;/span&gt; &lt;span class="Constant"&gt;C&lt;/span&gt; = &lt;span class="Constant"&gt;C&lt;/span&gt; (&lt;span class="Constant"&gt;Double&lt;/span&gt;,&lt;span class="Constant"&gt;Double&lt;/span&gt;) &lt;span class="Keyword"&gt;deriving&lt;/span&gt; (&lt;span class="Constant"&gt;Show&lt;/span&gt;,&lt;span class="Constant"&gt;Eq&lt;/span&gt;)
-&lt;span class="Keyword"&gt;instance&lt;/span&gt; &lt;span class="Constant"&gt;Num&lt;/span&gt; &lt;span class="Constant"&gt;C&lt;/span&gt; &lt;span class="Keyword"&gt;where...&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content>
+&lt;div class="codefile"&gt;&lt;a href="/Scratch/fr/blog/Haskell-Mandelbrot/code/animandel.hs"&gt;&amp;#x27A5; animandel.hs&lt;/a&gt;&lt;/div&gt;
+
+&lt;pre&gt;&lt;code class="haskell"&gt;a=27;b=79;c=C(-2.0,-1.0);d=C(1.0,1.0);e=C(-2.501,-1.003)
+newtype C = C (Double,Double) deriving (Show,Eq)
+instance Num C where C(x,y)*C(z,t)=C(z*x-y*t,y*z+x*t);C(x,y)+C(z,t)=C(x+z,y+t);abs(C(x,y))=C(sqrt(x*x+y*y),0.0)
+r(C(x,y))=x;i(C(x,y))=y
+f c z 0=0;f c z n=if(r(abs(z))&amp;gt;2)then n else f c ((z*z)+c) (n-1)
+h j k = map (\z-&amp;gt;(f (C z) (C(0,0)) 32,(fst z&amp;gt;l - q/2))) [(x,y)|y&amp;lt;-[p,(p+((o-p)/a))..o],x&amp;lt;-[m,(m + q)..l]] where o=i k;p=i j;m=r j;l=r k;q=(l-m)/b
+u j k = concat $ map v $ h j k where v (i,p)=(" .,`'&#176;\":;-+oO0123456789=!%*&#167;&amp;amp;$@#"!!i):rst p;rst True="\n";rst False=""
+main ...&lt;/code&gt;&lt;/pre&gt;</content>
   </entry>
   <entry>
     <id>tag:yannesposito.com,2011-05-18:/Scratch/fr/blog/Password-Management/</id>
@@ -469,7 +480,7 @@ De m&#233;moire il &#233;tait peu ais&#233; de manipuler des ...&lt;/p&gt;</cont
       <uri>yannesposito.com</uri>
     </author>
     <link rel="alternate" href="http://yannesposito.com/Scratch/fr/blog/2010-10-10-Secure-eMail-on-Mac-in-few-steps/"/>
-    <content type="html">&lt;p&gt;&lt;img alt="Title image" src="/Scratch/img/blog/2010-10-10-Secure-eMail-on-Mac-in-few-steps/main.png" class="clean" /&gt;&lt;/p&gt;
+    <content type="html">&lt;p&gt;&lt;img alt="Title image" src="/Scratch/img/blog/2010-10-10-Secure-eMail-on-Mac-in-few-steps/main.png" class="clean " /&gt;&lt;/p&gt;
 
 
 &lt;div class="intro"&gt;
@@ -490,7 +501,7 @@ De m&#233;moire il &#233;tait peu ais&#233; de manipuler des ...&lt;/p&gt;</cont
 
 &lt;p&gt;J&amp;rsquo;ai (re)d&#233;couvert comment adoptez la norme S/MIME. 
 J&amp;rsquo;ai &#233;t&#233; surpris de voir &#224; quel point ce fut ais&#233;.
-Il y a seulement quelques ann&#233;es c&amp;rs...&lt;/p&gt;&lt;/p&gt;</content>
+Il y a seulement quelques ann&#233;es c&amp;r...&lt;/p&gt;&lt;/p&gt;</content>
   </entry>
   <entry>
     <id>tag:yannesposito.com,2010-10-06:/Scratch/fr/blog/2010-10-06-New-Blog-Design-Constraints/</id>
@@ -534,7 +545,7 @@ Donc la date n&amp;rsquo;est pas n&#233;cessairement la &lt;em&gt;vraie&lt;/em&g
 Et cet outil me permet de r&#233;cup&#233;rer la derni&#232;re date de &lt;em&gt;vraie&lt;/em&gt; modification d&amp;rsquo;un fichier.
 Voici comment je m&amp;rsquo;y prend avec &lt;a href="http://nanoc.stoneship.org"&gt;nanoc&lt;/a&gt;&amp;nbsp;:&lt;/p&gt;
 
-&lt;div class="code"&gt;&lt;div class="file"&gt;&lt;/div&gt;&lt;/div&gt;</content>
+&lt;div class="codefile"&gt;&lt;/div&gt;</content>
   </entry>
   <entry>
     <id>tag:yannesposito.com,2010-09-02:/Scratch/fr/blog/2010-09-02-base64-and-sha1-on-iPhone/</id>
@@ -552,10 +563,17 @@ voici deux fonctions &#224; int&#233;grer &#224; votre application iPhone pour a
 &lt;p&gt;Pour l&amp;rsquo;usage c&amp;rsquo;est tr&#232;s simple, copiez le code dans la classe de votre choix.
 Puis&amp;nbsp;:&lt;/p&gt;
 
-&lt;pre class="twilight"&gt;
-&lt;span class="CCCPreprocessorLine"&gt;#&lt;span class="CCCPreprocessorDirective"&gt;import&lt;/span&gt; &lt;span class="String"&gt;&lt;span class="String"&gt;&amp;lt;&lt;/span&gt;CommonCrypto/CommonDigest.h&lt;span class="String"&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;pre&gt;&lt;code class="objective-c"&gt;#import &amp;lt;CommonCrypto/CommonDigest.h&amp;gt;
 ...
-&lt;span class="Support"&gt;NSString&lt;/span&gt; *b64_hash = [&lt;span class="Variable"&gt;self&lt;/span&gt; &lt;span class="SupportFunction"&gt;b64_sha1&lt;span class="SupportFunction"&gt;:&lt;/span&gt;&lt;/span&gt;&lt;span class="String"&gt;&lt;/span&gt;&lt;/pre&gt;</content>
+NSString *b64_hash = [self b64_sha1:@"some NSString to be sha1'ed"];
+...
+NSString *hex_hash = [self hex_sha1:@"some NSString to be sha1'ed"];
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;L&amp;rsquo;algorithme pour l&amp;rsquo;encodage en &lt;code&gt;base64&lt;/code&gt; doit &#234;tre programm&#233; sur iPhone.
+Il n&amp;rsquo;y a pas de librairie officielle qui s&amp;rsquo;occupe de &#231;a.&lt;/p&gt;
+
+&lt;div class="codefile"&gt;&lt;/div&gt;</content>
   </entry>
   <entry>
     <id>tag:yannesposito.com,2010-08-31:/Scratch/fr/blog/2010-08-31-send-mail-from-command-line-with-attached-file/</id>
@@ -573,14 +591,14 @@ Je n&amp;rsquo;avais ni &lt;code&gt;pine&lt;/code&gt; ni &lt;code&gt;mutt&lt;/co
 
 &lt;p&gt;Ce qu&amp;rsquo;on trouve sur internet pour envoyer un mail avec fichier attach&#233; c&amp;rsquo;est &#231;a&amp;nbsp;:&lt;/p&gt;
 
-&lt;pre class="twilight"&gt;
-uuencode fic.jpg fic.jpg &lt;span class="Keyword"&gt;|&lt;/span&gt; mail -s &lt;span class="String"&gt;&lt;span class="String"&gt;'&lt;/span&gt;Subject&lt;span class="String"&gt;'&lt;/span&gt;&lt;/span&gt;
-&lt;/pre&gt;
+&lt;pre&gt;&lt;code class="zsh"&gt;uuencode fic.jpg fic.jpg | mail -s 'Subject'
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Bon, alors, b&#234;te et disciplin&#233; j&amp;rsquo;ai essay&#233;. 
 Et bien, &#231;a marche &lt;em&gt;presque&lt;/em&gt; tout le temps. 
 Pour mon fichier &#231;a n&amp;rsquo;a pas march&#233; du tout. 
-Je l&amp;rsquo;ai compress&#233; au format &lt;code&gt;.gz&lt;/code&gt;, &lt;/p&gt;</content>
+Je l&amp;rsquo;ai compress&#233; au format &lt;code&gt;.gz&lt;/code&gt;, &lt;code&gt;.bz2&lt;/code&gt; et &lt;code&gt;.zip&lt;/code&gt;.
+Avec le format &lt;code&gt;.bz2&lt;/code&gt; le mail re&#231;u avait bien un fichie...&lt;/p&gt;</content>
   </entry>
   <entry>
     <id>tag:yannesposito.com,2010-08-23:/Scratch/fr/blog/2010-08-23-Now-heberged-on-heroku/</id>
@@ -732,12 +750,26 @@ En r&#233;alit&#233;, ce qui ralenti le rendu de ce site est par ordre d&amp;rsq
     <link rel="alternate" href="http://yannesposito.com/Scratch/fr/blog/2010-06-19-jQuery-popup-the-easy-way/"/>
     <content type="html">&lt;p&gt;Voici une fa&#231;on simple et rapide pour faire des popups avec jQuery.&lt;/p&gt;
 
-&lt;div class="code"&gt;&lt;div class="file"&gt;&lt;a href="/Scratch/fr/blog/2010-06-19-jQuery-popup-the-easy-way/code/essai.js"&gt; &amp;#x27A5; essai.js &lt;/a&gt;&lt;/div&gt;&lt;div class="withfile"&gt;
-&lt;pre class="twilight"&gt;
-&lt;span class="Comment"&gt;&lt;span class="Comment"&gt;//&lt;/span&gt; --- code popup ---&lt;/span&gt;
-&lt;span class="Storage"&gt;function&lt;/span&gt; &lt;span class="Entity"&gt;openPopup&lt;/span&gt;() {
-    &lt;span class="Keyword"&gt;$&lt;/span&gt;(&lt;span class="Variable"&gt;this&lt;/span&gt;).clone(&lt;span class="Constant"&gt;false&lt;/span&gt;).appendTo(&lt;span class="Keyword"&gt;$&lt;/span&gt;(&lt;span class="String"&gt;&lt;span class="String"&gt;&amp;quot;&lt;/span&gt;#_code&lt;span class="String"&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt;));
-    &lt;span class="Keyword"&gt;$&lt;/span&gt;(&lt;span class="String"&gt;&lt;span class="String"&gt;&amp;quot;&lt;/span&gt;#_code&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content>
+&lt;div class="codefile"&gt;&lt;a href="/Scratch/fr/blog/2010-06-19-jQuery-popup-the-easy-way/code/essai.js"&gt;&amp;#x27A5; essai.js&lt;/a&gt;&lt;/div&gt;
+
+&lt;pre&gt;&lt;code class="javascript"&gt;// --- code popup ---
+function openPopup() {
+    $(this).clone(false).appendTo($("#_code"));
+    $("#_code").show();
+}
+
+function closePopup() {
+    $("#_code").html("");
+    $("#_code").hide();
+}
+
+function initCode() {
+    $(".code").click(openPopup);
+    $(".code").css({cursor: "pointer"});
+    $('body').append('&amp;lt;div id="_code"&amp;gt;&amp;lt;/div&amp;gt;');
+    $('#_code').css( { 'text-align': "justify", position: "fixed", 
+                        left:0, top:0, width: "100%", height: "100%", 
+                        "background-color": "rgba(0, 0, 0, 0.8)", 'z-...&lt;/code&gt;&lt;/pre&gt;</content>
   </entry>
   <entry>
     <id>tag:yannesposito.com,2010-06-17:/Scratch/fr/blog/2010-06-17-hide-yourself-to-analytics/</id>
@@ -757,8 +789,11 @@ Je centralise tout dans un seul fichier javascript ce qui facilite le travail.&l
 
 &lt;p&gt;Avant de comptabiliser les visites, je v&#233;rifie que la cl&#233; &lt;code&gt;admin&lt;/code&gt; n&amp;rsquo;est pas utilis&#233;e dans mes cookies.&lt;/p&gt;
 
-&lt;pre class="twilight"&gt;
-    &lt;span class="Storage"&gt;var&lt;/span&gt; admin &lt;span class="Keyword"&gt;=&lt;/span&gt; &lt;span class="Keyword"&gt;$&lt;/span&gt;.&lt;span class="SupportConstant"&gt;cookie&lt;/span&gt;(&lt;/pre&gt;</content>
+&lt;pre&gt;&lt;code class="javascript"&gt;    var admin = $.cookie('admin');
+    if (! admin) {
+        // put your analytics code here
+    } else {
+        console.log("[WARNING] you're HIDDEN to analy...&lt;/code&gt;&lt;/pre&gt;</content>
   </entry>
   <entry>
     <id>tag:yannesposito.com,2010-06-17:/Scratch/fr/blog/2010-06-17-track-events-with-google-analytics/</id>
@@ -774,8 +809,17 @@ Je centralise tout dans un seul fichier javascript ce qui facilite le travail.&l
 
 &lt;p&gt;Dans le html, il faut utiliser &lt;a href="http://jquery.com"&gt;jQuery&lt;/a&gt; et un fichier que j&amp;rsquo;ai appel&#233; &lt;code&gt;yga.js&lt;/code&gt;&amp;nbsp;:&lt;/p&gt;
 
-&lt;pre class="twilight"&gt;
-&lt;span class="EmbeddedSource"&gt;    &lt;span class="EmbeddedSource"&gt;&amp;lt;&lt;/span&gt;&lt;span class="MetaTagInline"&gt;script&lt;/span&gt; &lt;span class="MetaTagInline"&gt;type&lt;/span&gt;=&lt;span class="String"&gt;&lt;span class="String"&gt;&amp;quot;&lt;/span&gt;text/javascript&lt;span class="String"&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt; &lt;span class="MetaTagInline"&gt;src&lt;/span&gt;=&lt;span class="String"&gt;&lt;span class="String"&gt;&amp;quot;&lt;/span&gt;jquery.js&lt;span class="String"&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt;&lt;span class="EmbeddedSource"&gt;&amp;gt;&lt;/span&gt;&lt;span class="EmbeddedSource"&gt;&amp;lt;/&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;</content>
+&lt;pre&gt;&lt;code class="html"&gt;    &amp;lt;script type="text/javascript" src="jquery.js"&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script type="text/javascript" src="yga.js"&amp;gt;&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Voici le contenu du fichier &lt;code&gt;yga.js&lt;/code&gt;&amp;nbsp;:&lt;/p&gt;
+
+&lt;div class="codefile"&gt;&lt;a href="/Scratch/fr/blog/2010-06-17-track-events-with-google-analytics/code/yga.js"&gt;&amp;#x27A5; yga.js&lt;/a&gt;&lt;/div&gt;
+
+&lt;pre&gt;&lt;code class="javascript"&gt;$(document).ready( function() {
+    // add an event to all link for google analytics
+    $('a').click(functi...&lt;/code&gt;&lt;/pre&gt;</content>
   </entry>
   <entry>
     <id>tag:yannesposito.com,2010-06-15:/Scratch/fr/blog/2010-06-15-Get-my-blog-engine/</id>
@@ -847,7 +891,7 @@ Lorsque je m&amp;...&lt;/p&gt;</content>
 &lt;div class="intro"&gt;
 
 
-&lt;p&gt;&lt;abbr title="Trop Long &#192; Lire"&gt;&lt;span class="sc"&gt;tl&#224;l&lt;/span&gt;&lt;/abbr&gt;&amp;nbsp;:&lt;/p&gt;
+&lt;p&gt;&lt;span class="sc"&gt;&lt;abbr title="Trop long &#224; lire"&gt;tl&#224;l&lt;/abbr&gt;&amp;nbsp;: &lt;/span&gt;&amp;nbsp;:&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;J&amp;rsquo;ai essay&#233; de programmer un simple filtre&amp;nbsp;;&lt;/li&gt;
@@ -862,9 +906,7 @@ Lorsque je m&amp;...&lt;/p&gt;</content>
 
 &lt;/ul&gt;
 
-&lt;h2 id="rsum-plus-long-que-le--abbr-titletrop-long--liresctllscabbr"&gt;R&#233;sum&#233; (plus long que le  &lt;abbr title="Trop Long &#192; Lire"&gt;&lt;span class="sc"&gt;tl&#224;l&lt;/span&gt;&lt;/abbr&gt;)&lt;/h2&gt;
-
-&lt;p&gt;Je devais r&#233;soudre un...&lt;/p&gt;&lt;/div&gt;</content>
+&lt;h2 id="rsum-plus-long-que-le--span-classscabbr-titletrop-long--liretllabbr--span"&gt;R&#233;sum&#233; (plus long que le  &lt;span class="sc"&gt;&lt;abbr title="Trop long &#224; lire"&gt;tl&#224;l&lt;/abbr&gt;&amp;nbsp;: &lt;/span&gt;)&lt;/h2&gt;&lt;/div&gt;</content>
   </entry>
   <entry>
     <id>tag:yannesposito.com,2010-05-19:/Scratch/fr/blog/2010-05-19-How-to-cut-HTML-and-repair-it/</id>
@@ -880,9 +922,22 @@ Lorsque je m&amp;...&lt;/p&gt;</content>
 
 &lt;p&gt;Prenons un exemple&amp;nbsp;:&lt;/p&gt;
 
-&lt;pre class="twilight"&gt;
-&lt;span class="MetaTagAll"&gt;&lt;span class="MetaTagAll"&gt;&amp;lt;&lt;/span&gt;&lt;span class="MetaTagAll"&gt;div&lt;/span&gt; &lt;span class="MetaTagAll"&gt;class&lt;/span&gt;=&lt;span class="String"&gt;&lt;span class="String"&gt;&amp;quot;&lt;/span&gt;corps&lt;span class="String"&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt;&lt;span class="MetaTagAll"&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;
-    &lt;span class="MetaTagAll"&gt;&lt;span class="MetaTagAll"&gt;&amp;lt;&lt;/span&gt;&lt;span class="MetaTagAll"&gt;div&lt;/span&gt; &lt;span class="MetaTagAll"&gt;class&lt;/span&gt;=&lt;span class="String"&gt;&lt;span class="String"&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;</content>
+&lt;pre&gt;&lt;code class="html"&gt;&amp;lt;div class="corps"&amp;gt;
+    &amp;lt;div class="intro"&amp;gt;
+        &amp;lt;p&amp;gt;Introduction&amp;lt;/p&amp;gt;
+    &amp;lt;/div&amp;gt;
+    &amp;lt;p&amp;gt;The first paragraph&amp;lt;/p&amp;gt;
+    &amp;lt;img src="/img/img.png" alt="an image"/&amp;gt;
+    &amp;lt;p&amp;gt;Another long paragraph&amp;lt;/p&amp;gt;
+&amp;lt;/div&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Apr&#232;s avoir coup&#233;, j&amp;rsquo;obtiens&amp;nbsp;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="html"&gt;&amp;lt;div class="corps"&amp;gt;
+    &amp;lt;div class="intro"&amp;gt;
+        &amp;lt;p&amp;gt;Introduction&amp;lt;/p&amp;gt;
+    &amp;lt;/div&amp;g...&lt;/code&gt;&lt;/pre&gt;</content>
   </entry>
   <entry>
     <id>tag:yannesposito.com,2010-05-17:/Scratch/fr/blog/2010-05-17-at-least-this-blog-revive/</id>
@@ -946,15 +1001,21 @@ Parce qu&amp;rsquo;il est facile de &lt;em&gt;merger&lt;/em&gt; par erreur, je p
 
 &lt;p&gt;La fa&#231;on standard:&lt;/p&gt;
 
-&lt;div&gt;&lt;pre class="twilight"&gt;
-git clone git@github.com:yogsototh/project.git
-&lt;/pre&gt;&lt;/div&gt;
+&lt;div&gt;
+
+&lt;pre&gt;&lt;code class="zsh"&gt;git clone git@github.com:yogsototh/project.git
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;/div&gt;
 
 &lt;p&gt;En utilisant le port HTTPS&amp;nbsp;:&lt;/p&gt;
 
-&lt;div&gt;&lt;pre class="twilight"&gt;
-git clone git+ssh://git@github.com:443/yogsototh/project.git
-&lt;/pre&gt;&lt;/div&gt;
+&lt;div&gt;
+
+&lt;pre&gt;&lt;code class="zsh"&gt;git clone git+ssh://git@github.com:443/yogsototh/project.git
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;/div&gt;
 
 &lt;h2 id="cloner-toutes-les-branches"&gt;Cloner toutes les branches&lt;/h2&gt;
 
@@ -962,11 +1023,9 @@ git clone git+ssh://git@github.com:443/yogsototh/project.git
 
 &lt;p&gt;Si vous n&amp;rsquo;avez pas beaucoup de branches, vous pouvez simplement les clone le project et ensuite pour chacune d&amp;rsquo;entre elle lancer la commande suivante&amp;nbsp;:&lt;/p&gt;
 
-&lt;div&gt;&lt;pre class="twilight"&gt;
-git branch --track local_branch remote_branch
-&lt;/pre&gt;&lt;/div&gt;
+&lt;div&gt;
 
-&lt;p&gt;par ...&lt;/p&gt;</content>
+&lt;pre&gt;&lt;code class="zsh"&gt;git branch --track local_branch remote_bran...&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
   </entry>
   <entry>
     <id>tag:yannesposito.com,2010-02-23:/Scratch/fr/blog/2010-02-23-When-regexp-is-not-the-best-solution/</id>
@@ -983,9 +1042,22 @@ Et surtout quand les transformations que vous voulez accomplir sont simples.&lt;
 
 &lt;p&gt;Je voulais savoir comment r&#233;cup&#233;rer le plus vite possible l&amp;rsquo;extension d&amp;rsquo;un nom de fichier. Il y a trois mani&#232;re naturelle d&amp;rsquo;accomplir cel&#224;&amp;nbsp;:&lt;/p&gt;
 
-&lt;div&gt;&lt;pre class="twilight"&gt;
-&lt;span class="Comment"&gt;&lt;span class="Comment"&gt;#&lt;/span&gt; regexp&lt;/span&gt;
-str.&lt;span class="Entity"&gt;match&lt;/span&gt;(&lt;span class="StringRegexp"&gt;&lt;span class="StringRegexp"&gt;/&lt;/span&gt;&lt;/span&gt;&lt;span class="StringRegexp"&gt;&lt;span class="StringRegexp"&gt;&lt;span class="StringRegexp"&gt;[&lt;/span&gt;^.&lt;span class="StringRegexp"&gt;]&lt;/span&gt;&lt;/span&gt;*$&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;</content>
+&lt;div&gt;
+
+&lt;pre&gt;&lt;code class="ruby"&gt;# regexp
+str.match(/[^.]*$/); 
+ext=$&amp;amp;
+
+# split
+ext=str.split('.')[-1]
+
+# File module
+ext=File.extname(str)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;/div&gt;
+
+&lt;p&gt;A premi&#232;re vue, je pensais que l&amp;rsquo;expression r&#233;guli&#232;re serait plus rapide que le &lt;code&gt;split&lt;/code&gt; parce qu&amp;rsquo;il pouvait y avoir plusieurs de &lt;code&gt;.&lt;/code&gt; dans un nom de fichie...&lt;/p&gt;</content>
   </entry>
   <entry>
     <id>tag:yannesposito.com,2010-02-18:/Scratch/fr/blog/2010-02-18-split-a-file-by-keyword/</id>
@@ -1001,14 +1073,29 @@ str.&lt;span class="Entity"&gt;match&lt;/span&gt;(&lt;span class="StringRegexp"&
 Alors j&amp;rsquo;en ai fait un en &lt;code&gt;awk&lt;/code&gt;. Je le met ici principalement pour moi, mais &#231;a peut toujours servir &#224; quelqu&amp;rsquo;un d&amp;rsquo;autre.
 Le code suivant d&#233;coupe un fichier pour chacune de ses ligne contenant le mot &lt;code&gt;UTC&lt;/code&gt;.&lt;/p&gt;
 
-&lt;div&gt;&lt;pre class="twilight"&gt;
-&lt;span class="Comment"&gt;&lt;span class="Comment"&gt;#&lt;/span&gt;!/usr/bin/env awk&lt;/span&gt;
-&lt;span class="Entity"&gt;BEGIN&lt;/span&gt;{i=0;}
-&lt;span class="StringRegexp"&gt;&lt;span class="StringRegexp"&gt;/&lt;/span&gt;UTC&lt;span class="StringRegexp"&gt;/&lt;/span&gt;&lt;/span&gt; { 
+&lt;div&gt;
+
+&lt;pre&gt;&lt;code class="perl"&gt;#!/usr/bin/env awk
+BEGIN{i=0;}
+/UTC/ { 
     i+=1;
-    FIC=&lt;span class="SupportFunction"&gt;sprintf&lt;/span&gt;(&lt;span class="String"&gt;&lt;span class="String"&gt;&amp;quot;&lt;/span&gt;fic.%03d&lt;span class="String"&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt;,i); 
+    FIC=sprintf("fic.%03d",i); 
 } 
-{&lt;/pre&gt;&lt;/div&gt;</content>
+{print $0&amp;gt;&amp;gt;FIC}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;/div&gt;
+
+&lt;p&gt;En r&#233;alit&#233;, j&amp;rsquo;avais besoin de cet outils pour avoir un fichier par jour. Chaque ligne contenant UTC ayant le format suivant&amp;nbsp;:&lt;/p&gt;
+
+&lt;pre class="twilight"&gt;
+Mon Dec  7 10:32:30 UTC 2009
+&lt;/pre&gt;
+
+&lt;p&gt;J&amp;rsquo;en suis finallement arriv&#233; au code suivant&amp;nbsp;:&lt;/p&gt;
+
+&lt;div&gt;
+...&lt;/div&gt;</content>
   </entry>
   <entry>
     <id>tag:yannesposito.com,2010-02-16:/Scratch/fr/blog/2010-02-16-All-but-something-regexp--2-/</id>
@@ -1048,14 +1135,21 @@ a.....&lt;span class="Constant"&gt;&lt;strong&gt;a......b&lt;/strong&gt;&lt;/spa
     <link rel="alternate" href="http://yannesposito.com/Scratch/fr/blog/2010-02-15-All-but-something-regexp/"/>
     <content type="html">&lt;p&gt;Parfois vous ne pouvez simplement pas &#233;crire&amp;nbsp;:&lt;/p&gt;
 
-&lt;div&gt;&lt;pre class="twilight"&gt;
-&lt;span class="Keyword"&gt;if&lt;/span&gt; str.&lt;span class="Entity"&gt;match&lt;/span&gt;(regexp) &lt;span class="Keyword"&gt;and&lt;/span&gt; 
-    &lt;span class="Keyword"&gt;not&lt;/span&gt; str.&lt;span class="Entity"&gt;match&lt;/span&gt;(other_regexp)
+&lt;div&gt;
+
+&lt;pre&gt;&lt;code class="ruby"&gt;if str.match(regexp) and 
+    not str.match(other_regexp)
         do_something
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;/div&gt;
 
 &lt;p&gt;et vous devez obtenir le m&#234;me comportement avec seulement une expression r&#233;guli&#232;re. Le probl&#232;me c&amp;rsquo;est que le compl&#233;mentaire des r&#233;gulier n&amp;rsquo;est pas r&#233;gulier. Cel&#224; peut s&amp;rsquo;av&#233;rer impossible.&lt;/p&gt;
 
-&lt;p&gt;Cependant, pour certaines expressions ce peut &#234;tre possible&lt;sup&gt;&lt;a href="#note1"&gt;&amp;dagger;&lt;/a&gt;&lt;/sup&gt;. Disons que vous souhaitez &lt;em&gt;matcher&lt;/em&gt; toutes les lignes contenant le mot &lt;code&gt;bull&lt;/code&gt;, mais que vous ne souhaitez pas matcher &lt;code&gt;bu...&lt;/code&gt;&lt;/p&gt;</content>
+&lt;p&gt;Cependant, pour certaines expressions ce peut &#234;tre possible&lt;sup&gt;&lt;a href="#note1"&gt;&amp;dagger;&lt;/a&gt;&lt;/sup&gt;. Disons que vous souhaitez &lt;em&gt;matcher&lt;/em&gt; toutes les lignes contenant le mot &lt;code&gt;bull&lt;/code&gt;, mais que vous ne souhaitez pas matcher &lt;code&gt;bullshit&lt;/code&gt;. Voici une fa&#231;on sympa d&amp;rsquo;y arriver&amp;nbsp;:&lt;/p&gt;
+
+&lt;div&gt;
+
+&lt;pre&gt;&lt;code class="ruby"&gt;# matcher toute les chaines qui ...&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
   </entry>
 </feed>

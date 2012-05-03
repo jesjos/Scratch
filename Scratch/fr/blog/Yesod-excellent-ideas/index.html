@@ -12,6 +12,7 @@
         <link rel="stylesheet" type="text/css" href="/Scratch/assets/css/main.css" />
         <link rel="stylesheet" type="text/css" href="/Scratch/css/solarized.css" />
         <link rel="stylesheet" type="text/css" href="/Scratch/css/idc.css" />
+        <link href='http://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css'>
         <link rel="alternate" type="application/rss+xml" title="RSS" href="http://feeds.feedburner.com/yannespositocomfr"/>
         
         <link rel="alternate" lang="fr" xml:lang="fr" title="Les idées de yesod" type="text/html" hreflang="fr" href="/Scratch/fr/blog/Yesod-excellent-ideas/" /> 
@@ -19,6 +20,8 @@
         <script type="text/javascript" src="/Scratch/js/jquery-1.3.1.min.js"></script>
         <script type="text/javascript" src="/Scratch/js/jquery.cookie.js"></script>
         <script type="text/javascript" src="/Scratch/js/index.js"></script>
+        <script type="text/javascript" src="/Scratch/js/highlight/highlight.pack.js"></script>                 
+        <script type="text/javascript" src="/Scratch/js/article.js"></script>                 
         <!--[if lt IE 9]>
         <script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE9.js"></script>
         <![endif]-->
@@ -81,9 +84,8 @@ Des chaînes de caractère pour les URL, le HTML, le Javascript, les CSS, les re
 Pour éviter des utilisation malicieuses vous devez protéger chaque chaîne de caractère entre chaque étape.
 Par exemple supposons que vous entriez comme nom&nbsp;:</p>
 
-<pre class="twilight">
-Newton<span class="Keyword">&lt;</span>script<span class="Keyword">&gt;</span><span class="SupportFunction">alert</span>(<span class="String"><span class="String">&quot;</span>An apple fall<span class="String">&quot;</span></span>)<span class="Keyword">&lt;</span>/script<span class="Keyword">&gt;</span>
-</pre>
+<pre><code class="javascript">Newton&lt;script&gt;alert("An apple fall")&lt;/script&gt;
+</code></pre>
 
 <p>Sans une protection correcte, le message &ldquo;An apple fall&rdquo; sera affiché à chaque fois que quelqu&rsquo;un essayera d&rsquo;accéder au nom de cet utilisateur.
 Les &ldquo;types saufs&rdquo; sont le <a href="https://www.youtube.com/watch?v=1IWF3IsEPBE">tonyglandil du web</a>.
@@ -93,14 +95,13 @@ Entre chaque passage d&rsquo;une représentation à une autre, un transformation
 
 <p>Yesod fait de son mieux pour typer les objets manipulés et ainsi il fera ce qu&rsquo;il faut pour ne pas mettre du script dans une URL par exemple.</p>
 
-<pre class="twilight"><span class="MetaTagInline"><span class="MetaTagInline">&lt;</span><span class="MetaTagInline">a</span> <span class="MetaTagInline">href</span>=@[<span class="MetaTagInline">AnotherPageR</span>]<span class="MetaTagInline">&gt;</span></span>Go to the other page
-</pre>
+<pre><code class="html">&lt;a href=@[AnotherPageR]&gt;Go to the other page
+</code></pre>
 
 <p>Comme <code>AnotherPageR</code> est une URL elle ne pourra contiendra pas (par défaut) de caractère dangereux comme par exemple&nbsp;:</p>
 
-<pre class="twilight">
-falselink&quot;&gt;<span class="EmbeddedSource"><span class="EmbeddedSource">&lt;</span><span class="MetaTagInline">script</span><span class="EmbeddedSource">&gt;</span> bad_code<span class="EmbeddedSource">(</span><span class="EmbeddedSource">)</span><span class="EmbeddedSource">;</span> <span class="EmbeddedSource">&lt;/</span><span class="MetaTagInline">script</span><span class="EmbeddedSource">&gt;</span></span><span class="MetaTagInline"><span class="MetaTagInline">&lt;</span><span class="MetaTagInline">a</span> <span class="MetaTagInline">href</span>=<span class="String"><span class="String">&quot;</span>pipo</span></span>
-</pre>
+<pre><code class="html">falselink"&gt;&lt;script&gt; bad_code(); &lt;/script&gt;&lt;a href="pipo
+</code></pre>
 
 <h2 id="les-widgets">Les widgets</h2>
 
@@ -136,11 +137,10 @@ htmlbody = ...
 
 <p>La vraie syntaxe est&nbsp;:</p>
 
-<pre class="twilight">
-toWidgetHeader cassiusFile <span class="String"><span class="String">&quot;</span>button.cassius<span class="String">&quot;</span></span>
-toWidgetHeader juliusFile <span class="String"><span class="String">&quot;</span>button.julius<span class="String">&quot;</span></span>
-toWidget       hamletFile <span class="String"><span class="String">&quot;</span>buttonTemplate.hamlet<span class="String">&quot;</span></span>
-</pre>
+<pre><code class="haskell">toWidgetHeader cassiusFile "button.cassius"
+toWidgetHeader juliusFile "button.julius"
+toWidget       hamletFile "buttonTemplate.hamlet"
+</code></pre>
 
 <p>Veuillez aussi noté la convention Shakespearienne des noms.
 Encore une bonne raison d&rsquo;utiliser yesod.</p>
@@ -153,9 +153,8 @@ Encore une bonne raison d&rsquo;utiliser yesod.</p>
 
 <p>Lorsque vous générez votre page, yesod se débrouille pour que tout fonctionne ensemble:</p>
 
-<pre class="twilight">
-myBigWidget =  menuWidget &gt;&gt; contentWidget &gt;&gt; footerWidget
-</pre>
+<pre><code class="haskell">myBigWidget =  menuWidget &gt;&gt; contentWidget &gt;&gt; footerWidget
+</code></pre>
 
 <p>De plus, si vous utilisez 10 widgets avec un peu de CSS, yesod fabriquera un unique fichier CSS pour vous. Bien entendu si vous préférez avoir une dizaine de fichier CSS vous pouvez aussi le faire.</p>
 
@@ -170,19 +169,17 @@ myBigWidget =  menuWidget &gt;&gt; contentWidget &gt;&gt; footerWidget
 <p>Au lieu d&rsquo;essayer chaque expression régulière, yesod regroupe et compile les routes pour les optimiser.
 Bien entendu pour pouvoir profiter de cet avantage au mieux, il ne faut pas que deux routes interfèrent entres elles.</p>
 
-<pre class="twilight">
-/blog/2003  Date2003R
+<pre><code class="html">/blog/2003  Date2003R
 /blog/$DATE DateR
-</pre>
+</code></pre>
 
 <p>Cette définition de route est invalide par défaut dans yesod.
 Si vous voulez vraiment vous pouvez le faire foncionner quand même, mais il me semble que ça doit être quasiment toujours une mauvaise idée.</p>
 
 <p>Il vaut mieux faire&nbsp;:</p>
 
-<pre class="twilight">
-/blog/$DATE DateR
-</pre>
+<pre><code class="html">/blog/$DATE DateR
+</code></pre>
 
 <p>et faire le test &ldquo;est-ce que date = 2003&nbsp;?&rdquo; dans le «handler».</p>
 
@@ -316,7 +313,7 @@ Il faut essayer un peu plus loin que les premiers tutoriaux du livre.</p>
                 </div>
                 <div id="lastmod">
                     Écrit le : 04/10/2011
-                    modifié le : 26/10/2011 
+                    modifié le : 26/04/2012 
                 </div>
                 <div>
                     Site entièrement réalisé avec
